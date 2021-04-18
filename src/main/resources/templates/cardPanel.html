@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoOneDeck App: cards panel</title>
+  <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+  <style>
+    .hidden{
+      visibility: hidden;
+    }
+  </style>
+  <script type="text/javascript">
+    function change()
+    {
+      document.getElementById("addForm").style.visibility="visible";
+    }
+  </script>
+</head>
+<body>
+<main>
+  <p>
+    <fieldset>
+      <label>Your Cards</label>
+      <div>
+        <table>
+          <th>
+            <tr>
+              <td>Name</td>
+              <td>State</td>
+            </tr>
+          </th>
+          <tr th:each="cardList : ${cardList}">
+            <td th:text="${cardList.idName}"></td>
+            <td th:text="${cardList.state}"></td>
+          <tr/>
+        </table>
+      </div>
+    </fieldset>
+    <button action="change()">Add Card</button>
+    <a href="editCard.html"><button>Edit Card</button></a>
+    <a href="deleteCard.html"><button>Delete Card</button></a>
+  </p>
+  <fieldset id="addForm">
+    <legend>Add Card</legend>
+    <!--/*@thymesVar id="card" type="io.github.brzezik919.object.Card"*/-->
+    <form action="#" method="post" th:action="@{/cardPanel}" th:object="${card}">
+      <fieldset>
+        <label>Card Name
+          <input type="text"/>
+        </label>
+        <label>Count
+          <input type="number" />
+        </label>
+      </fieldset>
+      <p>
+        <button type="submit" name="addCardForm">Add</button>
+        <button type="reset">Reset</button>
+      </p>
+    </form>
+  </fieldset>
+</main>
+</body>
+</html>
