@@ -6,11 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NoOneDeck App: cards panel</title>
   <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
-  <style>
-    .hidden{
-      visibility: hidden;
-    }
-  </style>
   <script type="text/javascript">
     function change()
     {
@@ -44,14 +39,11 @@
   </p>
   <fieldset id="addForm">
     <legend>Add Card</legend>
-    <!--/*@thymesVar id="card" type="io.github.brzezik919.object.Card"*/-->
+    <!--/*@thymesVar id="card" type="io.github.brzezik919.model.CardModel"*/-->
     <form action="#" method="post" th:action="@{/cardPanel}" th:object="${card}">
       <fieldset>
         <label>Card Name
           <input type="text"/>
-        </label>
-        <label>Count
-          <input type="number" />
         </label>
       </fieldset>
       <p>

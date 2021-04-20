@@ -1,23 +1,44 @@
 package io.github.brzezik919.controller;
 
-import io.github.brzezik919.object.card.CardRepository;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
+
+import io.github.brzezik919.model.Card;
+import io.github.brzezik919.model.CardRepository;
+import io.github.brzezik919.service.CardService;
+import io.github.brzezik919.model.projection.CardModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RepositoryRestController
-@RequestMapping("/cards")
-public class CardController {
-    private final CardRepository repository;
+import java.util.List;
 
-    public CardController(CardRepository repository) {
-        this.repository = repository;
+@Controller
+@RequestMapping("/cardPanel")
+public class CardController {
+
+    @Autowired
+    CardService cardService;
+
+    private final CardRepository cardRepository;
+
+    public CardController(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<?> getAllUserCards(@PathVariable String id){
-        return ResponseEntity.ok(repository.findByIdUser(Integer.parseInt(id)));
+    @GetMapping
+    public String CardPanel(Model model){
+        List<Card> cardList = cardService.getAllStats();
+        model.addAttribute("cardList", cardList);
+        return "cardPanel";
+    }
+
+    @PostMapping(params = "addCardForm")
+    ResponseEntity<Card> addCard(@RequestBody CardModel card){
+        Card result = cardRepository.save(card.newCard());
+        return ResponseEntity.ok().build();
     }
 }

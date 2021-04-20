@@ -1,5 +1,7 @@
-package io.github.brzezik919.object.card;
+package io.github.brzezik919.service;
 
+import io.github.brzezik919.model.Card;
+import io.github.brzezik919.model.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,4 +19,6 @@ public class CardService {
     public List<Card> getAllStats(){
         return cardRepository.findByIdUser(1);
     }
+
+
 }

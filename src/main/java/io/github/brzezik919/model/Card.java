@@ -1,4 +1,4 @@
-package io.github.brzezik919.object.card;
+package io.github.brzezik919.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,13 +10,11 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotBlank(message = "Password's must be not empty")
     private int idUser;
 
-    @NotBlank(message = "Password's must be not empty")
+    @NotBlank(message = "Card name's must be not empty")
     private int idName;
 
-    @NotBlank(message = "Password's must be not empty")
     private String state;
 
     public Card(){

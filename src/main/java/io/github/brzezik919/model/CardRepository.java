@@ -1,5 +1,6 @@
-package io.github.brzezik919.object.card;
-import org.springframework.data.repository.query.Param;
+package io.github.brzezik919.model;
+
+import io.github.brzezik919.model.Card;
 
 import java.util.List;
 import java.util.Optional;

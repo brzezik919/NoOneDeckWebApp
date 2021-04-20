@@ -1,4 +1,4 @@
-package io.github.brzezik919.object.user;
+package io.github.brzezik919.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

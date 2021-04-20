@@ -1,11 +1,8 @@
-package io.github.brzezik919.object.card.projection;
+package io.github.brzezik919.model.projection;
 
-import io.github.brzezik919.object.card.Card;
+import io.github.brzezik919.model.Card;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CardModel {
     @NotBlank(message = "Cards must be not empty")
