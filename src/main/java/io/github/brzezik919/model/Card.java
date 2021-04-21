@@ -12,7 +12,6 @@ public class Card {
 
     private int idUser;
 
-    @NotBlank(message = "Card name's must be not empty")
     private int idName;
 
     private String state;

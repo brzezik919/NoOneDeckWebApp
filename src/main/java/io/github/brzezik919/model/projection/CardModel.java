@@ -5,7 +5,7 @@ import io.github.brzezik919.model.Card;
 import javax.validation.constraints.NotBlank;
 
 public class CardModel {
-    @NotBlank(message = "Cards must be not empty")
+//    @NotBlank(message = "Cards must be not empty")
     private String cardName;
 
 
