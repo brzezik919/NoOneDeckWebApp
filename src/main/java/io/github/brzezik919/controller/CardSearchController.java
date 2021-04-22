@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -28,13 +29,22 @@ public class CardSearchController {
 
     @GetMapping
     public String CardPanel(Model model){
+        model.addAttribute("cardList", null);
+        model.addAttribute("card", new CardModel());
         return "cardSearch";
     }
 
-    /*@GetMapping(params = "/{cardName}")
-    ResponseEntity<Card> searchCard(Model model, @ModelAttribute CardModel cardModel){
-
-    }*/
+    @PostMapping
+    String searchCard(Model model, @ModelAttribute CardModel card){
+        if(card.getCardName().equals(""))
+            return "redirect:/cardSearch";
+        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName());
+        if(cardList != null){
+            model.addAttribute("cardList", cardList);
+            model.addAttribute("card", new CardModel());
+        }
+        return "cardSearch";
+    }
 
 
 }

@@ -11,12 +11,30 @@
 <main>
     <fieldset>
         <span>Search Card</span>
-        <form>
+        <form method="post" th:action="@{/cardSearch}" th:object="${card}">
             <label>
-                <input type="text" />
-                <button type="submit" method="GET">Search</button>
+                <input type="text" th:field="*{cardName}"/>
+                <button type="submit">Search</button>
             </label>
         </form>
+    </fieldset>
+
+    <fieldset th:if="${cardList !=null}">
+        <label>Who have that card</label>
+        <div>
+            <table>
+                <th>
+                    <tr>
+                        <td>Name</td>
+                        <td>State</td>
+                    </tr>
+                </th>
+                <tr th:each="cardList : ${cardList}">
+                    <td th:text="${cardList.idName}"></td>
+                    <td th:text="${cardList.idUser}"></td>
+                <tr/>
+            </table>
+        </div>
     </fieldset>
 </main>
 </body>
