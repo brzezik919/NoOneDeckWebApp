@@ -10,4 +10,5 @@ public interface CardRepository {
     Optional<Card> findById(Integer id);
     Card save(Card entity);
     List<Card> findByIdUser(int idUser);
+    List<Card> findByIdName(String cardName);
 }
