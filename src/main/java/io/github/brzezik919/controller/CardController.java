@@ -35,7 +35,10 @@ public class CardController {
 
     @PostMapping
     String addCard(Model model, @ModelAttribute CardModel card){
-        Card result = cardRepository.save(card.newCard());
-          return "redirect:/cardPanel";
+        if(card.getCardName().equals(""))
+            return "redirect:/cardSearch";
+
+            cardRepository.save(card.newCard());
+            return "redirect:/cardPanel";
     }
 }

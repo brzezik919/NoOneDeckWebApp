@@ -10,18 +10,13 @@ import java.util.List;
 @Service
 public class CardService {
     private List<Card> cardList = new ArrayList<>();
-    private String name;
     private final CardRepository cardRepository;
-
     public CardService(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
-
     public List<Card> getAllStats(){
         return cardRepository.findByIdUser(1);
     }
     public List<Card> searchAllCardsNames(String name){
         return cardRepository.findByIdName(Integer.parseInt(name));}
-
-
 }

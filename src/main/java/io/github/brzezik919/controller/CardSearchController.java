@@ -45,6 +45,4 @@ public class CardSearchController {
         }
         return "cardSearch";
     }
-
-
 }

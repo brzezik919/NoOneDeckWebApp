@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface CardRepository {
     List<Card> findAll();
-    Optional<Card> findById(Integer id);
     Card save(Card entity);
     List<Card> findByIdUser(int idUser);
     List<Card> findByIdName(int idName);
