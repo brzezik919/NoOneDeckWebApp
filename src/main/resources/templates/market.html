@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoOneDeck App: market</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+    <p>
+        <label>Market</label>
+        <div>
+            <table>
+                <th>
+                    <tr>
+                        <td>Name</td>
+                        <td>User</td>
+                    </tr>
+                </th>
+                <tr th:each="cardList : ${cardList}">
+                    <td th:text="${cardList.idName}"></td>
+                    <td th:text="${cardList.idUser}"></td>
+                <tr/>
+            </table>
+        </div>
+    </p>
+</main>
+</body>
+</html>

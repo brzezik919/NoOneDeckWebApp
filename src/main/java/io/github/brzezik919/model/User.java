@@ -14,6 +14,7 @@ public class User {
     private String role;
     @NotBlank(message = "Password's must be not empty")
     private String password;
+    private String teamId;
 
     public User() {
     }
@@ -37,4 +38,12 @@ public class User {
     public String getPassword() {return password;}
 
     void setPassword(String password) {this.password = password;}
+
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
+    }
 }
