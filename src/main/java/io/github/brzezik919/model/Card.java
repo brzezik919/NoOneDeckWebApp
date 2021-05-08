@@ -1,6 +1,9 @@
 package io.github.brzezik919.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cards")
@@ -11,12 +14,13 @@ public class Card {
 
     private int idUser;
 
-    private int idName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_name")
+    private CardName cardName;
 
     private String state;
 
     public Card(){
-
     }
 
     public int getId() {
@@ -35,12 +39,12 @@ public class Card {
         this.idUser = idUser;
     }
 
-    public int getIdName() {
-        return idName;
+    public CardName getCardName() {
+        return cardName;
     }
 
-    public void setIdName(int idName) {
-        this.idName = idName;
+    public void setCardName(CardName cardName) {
+        this.cardName = cardName;
     }
 
     public String getState() {
@@ -49,5 +53,11 @@ public class Card {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        System.out.println(this.getCardName());
+        return this.cardName.getName();
     }
 }

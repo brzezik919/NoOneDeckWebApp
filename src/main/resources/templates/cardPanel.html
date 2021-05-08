@@ -20,9 +20,9 @@
               <td>State</td>
             </tr>
           </th>
-          <tr th:each="cardList : ${cardList}">
-            <td th:text="${cardList.idName}"></td>
-            <td th:text="${cardList.state}"></td>
+          <tr th:each="currentCard : ${cardList}">
+            <td th:text="${currentCard}"></td>
+            <td th:text="${currentCard.state}"></td>
           <tr/>
         </table>
       </div>

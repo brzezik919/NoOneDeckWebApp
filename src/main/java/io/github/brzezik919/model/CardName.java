@@ -9,7 +9,6 @@ public class CardName {
     @Id
     private int id;
 
-    @NotBlank(message = "Password's must be not empty")
     private String name;
 
     public CardName(){
@@ -20,15 +19,14 @@ public class CardName {
         return id;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getName() {
         return name;
     }
-
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 }

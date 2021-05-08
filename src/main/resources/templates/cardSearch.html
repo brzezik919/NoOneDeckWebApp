@@ -26,12 +26,12 @@
                 <th>
                     <tr>
                         <td>Name</td>
-                        <td>State</td>
+                        <td>User</td>
                     </tr>
                 </th>
-                <tr th:each="cardList : ${cardList}">
-                    <td th:text="${cardList.idName}"></td>
-                    <td th:text="${cardList.idUser}"></td>
+                <tr th:each="currentCard : ${cardList}">
+                    <td th:text="${currentCard}"></td>
+                    <td th:text="${currentCard.idUser}"></td>
                 <tr/>
             </table>
         </div>

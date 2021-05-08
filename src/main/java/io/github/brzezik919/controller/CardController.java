@@ -2,6 +2,7 @@ package io.github.brzezik919.controller;
 
 
 import io.github.brzezik919.model.Card;
+import io.github.brzezik919.model.CardName;
 import io.github.brzezik919.model.CardRepository;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/cardPanel")
@@ -35,10 +37,18 @@ public class CardController {
 
     @PostMapping
     String addCard(Model model, @ModelAttribute CardModel card){
-        if(card.getCardName().equals(""))
-            return "redirect:/cardSearch";
-
-            cardRepository.save(card.newCard());
+        if(card.getCardName().equals("")) {
             return "redirect:/cardPanel";
+        }
+        CardName cardNameFound = this.cardService.getCardName(card.getCardName());
+
+        if(Objects.nonNull(cardNameFound)){
+            Card cardToSave = card.newCard(cardNameFound);
+            cardRepository.save(cardToSave);
+        } else {
+            // Return error to user
+            return "redirect:/cardPanel";
+        }
+        return "redirect:/cardPanel";
     }
 }
