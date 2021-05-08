@@ -21,23 +21,23 @@ public class User {
 
     public int getId() {return id;}
 
-    void setId(int id) {this.id = id;}
+    public void setId(int id) {this.id = id;}
 
     public String getLogin() {return login;}
 
-    void setLogin(String login) {this.login = login;}
+    public void setLogin(String login) {this.login = login;}
 
     public String getRole() {
         return role;
     }
 
-    void setRole(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
     public String getPassword() {return password;}
 
-    void setPassword(String password) {this.password = password;}
+    public void setPassword(String password) {this.password = password;}
 
     public int getIdTeam() {
         return idTeam;

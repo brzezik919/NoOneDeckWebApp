@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
+<fieldset>
+<form method="post"> <!--th:action="@{/index}" th:object="${user}" -->
+    <label>User:
+    <input type="text"> <!--th:field="*{login}"--> </label>
+    <label>Password:
+    <input type="text"> <!--th:field="*{password}"--> </label>
+    <button type="submit">log in</button>
+</form>
+</fieldset>
 <a href="/cardPanel">Yours Cards</a>
 <a href="/cardSearch">Search Card</a>
 <a href="/decklistPanel">Create Decklist</a>
