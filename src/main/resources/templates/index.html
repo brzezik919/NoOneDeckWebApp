@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoOneDeck App</title>
+    <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+
 </head>
 <body>
-<fieldset>
+<fieldset class="logInForm">
 <form method="post"> <!--th:action="@{/index}" th:object="${user}" -->
     <label>User:
     <input type="text"> <!--th:field="*{login}"--> </label>
     <label>Password:
     <input type="text"> <!--th:field="*{password}"--> </label>
-    <button type="submit">log in</button>
+    <button class="logInButton" type="submit">log in</button>
 </form>
 </fieldset>
-<a href="/cardPanel">Yours Cards</a>
-<a href="/cardSearch">Search Card</a>
-<a href="/decklistPanel">Create Decklist</a>
-<a href="/market">Market</a>
-<a href="/decklists">Decklists</a>
-<a href="/teamPanel">Your Team</a>
-
+<div align="center">
+    <a href="/cardPanel"><button class="block">Yours Cards</button></a>
+    <a href="/cardSearch"><button class="block">Search Card</button></a>
+    <a href="/decklistPanel"><button class="block">Create Decklist</button></a><br>
+    <a href="/market"><button class="block">Market</button></a>
+    <a href="/decklists"><button class="block">Decklists</button></a>
+    <a href="/teamPanel"><button class="block">Your Team</button></a>
+</div>
 </body>
 </html>
