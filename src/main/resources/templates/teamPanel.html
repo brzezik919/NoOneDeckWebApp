@@ -9,9 +9,9 @@
 </head>
 <body>
 <div>
-    <fieldset>
-        <label>Name: </label>
-        <label>Description: </label>
+    <fieldset th:object="${teamFound}">
+        <label>Name: <span th:text="${teamFound.name}"></span></label><br />
+        <label>Description: <span th:text="${teamFound.description}"></span></label>
     </fieldset>
 </div>
 <div>
@@ -24,8 +24,8 @@
                             <td>Nick</td>
                         </tr>
                     </th>
-                    <tr>
-                        <td></td>
+                    <tr th:each="memberList : ${memberList}">
+                        <td th:text="${memberList.login}"></td>
                     <tr/>
                 </table>
             </div>
@@ -34,11 +34,14 @@
 
 <div>
     <fieldset>
-        <form>
+        <form method="post" th:action="@{/teamPanel}" th:object="${team}">
             <label>Enter team code: </label>
-            <input type="text" />
+            <input type="text" th:field="*{code}"/>
             <button type="submit">Join</button>
         </form>
+    </fieldset>
+    <fieldset>
+        <label>Code to your team is: <span th:text="${teamFound.code}"></span></label>
     </fieldset>
 </div>
 

@@ -29,7 +29,7 @@ public class CardSearchController {
     }
 
     @GetMapping
-    public String CardPanel(Model model){
+    String CardPanel(Model model){
         model.addAttribute("cardList", null);
         model.addAttribute("card", new CardModel());
         return "cardSearch";
@@ -37,8 +37,9 @@ public class CardSearchController {
 
     @PostMapping
     String searchCard(Model model, @ModelAttribute CardModel card){
-        if(card.getCardName().equals(""))
+        if(card.getCardName().equals("")){
             return "redirect:/cardSearch";
+        }
         List<Card> cardList = cardService.searchAllCardsNames(card.getCardName());
         if(cardList != null){
             model.addAttribute("cardList", cardList);

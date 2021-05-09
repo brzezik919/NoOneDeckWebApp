@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class CardService {
-    private List<Card> cardList = new ArrayList<>();
     private final CardRepository cardRepository;
     private final CardNameRepository cardNameRepository;
     public CardService(CardRepository cardRepository, CardNameRepository cardNameRepository) {
