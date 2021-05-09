@@ -35,7 +35,7 @@ public class CardController {
         return "cardPanel";
     }
 
-    @PostMapping
+    /*@PostMapping
     String addCard(Model model, @ModelAttribute CardModel card){
         if(card.getCardName().equals("")) {
             return "redirect:/cardPanel";
@@ -50,5 +50,5 @@ public class CardController {
             return "redirect:/cardPanel";
         }
         return "redirect:/cardPanel";
-    }
+    }*/
 }

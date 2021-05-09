@@ -1,7 +1,10 @@
 package io.github.brzezik919.controller;
 
+import io.github.brzezik919.model.User;
 import io.github.brzezik919.model.UserRepository;
+import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.UserService;
+import org.apache.tomcat.jni.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Objects;
+
 @Controller
-@RequestMapping("/")
+@RequestMapping
 public class UserController {
+
+    private User userLogin = new User();
+
     @Autowired
     UserService userService;
 
@@ -23,11 +31,25 @@ public class UserController {
     }
 
     @GetMapping
-    public String Index(){return "index";}
+    public String Index(Model model){
+        model.addAttribute("user", new UserModel());
+        return "index";
+    }
 
-    /*@PostMapping
+    @PostMapping("/index")
     String LogIn(Model model, @ModelAttribute UserModel user){
-        if(user.getLogin().equals("") || user.getPassword().equals(""))
-            return "redirect:/";
-    }*/
+        if(user.getLogin().equals("") || user.getPassword().equals("")) {
+            System.out.println("siema");
+            return "redirect:";
+        }
+        User userFound = this.userService.getAllUserStats(user.getLogin(), user.getPassword());
+        System.out.println("elo");
+        if(Objects.nonNull(userFound)){
+            System.out.println(userFound.getId());
+            userLogin.setId(userFound.getId());
+            userLogin.setLogin(userFound.getLogin());
+            userLogin.setRole(userFound.getRole());
+        }
+        return "redirect:";
+    }
 }

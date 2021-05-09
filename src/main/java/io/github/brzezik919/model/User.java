@@ -1,7 +1,6 @@
 package io.github.brzezik919.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -9,12 +8,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "Login's must be not empty")
     private String login;
     private String role;
-    @NotBlank(message = "Password's must be not empty")
     private String password;
-    private int idTeam;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_team")
+    private Team team;
 
     public User() {
     }
@@ -39,11 +38,11 @@ public class User {
 
     public void setPassword(String password) {this.password = password;}
 
-    public int getIdTeam() {
-        return idTeam;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setIdTeam(int idTeam) {
-        this.idTeam = idTeam;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

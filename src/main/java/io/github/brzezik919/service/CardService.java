@@ -19,7 +19,7 @@ public class CardService {
         this.cardNameRepository = cardNameRepository;
     }
     public List<Card> getAllStats(){
-        return cardRepository.findByIdUser(1);
+        return cardRepository.findByUser_Login("admin");
     }
     public List<Card> searchAllCardsNames(String name){
         return cardRepository.findByCardName_Name(name);

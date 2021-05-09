@@ -12,7 +12,9 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int idUser;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_name")
@@ -31,12 +33,12 @@ public class Card {
         this.id = id;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public CardName getCardName() {

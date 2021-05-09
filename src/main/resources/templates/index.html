@@ -11,11 +11,11 @@
 </head>
 <body>
 <fieldset class="logInForm">
-<form method="post"> <!--th:action="@{/index}" th:object="${user}" -->
+<form method="post" th:action="@{/index}" th:object="${user}">
     <label>User:
-    <input type="text"> <!--th:field="*{login}"--> </label>
+    <input type="text" th:field="*{login}"> </label>
     <label>Password:
-    <input type="text"> <!--th:field="*{password}"--> </label>
+    <input type="text" th:field="*{password}"></label>
     <button class="logInButton" type="submit">log in</button>
 </form>
 </fieldset>

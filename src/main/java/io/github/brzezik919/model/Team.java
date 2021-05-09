@@ -10,10 +10,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message = "Login's must be not empty")
     private String name;
 
-    @NotBlank(message = "Login's must be not empty")
     private String code;
 
     private String description;
