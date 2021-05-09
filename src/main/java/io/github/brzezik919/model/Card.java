@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "cards")
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -59,7 +59,6 @@ public class Card {
 
     @Override
     public String toString() {
-        System.out.println(this.getCardName());
         return this.cardName.getName();
     }
 }

@@ -16,7 +16,14 @@ public class UserService {
     public User getAllUserStats(String login, String password){
         List<User> loginUser =  this.userRepository.findByLoginAndPassword(login,password);
         if(!loginUser.isEmpty()){
-            System.out.println("Znalazlem");
+            return loginUser.get(0);
+        }
+        return null;
+    }
+
+    public User getUserById(int id){
+        List<User> loginUser = this.userRepository.findById(id);
+        if(!loginUser.isEmpty()){
             return loginUser.get(0);
         }
         return null;

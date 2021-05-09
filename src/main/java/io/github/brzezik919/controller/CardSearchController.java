@@ -3,6 +3,7 @@ package io.github.brzezik919.controller;
 import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.CardRepository;
 import io.github.brzezik919.model.projection.CardModel;
+import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ public class CardSearchController {
         List<Card> cardList = cardService.searchAllCardsNames(card.getCardName());
         if(cardList != null){
             model.addAttribute("cardList", cardList);
+            model.addAttribute("user", new UserModel());
             model.addAttribute("card", new CardModel());
         }
         return "cardSearch";

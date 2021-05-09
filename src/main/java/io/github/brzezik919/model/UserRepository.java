@@ -5,4 +5,5 @@ import java.util.Set;
 
 public interface UserRepository {
     List<User> findByLoginAndPassword(String login, String password);
+    List<User> findById(int id);
 }

@@ -20,7 +20,7 @@
     </fieldset>
 
     <fieldset th:if="${cardList !=null}">
-        <label>Who have that card</label>
+        <label>Who have that card in your team</label>
         <div>
             <table>
                 <th>
@@ -31,7 +31,7 @@
                 </th>
                 <tr th:each="currentCard : ${cardList}">
                     <td th:text="${currentCard}"></td>
-                    <td th:text="${currentCard.idUser}"></td>
+                    <td th:text="${currentCard.user.login}"></td>
                 <tr/>
             </table>
         </div>

@@ -39,13 +39,10 @@ public class UserController {
     @PostMapping("/index")
     String LogIn(Model model, @ModelAttribute UserModel user){
         if(user.getLogin().equals("") || user.getPassword().equals("")) {
-            System.out.println("siema");
             return "redirect:";
         }
         User userFound = this.userService.getAllUserStats(user.getLogin(), user.getPassword());
-        System.out.println("elo");
         if(Objects.nonNull(userFound)){
-            System.out.println(userFound.getId());
             userLogin.setId(userFound.getId());
             userLogin.setLogin(userFound.getLogin());
             userLogin.setRole(userFound.getRole());

@@ -1,11 +1,10 @@
 package io.github.brzezik919.controller;
 
 
-import io.github.brzezik919.model.Card;
-import io.github.brzezik919.model.CardName;
-import io.github.brzezik919.model.CardRepository;
+import io.github.brzezik919.model.*;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
+import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,9 @@ public class CardController {
     @Autowired
     CardService cardService;
 
+    @Autowired
+    UserService userService;
+
     private final CardRepository cardRepository;
 
     public CardController(CardRepository cardRepository) {
@@ -35,20 +37,20 @@ public class CardController {
         return "cardPanel";
     }
 
-    /*@PostMapping
+    @PostMapping
     String addCard(Model model, @ModelAttribute CardModel card){
         if(card.getCardName().equals("")) {
             return "redirect:/cardPanel";
         }
         CardName cardNameFound = this.cardService.getCardName(card.getCardName());
+        User user = this.userService.getUserById(1);
 
         if(Objects.nonNull(cardNameFound)){
-            Card cardToSave = card.newCard(cardNameFound);
+            Card cardToSave = card.newCard(cardNameFound, user);
             cardRepository.save(cardToSave);
         } else {
-            // Return error to user
             return "redirect:/cardPanel";
         }
         return "redirect:/cardPanel";
-    }*/
+    }
 }
