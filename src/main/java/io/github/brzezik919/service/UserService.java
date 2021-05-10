@@ -28,4 +28,16 @@ public class UserService {
         }
         return null;
     }
+
+    public User getIdByName(String login){
+        List<User> loginUser = this.userRepository.findByLogin(login);
+        if(!loginUser.isEmpty()){
+            return loginUser.get(0);
+        }
+        return null;
+    }
+
+    public void save(User user){
+        userRepository.save(user);
+    }
 }

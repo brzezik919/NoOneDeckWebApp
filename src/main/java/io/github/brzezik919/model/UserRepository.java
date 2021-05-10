@@ -7,4 +7,5 @@ public interface UserRepository {
     List<User> findById(int id);
     List<User> findByLogin(String login);
     List<User> findByTeam_Id(int id);
+    User save(User user);
 }

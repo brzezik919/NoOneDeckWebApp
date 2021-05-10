@@ -10,10 +10,7 @@ import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,9 @@ import java.util.List;
 public class TeamController {
     @Autowired
     TeamService teamService;
+
+    @Autowired
+    UserService userService;
 
     private final TeamRepository teamRepository;
 
@@ -40,14 +40,19 @@ public class TeamController {
         return "teamPanel";
     }
 
-    @PostMapping
+    @PutMapping
     String joinToTeam(Model model, @ModelAttribute Team team){
         if(team.getCode().equals("")) {
             return "redirect:/teamPanel";
         }
         Team teamFoundByCode = teamService.findTeamByCode(team.getCode());
-        System.out.println(teamFoundByCode.getId());
+        if(teamFoundByCode.getId() != 0){
+            //Change in Logged user id_team from null -> teamFoundByCode.getId();
+            User user = userService.getIdByName("user"); //This is static, in production this will be Session Login User.
+            user.setTeam(teamFoundByCode);
+            userService.save(user);
+        }
         return "redirect:/teamPanel";
-        //Change in Logged user id_team from null -> teamFoundByCode.getId();
+
     }
 }

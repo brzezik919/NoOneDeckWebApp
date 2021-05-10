@@ -34,7 +34,7 @@
 
 <div>
     <fieldset>
-        <form method="post" th:action="@{/teamPanel}" th:object="${team}">
+        <form th:method="put" th:action="@{/teamPanel}" th:object="${team}">
             <label>Enter team code: </label>
             <input type="text" th:field="*{code}"/>
             <button type="submit">Join</button>
