@@ -22,12 +22,6 @@ public class TeamController {
     @Autowired
     UserService userService;
 
-    private final TeamRepository teamRepository;
-
-    public TeamController(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-    }
-
     @GetMapping("/teamPanel")
     String TeamPanel(Model model){
         if(Objects.nonNull(userService.getUserByName("user").getTeam())){

@@ -23,12 +23,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    private final UserRepository userRepository;
-
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @GetMapping
     public String Index(Model model){
         model.addAttribute("user", new UserModel());
@@ -36,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/index")
-    String LogIn(Model model, @ModelAttribute UserModel user){
+    String LogIn(@ModelAttribute UserModel user){
         if(user.getLogin().equals("") || user.getPassword().equals("")) {
             return "redirect:";
         }

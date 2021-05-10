@@ -12,16 +12,21 @@ import java.util.List;
 public class CardService {
     private final CardRepository cardRepository;
     private final CardNameRepository cardNameRepository;
+
     public CardService(CardRepository cardRepository, CardNameRepository cardNameRepository) {
         this.cardRepository = cardRepository;
         this.cardNameRepository = cardNameRepository;
     }
+
     public List<Card> getAllStats(){
         return cardRepository.findByUser_Login("admin");
     }
+
     public List<Card> searchAllCardsNames(String name){
         return cardRepository.findByCardName_Name(name);
     }
+
+    public List<Card> getCardsByState(String state){return cardRepository.findByState(state);}
 
     public CardName getCardName(String name){
         List<CardName> cardNames = this.cardNameRepository.findByName(name);
@@ -30,4 +35,6 @@ public class CardService {
         }
         return null;
     }
+
+    public void save(Card card){cardRepository.save(card);}
 }

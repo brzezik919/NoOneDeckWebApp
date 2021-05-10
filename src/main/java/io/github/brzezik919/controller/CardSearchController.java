@@ -21,12 +21,6 @@ public class CardSearchController {
     @Autowired
     CardService cardService;
 
-    private final CardRepository cardRepository;
-
-    public CardSearchController(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
-    }
-
     @GetMapping
     String CardPanel(Model model){
         model.addAttribute("cardList", null);

@@ -23,12 +23,6 @@ public class CardController {
     @Autowired
     UserService userService;
 
-    private final CardRepository cardRepository;
-
-    public CardController(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
-    }
-
     @GetMapping
     public String CardPanel(Model model){
         List<Card> cardList = cardService.getAllStats();
@@ -38,7 +32,7 @@ public class CardController {
     }
 
     @PostMapping
-    String addCard(Model model, @ModelAttribute CardModel card){
+    String addCard(@ModelAttribute CardModel card){
         if(card.getCardName().equals("")) {
             return "redirect:/cardPanel";
         }
@@ -47,7 +41,7 @@ public class CardController {
 
         if(Objects.nonNull(cardNameFound)){
             Card cardToSave = card.newCard(cardNameFound, user);
-            cardRepository.save(cardToSave);
+            cardService.save(cardToSave);
         } else {
             return "redirect:/cardPanel";
         }

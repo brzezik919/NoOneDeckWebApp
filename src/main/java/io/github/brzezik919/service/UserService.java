@@ -13,6 +13,7 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     public User getAllUserStats(String login, String password){
         List<User> loginUser =  this.userRepository.findByLoginAndPassword(login,password);
         if(!loginUser.isEmpty()){
