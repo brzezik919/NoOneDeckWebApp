@@ -36,4 +36,5 @@ public class TeamService {
         return teamRepository.findByCode(code);
     }
 
+    public void save(Team team){ teamRepository.save(team);}
 }

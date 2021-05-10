@@ -4,7 +4,6 @@ import io.github.brzezik919.model.User;
 import io.github.brzezik919.model.UserRepository;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.UserService;
-import org.apache.tomcat.jni.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

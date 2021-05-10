@@ -1,7 +1,6 @@
 package io.github.brzezik919.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cardnames")

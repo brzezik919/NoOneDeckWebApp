@@ -4,8 +4,6 @@ import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.CardName;
 import io.github.brzezik919.model.User;
 
-import javax.validation.constraints.NotBlank;
-
 public class CardModel {
     private String cardName;
 

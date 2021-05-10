@@ -34,7 +34,7 @@
   <fieldset id="addForm">
     <legend>Add Card</legend>
     <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
-    <form action="#" method="post" th:action="@{/cardPanel}" th:object="${card}">
+    <form method="post" th:action="@{/cardPanel}" th:object="${card}">
       <fieldset>
         <label>Card Name
           <input type="text" th:field="*{cardName}"/>

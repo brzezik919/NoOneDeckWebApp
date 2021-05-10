@@ -16,10 +16,11 @@
 <div>
   <fieldset>
     <label>Create a team: </label>
-    <form>
-      <label>Name: </label>
-      <input type="text">
-      <button>Create</button>
+    <form method="post" th:action="@{/teamJoinPanel}" th:object="${team}">
+      <label>Name:
+        <input type="text" th:field="*{name}">
+      </label>
+      <button type="submit">Create</button>
     </form>
   </fieldset>
 </div>

@@ -1,9 +1,6 @@
 package io.github.brzezik919.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cards")
