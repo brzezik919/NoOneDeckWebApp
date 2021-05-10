@@ -13,9 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
-@RequestMapping("/teamPanel")
+@RequestMapping
 public class TeamController {
     @Autowired
     TeamService teamService;
@@ -29,18 +30,29 @@ public class TeamController {
         this.teamRepository = teamRepository;
     }
 
-    @GetMapping
-    String CardPanel(Model model){
-        Team teamFound = teamService.findTeamByLogInUser("admin");
-        List<User> memberList = teamService.findMembers(teamFound);
-        model.addAttribute("memberList", memberList);
-        model.addAttribute("user", new User());
-        model.addAttribute("teamFound", teamFound);
-        model.addAttribute("team", new Team());
-        return "teamPanel";
+    @GetMapping("/teamPanel")
+    String TeamPanel(Model model){
+        if(Objects.nonNull(userService.getUserByName("user").getTeam())){
+            Team teamFound = teamService.findTeamByLogInUser("user");
+            List<User> memberList = teamService.findMembers(teamFound);
+            model.addAttribute("memberList", memberList);
+            model.addAttribute("user", new User());
+            model.addAttribute("teamFound", teamFound);
+            model.addAttribute("team", new Team());
+            return "teamPanel";
+        }
+        else{
+            return "redirect:/teamJoinPanel";
+        }
     }
 
-    @PutMapping
+    @GetMapping("/teamJoinPanel")
+    String TeamJoinPanel(Model model){
+        model.addAttribute("team", new Team());
+        return "teamJoinPanel";
+    }
+
+    @PutMapping("/teamJoinPanel")
     String joinToTeam(Model model, @ModelAttribute Team team){
         if(team.getCode().equals("")) {
             return "redirect:/teamPanel";

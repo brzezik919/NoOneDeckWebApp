@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoOneDeck App: team panel</title>
+  <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<div>
+  <fieldset>
+    <h1>Create or Join to Team</h1><br />
+  </fieldset>
+</div>
+<div>
+  <fieldset>
+    <label>Create a team: </label>
+    <form>
+      <label>Name: </label>
+      <input type="text">
+      <button>Create</button>
+    </form>
+  </fieldset>
+</div>
+
+<div>
+  <fieldset>
+    <form th:method="put" th:action="@{/teamJoinPanel}" th:object="${team}">
+      <label>Enter team code: </label>
+      <input type="text" th:field="*{code}"/>
+      <button type="submit">Join</button>
+    </form>
+  </fieldset>
+</div>
+</body>
+</html>

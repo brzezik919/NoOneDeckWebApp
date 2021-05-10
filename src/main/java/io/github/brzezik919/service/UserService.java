@@ -40,4 +40,8 @@ public class UserService {
     public void save(User user){
         userRepository.save(user);
     }
+
+    public User getUserByName(String login){
+        return userRepository.findByLogin(login).get(0);
+    }
 }
