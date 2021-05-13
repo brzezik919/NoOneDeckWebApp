@@ -24,8 +24,8 @@ public class TeamController {
 
     @GetMapping("/teamPanel")
     String TeamPanel(Model model){
-        if(Objects.nonNull(userService.getUserByName("user").getTeam())){
-            Team teamFound = teamService.findTeamByLogInUser("user");
+        if(Objects.nonNull(userService.getUserByName("user").getTeam())){ //Change with Keycloak
+            Team teamFound = teamService.findTeamByLogInUser("user"); //Change with Keycloak
             List<User> memberList = teamService.findMembers(teamFound);
             model.addAttribute("memberList", memberList);
             model.addAttribute("user", new User());
@@ -51,7 +51,7 @@ public class TeamController {
         }
         Team teamFoundByCode = teamService.findTeamByCode(team.getCode());
         if(teamFoundByCode.getId() != 0){
-            User user = userService.getIdByName("user"); //This is static, in production this will be Session Login User.
+            User user = userService.getIdByName("user"); //This is static, in production this will be Session Login User. //Change with Keycloak
             user.setTeam(teamFoundByCode);
             userService.save(user);
         }
@@ -65,7 +65,7 @@ public class TeamController {
             return "redirect:/teamPanel";
         }
         System.out.println(team.getName());
-        team.setCode("1234567");
+        team.setCode("1234567"); //This is static, in production this will be Random Generate Function.
         teamService.save(team);
         joinToTeam(team);
         return "redirect:/teamPanel";

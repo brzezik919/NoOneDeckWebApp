@@ -1,25 +1,49 @@
 package io.github.brzezik919.security;
 
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
+import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
+import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
-@Configuration
+@KeycloakConfiguration
 /*@EnableWebSecurity*/
-public class SecurityConfiguration {
+public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+    }
 
-    /*@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("password")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+    @Autowired
+    void ConfigureGlobal(AuthenticationManagerBuilder auth){
+        var authorityMapper = new SimpleAuthorityMapper();
+        authorityMapper.setPrefix("ROLE_");
+        authorityMapper.setConvertToUpperCase(true);
+        KeycloakAuthenticationProvider keycloakProvider = keycloakAuthenticationProvider();
+        keycloakProvider.setGrantedAuthoritiesMapper(authorityMapper);
+        auth.authenticationProvider(keycloakProvider);
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }*/
+    KeycloakSpringBootConfigResolver keycloakConfigResolver(){
+        return new KeycloakSpringBootConfigResolver();
+    }
+
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        super.configure(http);
+        http.authorizeRequests()
+                .antMatchers("/cardPanel")
+                .hasRole("USER")
+                .anyRequest()
+                .permitAll();
+    }
 }

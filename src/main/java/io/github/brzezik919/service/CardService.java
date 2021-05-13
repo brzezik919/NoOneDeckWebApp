@@ -20,7 +20,7 @@ public class CardService {
 
     public List<Card> getAllStats(){
         return cardRepository.findByUser_Login("admin");
-    }
+    } //Change with Keycloak
 
     public List<Card> searchAllCardsNames(String name){
         return cardRepository.findByCardName_Name(name);

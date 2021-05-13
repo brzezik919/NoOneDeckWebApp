@@ -15,7 +15,7 @@ public class UserService {
     }
 
     public User getAllUserStats(String login, String password){
-        List<User> loginUser =  this.userRepository.findByLoginAndPassword(login,password);
+        List<User> loginUser =  this.userRepository.findByLoginAndPassword(login,password); //Change with Keycloak
         if(!loginUser.isEmpty()){
             return loginUser.get(0);
         }

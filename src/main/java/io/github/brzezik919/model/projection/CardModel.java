@@ -19,7 +19,7 @@ public class CardModel {
         var result = new Card();
         result.setCardName(cardName);
         result.setUser(user);
-        result.setState("Wolne");
+        result.setState("Wolne"); //Change that Static Var
         return result;
     }
 }

@@ -1,7 +1,6 @@
 package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Card;
-import io.github.brzezik919.model.CardRepository;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
