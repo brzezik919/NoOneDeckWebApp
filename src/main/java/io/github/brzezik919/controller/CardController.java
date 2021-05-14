@@ -6,10 +6,12 @@ import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,8 +26,8 @@ public class CardController {
     UserService userService;
 
     @GetMapping
-    public String CardPanel(Model model){
-        List<Card> cardList = cardService.getAllStats();
+    public String CardPanel(Model model, Principal name){
+        List<Card> cardList = cardService.getAllStats(name.getName());
         model.addAttribute("cardList", cardList);
         model.addAttribute("card", new CardModel());
         return "cardPanel";

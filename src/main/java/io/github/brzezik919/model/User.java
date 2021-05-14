@@ -9,8 +9,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String login;
-    private String role;
-    private String password;
+    private String nickname;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_team")
     private Team team;
@@ -26,23 +25,19 @@ public class User {
 
     public void setLogin(String login) {this.login = login;}
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getPassword() {return password;}
-
-    public void setPassword(String password) {this.password = password;}
-
     public Team getTeam() {
         return team;
     }
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -18,8 +18,8 @@ public class CardService {
         this.cardNameRepository = cardNameRepository;
     }
 
-    public List<Card> getAllStats(){
-        return cardRepository.findByUser_Login("admin");
+    public List<Card> getAllStats(String name){
+        return cardRepository.findByUser_Login(name);
     } //Change with Keycloak
 
     public List<Card> searchAllCardsNames(String name){
