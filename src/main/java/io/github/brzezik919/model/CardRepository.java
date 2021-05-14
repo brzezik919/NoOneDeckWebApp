@@ -8,4 +8,5 @@ public interface CardRepository {
     List<Card> findByUser_Login(String login);
     List<Card> findByCardName_Name(String name);
     List<Card> findByState(String state);
+    List<Card> findByCardName_NameAndUser_Login(String name, String login);
 }

@@ -26,7 +26,13 @@ public class CardController {
     UserService userService;
 
     @GetMapping
-    public String CardPanel(Model model, Principal name){
+    public String CardPanel(Model model, Principal name, Authentication authentication){
+
+        if(Objects.isNull(userService.getUserByName(name.getName()))){
+            User user = new User();
+            user.setLogin(name.getName());
+            userService.save(user);
+        }
         List<Card> cardList = cardService.getAllStats(name.getName());
         model.addAttribute("cardList", cardList);
         model.addAttribute("card", new CardModel());
@@ -34,15 +40,14 @@ public class CardController {
     }
 
     @PostMapping
-    String addCard(@ModelAttribute CardModel card){
+    String addCard(@ModelAttribute CardModel card, Principal name){
         if(card.getCardName().equals("")) {
             return "redirect:/cardPanel";
         }
         CardName cardNameFound = this.cardService.getCardName(card.getCardName());
-        User user = this.userService.getUserById(1);
 
         if(Objects.nonNull(cardNameFound)){
-            Card cardToSave = card.newCard(cardNameFound, user);
+            Card cardToSave = card.newCard(cardNameFound, userService.getAllUserStats(name.getName()));
             cardService.save(cardToSave);
         } else {
             return "redirect:/cardPanel";

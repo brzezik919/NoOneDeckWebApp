@@ -21,7 +21,7 @@
                 </th>
                 <tr th:each="currentCard : ${cardList}">
                     <td th:text="${currentCard}"></td>
-                    <td th:text="${currentCard.user.login}"></td>
+                    <td th:text="${currentCard.user.nickname}"></td>
                 <tr/>
             </table>
         </div>

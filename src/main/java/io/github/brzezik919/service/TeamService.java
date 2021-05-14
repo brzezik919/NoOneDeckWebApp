@@ -20,8 +20,7 @@ public class TeamService {
     }
 
     public Team findTeamByLogInUser(String login){
-        List<User> userList = userRepository.findByLogin(login);
-        User user = userList.get(0);
+        User user = userRepository.findByLogin(login);
         if(Objects.nonNull(user.getTeam())){
             return user.getTeam();
         }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -29,11 +30,11 @@ public class CardSearchController {
     }
 
     @PostMapping
-    String searchCard(Model model, @ModelAttribute CardModel card){
+    String searchCard(Model model, @ModelAttribute CardModel card, Principal name){
         if(card.getCardName().equals("")){
             return "redirect:/cardSearch";
         }
-        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName());
+        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName(), name.getName());
         if(cardList != null){
             model.addAttribute("cardList", cardList);
             model.addAttribute("user", new UserModel());

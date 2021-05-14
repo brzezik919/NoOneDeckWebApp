@@ -5,6 +5,7 @@ import io.github.brzezik919.model.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -14,10 +15,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getAllUserStats(String login, String password){
-        List<User> loginUser =  this.userRepository.findByLoginAndPassword(login,password); //Change with Keycloak
-        if(!loginUser.isEmpty()){
-            return loginUser.get(0);
+    public User getAllUserStats(String login){
+        User loginUser = this.userRepository.findByLogin(login);
+        if(Objects.nonNull(loginUser)){
+            return loginUser;
         }
         return null;
     }
@@ -31,9 +32,9 @@ public class UserService {
     }
 
     public User getIdByName(String login){
-        List<User> loginUser = this.userRepository.findByLogin(login);
-        if(!loginUser.isEmpty()){
-            return loginUser.get(0);
+        User loginUser = this.userRepository.findByLogin(login);
+        if(Objects.nonNull(loginUser)){
+            return loginUser;
         }
         return null;
     }
@@ -43,6 +44,6 @@ public class UserService {
     }
 
     public User getUserByName(String login){
-        return userRepository.findByLogin(login).get(0);
+        return userRepository.findByLogin(login);
     }
 }

@@ -20,10 +20,11 @@ public class CardService {
 
     public List<Card> getAllStats(String name){
         return cardRepository.findByUser_Login(name);
-    } //Change with Keycloak
+    }
 
-    public List<Card> searchAllCardsNames(String name){
-        return cardRepository.findByCardName_Name(name);
+    public List<Card> searchAllCardsNames(String name, String login){
+        //return cardRepository.findByCardName_Name(name);
+        return cardRepository.findByCardName_NameAndUser_Login(name, login);
     }
 
     public List<Card> getCardsByState(String state){return cardRepository.findByState(state);}

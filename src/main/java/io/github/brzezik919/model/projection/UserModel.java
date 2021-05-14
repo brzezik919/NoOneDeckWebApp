@@ -2,7 +2,7 @@ package io.github.brzezik919.model.projection;
 
 public class UserModel {
     private String login;
-    private String password;
+    private String nickname;
 
     public String getLogin() {
         return login;
@@ -12,11 +12,11 @@ public class UserModel {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
