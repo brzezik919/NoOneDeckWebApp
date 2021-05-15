@@ -28,8 +28,10 @@ public class TeamService {
     }
 
     public List<User> findMembers(Team team){
-        return userRepository.findByTeam_Id(team.getId());
+        return userRepository.findByTeam_IdAndStatus(team.getId(), true);
     }
+
+    public List<User> findCandidate(Team team){ return userRepository.findByTeam_IdAndStatus(team.getId(), false);}
 
     public Team findTeamByCode(String code){
         return teamRepository.findByCode(code);

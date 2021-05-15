@@ -21,11 +21,6 @@
         <label>Members</label>
             <div>
                 <table>
-                    <th>
-                        <tr>
-                            <td>Nick</td>
-                        </tr>
-                    </th>
                     <tr th:each="memberList : ${memberList}">
                         <td th:text="${memberList.nickname}"></td>
                     <tr/>
@@ -40,9 +35,16 @@
     </fieldset>
 </div>
 
-<div>
+<div th:if="${!candidateList.isEmpty()}">
     <fieldset>
-        <label>List of candidate</label>
+        <label>List of Candidate</label>
+        <div>
+            <table>
+                <tr th:each="candidateList : ${candidateList}">
+                    <td th:text="${candidateList.nickname}"></td>
+                <tr/>
+            </table>
+        </div>
     </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>

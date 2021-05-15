@@ -29,7 +29,9 @@ public class TeamController {
         if(Objects.nonNull(userService.getUserByName(auth.getName()).getTeam())){ //Change with Keycloak
             Team teamFound = teamService.findTeamByLogInUser(auth.getName()); //Change with Keycloak
             List<User> memberList = teamService.findMembers(teamFound);
+            List<User> candidateList = teamService.findCandidate(teamFound);
             model.addAttribute("memberList", memberList);
+            model.addAttribute("candidateList", candidateList);
             model.addAttribute("user", new User());
             model.addAttribute("teamFound", teamFound);
             model.addAttribute("team", new Team());

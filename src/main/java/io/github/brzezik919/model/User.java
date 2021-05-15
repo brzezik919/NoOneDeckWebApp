@@ -13,6 +13,8 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_team")
     private Team team;
+    @Column(name = "status_team")
+    private boolean status;
 
     public User() {
     }
@@ -39,5 +41,13 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
