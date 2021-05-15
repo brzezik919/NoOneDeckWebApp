@@ -29,8 +29,9 @@ public class CardController {
 
         User userLogIn = userService.getUserByName(name.getName());
         if(Objects.isNull(userLogIn)){
-            userLogIn.setLogin(name.getName());
-            userService.save(userLogIn);
+            User userToCreate = new User();
+            userToCreate.setLogin(name.getName());
+            userService.save(userToCreate);
         }
         List<Card> cardList = cardService.getAllStats(name.getName());
         model.addAttribute("user", userLogIn);
