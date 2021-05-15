@@ -23,7 +23,6 @@ public class CardService {
     }
 
     public List<Card> searchAllCardsNames(String name, String login){
-        //return cardRepository.findByCardName_Name(name);
         return cardRepository.findByCardName_NameAndUser_Login(name, login);
     }
 
@@ -37,5 +36,15 @@ public class CardService {
         return null;
     }
 
+    public Card searchCardById(int id){
+        return cardRepository.findById(id);
+    }
+
     public void save(Card card){cardRepository.save(card);}
+    public void delete(int id){cardRepository.deleteById(id);}
+    public void changeState(int id, String state){
+        Card card = cardRepository.findById(id);
+        card.setState(state);
+        cardRepository.save(card);
+    }
 }

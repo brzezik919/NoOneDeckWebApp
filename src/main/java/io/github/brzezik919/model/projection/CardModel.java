@@ -5,7 +5,25 @@ import io.github.brzezik919.model.CardName;
 import io.github.brzezik919.model.User;
 
 public class CardModel {
+    private int id;
+    private String state;
     private String cardName;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCardName() {
         return cardName;

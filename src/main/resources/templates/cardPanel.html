@@ -25,10 +25,10 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:if="${cardList.empty}">
+          <tr th:if="${cardList.isEmpty()}">
             <td colspan="4">No Cards</td>
           </tr>
-          <tr th:each="currentCard : ${cardList}">
+          <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
             <td th:text="${currentCard}"></td>
             <td th:text="${currentCard.state}"></td>
           <tr/>
