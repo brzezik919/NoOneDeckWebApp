@@ -5,25 +5,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NoOneDeck App: cards panel</title>
+  <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
   <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
 <main>
+  <div th:insert="~{fragments/header :: header}"></div>
+  <div align="center">
   <p>
+    <label> Witaj <span th:text="${user.nickname}" /></label>
     <fieldset>
       <label>Your Cards</label>
       <div>
-        <table>
-          <th>
-            <tr>
-              <td>Name</td>
-              <td>State</td>
-            </tr>
-          </th>
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <td>Name</td>
+            <td>State</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:if="${cardList.empty}">
+            <td colspan="4">No Cards</td>
+          </tr>
           <tr th:each="currentCard : ${cardList}">
             <td th:text="${currentCard}"></td>
             <td th:text="${currentCard.state}"></td>
           <tr/>
+          </tbody>
         </table>
       </div>
     </fieldset>
@@ -46,6 +55,8 @@
       </p>
     </form>
   </fieldset>
+  </div>
+<div th:insert="~{fragments/footer :: footer}"></div>
 </main>
 </body>
 </html>

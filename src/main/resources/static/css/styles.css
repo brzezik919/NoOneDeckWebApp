@@ -1,8 +1,7 @@
 
 .logInButton {
     box-shadow:inset 0px 1px 0px 0px #9acc85;
-    background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
-    background-color:#74ad5a;
+    background: #74ad5a linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
     border:1px solid #3b6e22;
     display:inline-block;
     cursor:pointer;
@@ -14,8 +13,7 @@
     text-decoration:none;
                                        }
 .myButton:hover {
-    background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
-    background-color:#68a54b;
+    background: #68a54b linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
 }
 .myButton:active {
     position:relative;
@@ -37,3 +35,52 @@
 
 }
 
+body
+{
+    background:#e6e6ff;
+    font-family: 'Encode Sans', sans-serif;
+}
+/* navigation bar */
+#scanfcode
+{
+    border-radius:0px;
+    background:#fff;
+    padding:10px;
+    font-size:17px;
+}
+/* logo or main heading */
+#logo
+{
+    font-size:20px;
+    font-weight:bolder;
+    color:#00004d;
+    letter-spacing:2px;
+}
+/* navigation links*/
+#link a
+{
+    color:#01325d;
+    margin:0 20px 0 10px;
+    letter-spacing:1.5px;
+}
+/* navigation link with right border */
+#first-link
+{
+    padding-right:6px;
+    border-right:solid 1px #ccc;
+}
+/* sign up link button and toggle button */
+.button-link ,#toogle-button
+{
+    color:#f2f2f2;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 2px;
+    background-color: #fa6a48;
+    line-height: 17px;
+}
+#button-link a
+{
+    color:#f2f2f2;
+}

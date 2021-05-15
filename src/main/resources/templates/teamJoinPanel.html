@@ -5,9 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NoOneDeck App: team panel</title>
+  <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
   <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
+<div th:insert="~{fragments/header :: header}"></div>
 <div>
   <fieldset>
     <h1>Create or Join to Team</h1><br />
@@ -34,5 +36,6 @@
     </form>
   </fieldset>
 </div>
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoOneDeck App: cards search</title>
+    <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
 <main>
+    <div th:insert="~{fragments/header :: header}"></div>
     <fieldset>
         <span>Search Card</span>
         <form method="post" th:action="@{/cardSearch}" th:object="${card}">
@@ -35,6 +37,8 @@
             </table>
         </div>
     </fieldset>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
 </main>
 </body>
 </html>

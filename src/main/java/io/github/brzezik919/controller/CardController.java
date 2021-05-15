@@ -6,7 +6,6 @@ import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +25,15 @@ public class CardController {
     UserService userService;
 
     @GetMapping
-    public String CardPanel(Model model, Principal name, Authentication authentication){
+    public String CardPanel(Model model, Principal name){
 
-        if(Objects.isNull(userService.getUserByName(name.getName()))){
-            User user = new User();
-            user.setLogin(name.getName());
-            userService.save(user);
+        User userLogIn = userService.getUserByName(name.getName());
+        if(Objects.isNull(userLogIn)){
+            userLogIn.setLogin(name.getName());
+            userService.save(userLogIn);
         }
         List<Card> cardList = cardService.getAllStats(name.getName());
+        model.addAttribute("user", userLogIn);
         model.addAttribute("cardList", cardList);
         model.addAttribute("card", new CardModel());
         return "cardPanel";

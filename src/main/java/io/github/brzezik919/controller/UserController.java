@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 
 @Controller
 @RequestMapping
@@ -17,8 +19,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public String Index(Model model){
-        model.addAttribute("user", new UserModel());
-        return "index";
+    public String Index(Principal principal){
+        //model.addAttribute("user", new UserModel());
+        return principal != null ? "index" : "index";
     }
 }

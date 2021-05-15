@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoOneDeck App: team panel</title>
+    <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
+<div th:insert="~{fragments/header :: header}"></div>
 <div>
     <fieldset th:object="${teamFound}">
         <label>Name: <span th:text="${teamFound.name}"></span></label><br />
@@ -25,7 +27,7 @@
                         </tr>
                     </th>
                     <tr th:each="memberList : ${memberList}">
-                        <td th:text="${memberList.login}"></td>
+                        <td th:text="${memberList.nickname}"></td>
                     <tr/>
                 </table>
             </div>
@@ -43,5 +45,6 @@
         <label>List of candidate</label>
     </fieldset>
 </div>
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

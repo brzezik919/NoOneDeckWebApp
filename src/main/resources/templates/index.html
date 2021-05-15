@@ -7,8 +7,10 @@
     <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 
+
 </head>
 <body>
+<div th:insert="~{fragments/header :: header}"></div>
 <div align="center">
     <a href="/cardPanel"><button class="block">Yours Cards</button></a>
     <a href="/cardSearch"><button class="block">Search Card</button></a>
@@ -17,5 +19,6 @@
     <a href="#"><button class="block">Decklists</button></a>
     <a href="/teamPanel"><button class="block">Your Team</button></a>
 </div>
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>
