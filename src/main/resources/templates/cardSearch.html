@@ -11,7 +11,7 @@
 <main>
     <div th:insert="~{fragments/header :: header}"></div>
     <div th:object="${user}">
-        <fieldset th:if="${user.team != null}" >
+        <fieldset th:if="${user.team != null and user.status == true}" >
             <span>Search Card</span>
             <form method="post" th:action="@{/cardSearch}" th:object="${card}">
                 <label>
@@ -20,7 +20,6 @@
                 </label>
             </form>
         </fieldset>
-
         <fieldset th:if="${cardList !=null}">
             <label>Who have that card in your team</label>
             <div>
@@ -41,9 +40,10 @@
         <fieldset th:if="${user.team == null}">
             <label>You are not member any team click <a th:href="@{/teamPanel}">here</a> for join</label>
         </fieldset>
+        <fieldset th:if="${user.status == false}">
+            <label>You must be accepted member of team for search card</label>
+        </fieldset>
     </div>
-
-
 <div th:insert="~{fragments/footer :: footer}"></div>
 </main>
 </body>

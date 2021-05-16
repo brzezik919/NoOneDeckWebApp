@@ -2,7 +2,6 @@ package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.UserService;
-import org.keycloak.adapters.KeycloakDeploymentBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

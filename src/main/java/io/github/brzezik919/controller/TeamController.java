@@ -1,7 +1,6 @@
 package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Team;
-import io.github.brzezik919.model.TeamRepository;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.TeamService;
 import io.github.brzezik919.service.UserService;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.Charset;
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -28,13 +25,13 @@ public class TeamController {
 
     @GetMapping("/teamPanel")
     String TeamPanel(Model model, Authentication auth){
-        if(Objects.nonNull(userService.getUserByName(auth.getName()).getTeam())){ //Change with Keycloak
-            Team teamFound = teamService.findTeamByLogInUser(auth.getName()); //Change with Keycloak
+        if(Objects.nonNull(userService.getUserByName(auth.getName()).getTeam())){
+            Team teamFound = teamService.findTeamByLogInUser(auth.getName());
             List<User> memberList = teamService.findMembers(teamFound);
             List<User> candidateList = teamService.findCandidate(teamFound);
             model.addAttribute("memberList", memberList);
             model.addAttribute("candidateList", candidateList);
-            model.addAttribute("user", new User());
+            model.addAttribute("user", userService.getUserByName(auth.getName()));
             model.addAttribute("teamFound", teamFound);
             model.addAttribute("team", new Team());
             return "teamPanel";
@@ -65,7 +62,7 @@ public class TeamController {
         if(team.getName().equals("")){
             return "redirect:/teamPanel";
         }
-        team.setCode(codeGenerator()); //This is static, in production this will be Random Generate Function.
+        team.setCode(codeGenerator());
         teamService.save(team);
         userJoinToTeam(team, auth.getName());
         return "redirect:/teamPanel";

@@ -1,6 +1,5 @@
 package io.github.brzezik919.security;
 
-import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.UserService;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
@@ -14,8 +13,6 @@ import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
-
-import java.util.Objects;
 
 @KeycloakConfiguration
 public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {

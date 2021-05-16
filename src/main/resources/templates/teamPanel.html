@@ -10,13 +10,13 @@
 </head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
-<div>
+<div th:if="${user.status == true}">
     <fieldset th:object="${teamFound}">
         <label>Name: <span th:text="${teamFound.name}"></span></label><br />
         <label>Description: <span th:text="${teamFound.description}"></span></label>
     </fieldset>
 </div>
-<div>
+<div th:if="${user.status == true}">
     <fieldset>
         <label>Members</label>
             <div>
@@ -29,13 +29,13 @@
     </fieldset>
 </div>
 
-<div>
+<div th:if="${user.status == true}">
     <fieldset>
         <label>Code to your team is: <span th:text="${teamFound.code}"></span></label>
     </fieldset>
 </div>
 
-<div th:if="${!candidateList.isEmpty()}">
+<div th:if="${!candidateList.isEmpty() and user.status == true}">
     <fieldset>
         <label>List of Candidate</label>
         <div>
@@ -45,6 +45,11 @@
                 <tr/>
             </table>
         </div>
+    </fieldset>
+</div>
+<div>
+    <fieldset th:if="${user.status == false}">
+        <label>You must wait for decidion team <span th:text="${teamFound.name}"></span> about accepted you.</label>
     </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
