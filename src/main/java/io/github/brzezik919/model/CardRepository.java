@@ -10,4 +10,5 @@ public interface CardRepository {
     List<Card> findByState(String state);
     List<Card> findByCardName_NameAndUser_Login(String name, String login);
     List<Card> findByCardName_NameAndUser_Team_Id(String name, int team);
+    List<Card> findByCardName_NameAndState(String name, String state);
 }
