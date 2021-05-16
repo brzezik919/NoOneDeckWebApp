@@ -17,6 +17,9 @@
     <fieldset>
       <label>Your Cards</label>
       <div>
+        <form method="get" th:action="@{/cardPanel/cardSearch}" th:object="${card}">
+          <label><input type="text" th:field="*{cardName}"/><button type="submit">Search</button></label>
+        </form>
         <table class="table table-bordered table-striped">
           <thead>
           <tr>

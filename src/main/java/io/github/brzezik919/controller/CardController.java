@@ -2,13 +2,12 @@ package io.github.brzezik919.controller;
 
 
 import io.github.brzezik919.model.*;
+import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +38,20 @@ public class CardController {
         model.addAttribute("user", userLogIn);
         model.addAttribute("cardList", cardList);
         model.addAttribute("card", new CardModel());
+        return "cardPanel";
+    }
+
+    @GetMapping("/cardSearch")
+    public String CardPanelCardSearch(Model model, @ModelAttribute CardModel card, Principal name){
+        if(card.getCardName().equals("")){
+            return "redirect:/cardPanel";
+        }
+        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName(), name.getName());
+        if(cardList != null){
+            model.addAttribute("cardList", cardList);
+            model.addAttribute("user", new UserModel());
+            model.addAttribute("card", new CardModel());
+        }
         return "cardPanel";
     }
 

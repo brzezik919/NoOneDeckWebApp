@@ -34,7 +34,7 @@ public class CardSearchController {
         if(card.getCardName().equals("")){
             return "redirect:/cardSearch";
         }
-        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName(), name.getName());
+        List<Card> cardList = cardService.searchAllCardNamesInTeam(card.getCardName(), name.getName());
         if(cardList != null){
             model.addAttribute("cardList", cardList);
             model.addAttribute("user", new UserModel());

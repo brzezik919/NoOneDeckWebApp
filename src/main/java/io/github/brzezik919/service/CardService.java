@@ -1,9 +1,6 @@
 package io.github.brzezik919.service;
 
-import io.github.brzezik919.model.Card;
-import io.github.brzezik919.model.CardName;
-import io.github.brzezik919.model.CardNameRepository;
-import io.github.brzezik919.model.CardRepository;
+import io.github.brzezik919.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +8,12 @@ import java.util.List;
 @Service
 public class CardService {
     private final CardRepository cardRepository;
+    private final UserRepository userRepository;
     private final CardNameRepository cardNameRepository;
 
-    public CardService(CardRepository cardRepository, CardNameRepository cardNameRepository) {
+    public CardService(CardRepository cardRepository, UserRepository userRepository, CardNameRepository cardNameRepository) {
         this.cardRepository = cardRepository;
+        this.userRepository = userRepository;
         this.cardNameRepository = cardNameRepository;
     }
 
@@ -24,6 +23,12 @@ public class CardService {
 
     public List<Card> searchAllCardsNames(String name, String login){
         return cardRepository.findByCardName_NameAndUser_Login(name, login);
+    }
+
+    public List<Card> searchAllCardNamesInTeam(String name, String login){
+        User user = userRepository.findByLogin(login);
+        System.out.println(user.getTeam().getId());
+        return cardRepository.findByCardName_NameAndUser_Team_Id(name, user.getTeam().getId());
     }
 
     public List<Card> getCardsByState(String state){return cardRepository.findByState(state);}
