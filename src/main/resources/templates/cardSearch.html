@@ -10,33 +10,39 @@
 <body>
 <main>
     <div th:insert="~{fragments/header :: header}"></div>
-    <fieldset>
-        <span>Search Card</span>
-        <form method="post" th:action="@{/cardSearch}" th:object="${card}">
-            <label>
-                <input type="text" th:field="*{cardName}"/>
-                <button type="submit">Search</button>
-            </label>
-        </form>
-    </fieldset>
+    <div th:object="${user}">
+        <fieldset th:if="${user.team != null}" >
+            <span>Search Card</span>
+            <form method="post" th:action="@{/cardSearch}" th:object="${card}">
+                <label>
+                    <input type="text" th:field="*{cardName}"/>
+                    <button type="submit">Search</button>
+                </label>
+            </form>
+        </fieldset>
 
-    <fieldset th:if="${cardList !=null}">
-        <label>Who have that card in your team</label>
-        <div>
-            <table>
-                <th>
-                    <tr>
-                        <td>Name</td>
-                        <td>User</td>
+        <fieldset th:if="${cardList !=null}">
+            <label>Who have that card in your team</label>
+            <div>
+                <table>
+                    <th>
+                        <tr>
+                            <td>Name</td>
+                            <td>User</td>
+                        </tr>
+                    </th>
+                    <tr th:each="currentCard : ${cardList}">
+                        <td th:text="${currentCard}"></td>
+                        <td th:text="${currentCard.user.nickname}"></td>
                     </tr>
-                </th>
-                <tr th:each="currentCard : ${cardList}">
-                    <td th:text="${currentCard}"></td>
-                    <td th:text="${currentCard.user.nickname}"></td>
-                </tr>
-            </table>
-        </div>
-    </fieldset>
+                </table>
+            </div>
+        </fieldset>
+        <fieldset th:if="${user.team == null}">
+            <label>You are not member any team click <a th:href="@{/teamPanel}">here</a> for join</label>
+        </fieldset>
+    </div>
+
 
 <div th:insert="~{fragments/footer :: footer}"></div>
 </main>

@@ -26,9 +26,8 @@
               <li><a href="#">Settings</a></li>
             </ul>
           </li>
-          <li th:if="${#authorization.expression('!isAuthenticated()')}"><a href='#'>Sign In</a></li>
           <li class="button-link" th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/logout}">Sign Out</a></li>
-          <li class="button-link" th:if="${#authorization.expression('!isAuthenticated()')}"><a href="#">Sign Up</a></li>
+          <li class="button-link" th:if="${#authorization.expression('!isAuthenticated()')}"><a th:href="@{/login}">Sign In</a></li>
         </ul>
       </div>
     </div>

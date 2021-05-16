@@ -27,13 +27,7 @@ public class CardController {
 
     @GetMapping
     public String CardPanel(Model model, Principal name){
-
         User userLogIn = userService.getUserByName(name.getName());
-        if(Objects.isNull(userLogIn)){
-            User userToCreate = new User();
-            userToCreate.setLogin(name.getName());
-            userService.save(userToCreate);
-        }
         List<Card> cardList = cardService.getAllStats(name.getName());
         model.addAttribute("user", userLogIn);
         model.addAttribute("cardList", cardList);

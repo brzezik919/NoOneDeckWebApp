@@ -16,7 +16,7 @@
      <label>Hi <span th:text="${user.nickname}" /></label>
   </fieldset>
   <fieldset>
-     <form th:if="${user.nickname == null}" th:method="put" th:object="${user}" th:action="@{/yourProfile/setUsername}">
+     <form th:if="${user.nickname == 'Unknown'}" th:method="put" th:object="${user}" th:action="@{/yourProfile/setUsername}">
        <label>Set nickname</label>
        <input type="text" th:field="*{nickname}">
        <button type="submit">Ok</button>

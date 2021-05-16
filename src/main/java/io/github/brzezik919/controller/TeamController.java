@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.Charset;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 @Controller
 @RequestMapping
@@ -63,7 +65,7 @@ public class TeamController {
         if(team.getName().equals("")){
             return "redirect:/teamPanel";
         }
-        team.setCode("1234567"); //This is static, in production this will be Random Generate Function.
+        team.setCode(codeGenerator()); //This is static, in production this will be Random Generate Function.
         teamService.save(team);
         userJoinToTeam(team, auth.getName());
         return "redirect:/teamPanel";
@@ -76,5 +78,19 @@ public class TeamController {
             user.setTeam(teamFoundByCode);
             userService.save(user);
         }
+    }
+
+    public String codeGenerator(){
+        int leftLimit = 48;
+        int rightLimit = 122;
+        int targetStringLength = 8;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
     }
 }
