@@ -39,7 +39,7 @@ public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter 
     protected void configure(final HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/card**", "/team**")
+                .antMatchers("/card**", "/team**","/yourProfile**")
                 .hasRole("USER")
                 .anyRequest()
                 .permitAll();

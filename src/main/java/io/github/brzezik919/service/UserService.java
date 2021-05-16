@@ -46,4 +46,10 @@ public class UserService {
     public User getUserByName(String login){
         return userRepository.findByLogin(login);
     }
+
+    public void userSetNickname(String nickname, String login){
+        User userToSave = getUserByName(login);
+        userToSave.setNickname(nickname);
+        userRepository.save(userToSave);
+    }
 }

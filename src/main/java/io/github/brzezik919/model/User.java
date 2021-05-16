@@ -10,6 +10,7 @@ public class User {
     private int id;
     private String login;
     private String nickname;
+    private String email;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_team")
     private Team team;
@@ -49,5 +50,13 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
