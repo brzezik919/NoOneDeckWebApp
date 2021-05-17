@@ -2,6 +2,7 @@ package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Team;
 import io.github.brzezik919.model.User;
+import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.TeamService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,6 @@ public class TeamController {
         }
         userJoinToTeam(team, auth.getName());
         return "redirect:/teamPanel";
-
     }
 
     @PostMapping("/teamJoinPanel")
@@ -73,8 +73,15 @@ public class TeamController {
         if(teamFoundByCode.getId() != 0){
             User user = userService.getIdByName(name);
             user.setTeam(teamFoundByCode);
+            user.setStatus(true);
             userService.save(user);
         }
+    }
+
+    @PutMapping("/teamPanel/leaveTheTeam")
+    public String leaveTheTeam(@ModelAttribute UserModel model, Authentication auth){
+        userService.userLeaveTheTeam(auth.getName());
+        return "/index";
     }
 
     public String codeGenerator(){

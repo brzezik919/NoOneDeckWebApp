@@ -40,7 +40,7 @@
         <fieldset th:if="${user.team == null}">
             <label>You are not member any team click <a th:href="@{/teamPanel}">here</a> for join</label>
         </fieldset>
-        <fieldset th:if="${user.status == false}">
+        <fieldset th:if="${user.status == false and user.team != null}">
             <label>You must be accepted member of team for search card</label>
         </fieldset>
     </div>

@@ -52,4 +52,11 @@ public class UserService {
         userToSave.setNickname(nickname);
         userRepository.save(userToSave);
     }
+
+    public void userLeaveTheTeam(String login){
+        User userToSave = getUserByName(login);
+        userToSave.setTeam(null);
+        userToSave.setStatus(false);
+        userRepository.save(userToSave);
+    }
 }

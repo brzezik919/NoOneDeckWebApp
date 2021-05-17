@@ -48,6 +48,13 @@
     </fieldset>
 </div>
 <div>
+    <fieldset>
+        <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
+            <button type="submit">Leave the team</button>
+        </form>
+    </fieldset>
+</div>
+<div>
     <fieldset th:if="${user.status == false}">
         <label>You must wait for decidion team <span th:text="${teamFound.name}"></span> about accepted you.</label>
     </fieldset>

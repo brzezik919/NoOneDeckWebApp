@@ -12,14 +12,19 @@
 <main>
   <div th:insert="~{fragments/header :: header}"></div>
   <div align="center">
-  <p>
+  <div>
     <label> Witaj <span th:text="${user.nickname}" /></label>
     <fieldset>
       <label>Your Cards</label>
       <div>
-        <form method="get" th:action="@{/cardPanel/cardSearch}" th:object="${card}">
-          <label><input type="text" th:field="*{cardName}"/><button type="submit">Search</button></label>
-        </form>
+          <div>
+            <label>
+            <form method="get" th:action="@{/cardPanel/cardSearch}" th:object="${card}">
+              <input type="text" th:field="*{cardName}"/><button type="submit">Search</button>
+            </form>
+            </label>
+            <button action="change()">Add Card</button>
+          </div>
         <table class="table table-bordered table-striped">
           <thead>
           <tr>
@@ -34,15 +39,13 @@
           <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
             <td th:text="${currentCard}"></td>
             <td th:text="${currentCard.state}"></td>
+            <td><button th:value="${currentCard.id}">Edit</button></td>
           <tr/>
           </tbody>
         </table>
       </div>
     </fieldset>
-    <button action="change()">Add Card</button>
-    <a href="editCard.html"><button>Edit Card</button></a>
-    <a href="deleteCard.html"><button>Delete Card</button></a>
-  </p>
+  </div>
   <fieldset id="addForm">
     <legend>Add Card</legend>
     <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
@@ -58,6 +61,14 @@
       </p>
     </form>
   </fieldset>
+    <fieldset id="editForm">
+      <legend>Edit Card</legend>
+      <form th:method="put" th:object="${card}">
+        <label>Name: </label><br>
+        <label>State: </label><br>
+        <button type="submit">Save</button>
+      </form>
+    </fieldset>
   </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </main>
