@@ -42,21 +42,30 @@
             <table>
                 <tr th:each="candidateList : ${candidateList}">
                     <td th:text="${candidateList.nickname}"></td>
+                    <td><button>+</button></td>
+                    <td><button>-</button></td>
                 <tr/>
             </table>
         </div>
     </fieldset>
 </div>
 <div>
+    <fieldset th:if="${user.status == false}">
+        <label>You must wait for decidion team <span th:text="${teamFound.name}"></span> about accepted you.</label>
+    </fieldset>
+</div>
+<div th:if="${user.status == true}">
     <fieldset>
         <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
             <button type="submit">Leave the team</button>
         </form>
     </fieldset>
 </div>
-<div>
-    <fieldset th:if="${user.status == false}">
-        <label>You must wait for decidion team <span th:text="${teamFound.name}"></span> about accepted you.</label>
+<div th:if="${user.status == false}">
+    <fieldset>
+        <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
+            <button type="submit">Resign</button>
+        </form>
     </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>

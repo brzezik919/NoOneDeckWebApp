@@ -73,14 +73,20 @@ public class TeamController {
         if(teamFoundByCode.getId() != 0){
             User user = userService.getIdByName(name);
             user.setTeam(teamFoundByCode);
-            user.setStatus(true);
+            user.setStatus(false);
             userService.save(user);
         }
     }
 
     @PutMapping("/teamPanel/leaveTheTeam")
     public String leaveTheTeam(@ModelAttribute UserModel model, Authentication auth){
+        User user = userService.getUserByName(auth.getName());
+        int id = user.getTeam().getId();
         userService.userLeaveTheTeam(auth.getName());
+        List<User> memberList = teamService.findMembers(id);
+        if (memberList.isEmpty()){
+            teamService.delete(id);
+        }
         return "/index";
     }
 

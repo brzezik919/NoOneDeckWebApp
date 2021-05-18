@@ -11,26 +11,37 @@
 <body>
 <main>
     <div th:insert="~{fragments/header :: header}"></div>
-    <p>
-        <label>Market</label>
+    <fieldset>
         <div>
-            <form method="get" th:action="@{/market/cardSearch}" th:object="${card}">
-                <label><input type="text" th:field="*{cardName}"/><button type="submit">Search</button></label>
-            </form>
-            <table>
-                <th>
-                    <tr>
-                        <td>Name</td>
-                        <td>User</td>
-                    </tr>
-                </th>
-                <tr th:each="currentCard : ${cardList}">
-                    <td th:text="${currentCard}"></td>
-                    <td th:text="${currentCard.user.nickname}"></td>
-                <tr/>
-            </table>
+            <fieldset>
+                <legend>Market</legend>
+                <div>
+                    <form method="get" th:action="@{/market/cardSearch}" th:object="${card}">
+                        <label><input type="text" th:field="*{cardName}"/><button type="submit">Search</button></label>
+                    </form>
+                </div>
+            </fieldset>
         </div>
-    </p>
+        <div>
+            <fieldset>
+                <table>
+                    <th>
+                        <tr>
+                            <td>Name</td>
+                            <td>User</td>
+                        </tr>
+                    </th>
+                    <tr th:if="${cardList.isEmpty()}">
+                        <td colspan="4">No Cards</td>
+                    </tr>
+                    <tr th:each="currentCard : ${cardList}">
+                        <td th:text="${currentCard}"></td>
+                        <td th:text="${currentCard.user.nickname}"></td>
+                    <tr/>
+                </table>
+            </fieldset>
+        </div>
+    </fieldset>
 </main>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </body>

@@ -30,6 +30,9 @@ public class TeamService {
     public List<User> findMembers(Team team){
         return userRepository.findByTeam_IdAndStatus(team.getId(), true);
     }
+    public List<User> findMembers(int id){
+        return userRepository.findByTeam_IdAndStatus(id, true);
+    }
 
     public List<User> findCandidate(Team team){ return userRepository.findByTeam_IdAndStatus(team.getId(), false);}
 
@@ -38,4 +41,6 @@ public class TeamService {
     }
 
     public void save(Team team){ teamRepository.save(team);}
+
+    public void delete(int id){teamRepository.deleteById(id);}
 }

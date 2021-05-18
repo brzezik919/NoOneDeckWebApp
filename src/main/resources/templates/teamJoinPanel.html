@@ -12,28 +12,32 @@
 <div th:insert="~{fragments/header :: header}"></div>
 <div>
   <fieldset>
-    <h1>Create or Join to Team</h1><br />
-  </fieldset>
-</div>
-<div>
-  <fieldset>
-    <label>Create a team: </label>
-    <form method="post" th:action="@{/teamJoinPanel}" th:object="${team}">
-      <label>Name:
-        <input type="text" th:field="*{name}">
-      </label>
-      <button type="submit">Create</button>
-    </form>
-  </fieldset>
-</div>
+    <div>
+      <fieldset>
+        <h1>Create or Join to Team</h1><br />
+      </fieldset>
+    </div>
+    <div>
+      <fieldset>
+        <label>Create a team: </label>
+        <form method="post" th:action="@{/teamJoinPanel}" th:object="${team}">
+          <label>Name:
+            <input type="text" th:field="*{name}">
+          </label>
+          <button type="submit">Create</button>
+        </form>
+      </fieldset>
+    </div>
 
-<div>
-  <fieldset>
-    <form th:method="put" th:action="@{/teamJoinPanel}" th:object="${team}">
-      <label>Enter team code: </label>
-      <input type="text" th:field="*{code}"/>
-      <button type="submit">Join</button>
-    </form>
+    <div>
+      <fieldset>
+        <form th:method="put" th:action="@{/teamJoinPanel}" th:object="${team}">
+          <label>Enter team code: </label>
+          <input type="text" th:field="*{code}"/>
+          <button type="submit">Join</button>
+        </form>
+      </fieldset>
+    </div>
   </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
