@@ -16,6 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/market")
 public class CardMarketController {
+
     @Autowired
     CardService cardService;
 

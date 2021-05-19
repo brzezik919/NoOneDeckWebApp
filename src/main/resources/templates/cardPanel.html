@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NoOneDeck App: cards panel</title>
   <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+  <script  src="../static/css/generalScript.js">
+  </script>
   <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
@@ -24,7 +26,7 @@
               </fieldset>
               <p>
                 <button type="submit">Search</button>
-                <button action="change()">Add Card</button>
+                <button>Add Card</button>
               </p>
             </form>
           </div>
@@ -45,7 +47,7 @@
                   <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
                     <td th:text="${currentCard}"></td>
                     <td th:text="${currentCard.state}"></td>
-                    <td><button th:value="${currentCard.id}">Edit</button></td>
+                    <td><button>Edit</button></td>
                   <tr/>
                   </tbody>
                 </table>
@@ -54,25 +56,28 @@
       </div>
     </fieldset>
   </div>
-  <fieldset id="addForm">
-    <legend>Add Card</legend>
-    <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
-    <form method="post" th:action="@{/cardPanel}" th:object="${card}">
+    <div id="addForm">
       <fieldset>
-        <label>Card Name
-          <input type="text" th:field="*{cardName}"/>
-        </label>
+        <legend>Add Card</legend>
+        <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
+        <form method="post" th:action="@{/cardPanel}" th:object="${card}">
+          <fieldset>
+            <label>Card Name
+              <input type="text" th:field="*{cardName}"/>
+            </label>
+          </fieldset>
+          <p>
+            <button type="submit" name="addCardForm">Add</button>
+            <button type="reset">Reset</button>
+          </p>
+        </form>
       </fieldset>
-      <p>
-        <button type="submit" name="addCardForm">Add</button>
-        <button type="reset">Reset</button>
-      </p>
-    </form>
-  </fieldset>
+    </div>
+
     <fieldset id="editForm">
       <legend>Edit Card</legend>
       <form th:method="put" th:object="${card}">
-        <label>Name: nameCard</label>
+        <label>Name: </label>
         <label>State: </label>
         <select name="state">
           <option value="defaultSelectState">-</option>
