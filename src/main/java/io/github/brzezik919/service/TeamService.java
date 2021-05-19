@@ -43,4 +43,10 @@ public class TeamService {
     public void save(Team team){ teamRepository.save(team);}
 
     public void delete(int id){teamRepository.deleteById(id);}
+
+    public void acceptCandidate(String nickname){
+        User user = userRepository.findByNickname(nickname);
+        user.setStatus(true);
+        userRepository.save(user);
+    }
 }

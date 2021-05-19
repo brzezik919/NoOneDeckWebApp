@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoOneDeck App: team panel</title>
     <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
-    <script src="../static/css/generalScript.js"></script>
+    <script src="../static/css/general.js"></script>
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
@@ -42,11 +42,11 @@
         <div>
             <table>
                 <tr th:each="candidateList : ${candidateList}">
-                    <form th:method="put" th:object="${candidateList}" th:action="@{/}">
-                        <td th:text="${candidateList.nickname}"></td>
-                        <td th:text="${candidateList.id}"}></td>
-                        <td><button type="submit" name="true" value="true">+</button></td>
-                        <td><button type="submit" name="false" value="false">-</button></td>
+                    <form th:method="put" th:object="${candidate}" th:action="@{/teamPanel/acceptCandidate}">
+                        <td th:text="${candidateList.nickname}"> </td>
+                        <td ><input style="display: none;" type="text" th:value="${candidateList.nickname}" id="nickname" name="nickname">
+                            <button type="submit" name="acceptCandidate" value="true">+</button></td>
+                            <!--<td><button type="submit" name="acceptCandidate" value="false">-</button></td>-->
                     </form>
                 <tr/>
             </table>

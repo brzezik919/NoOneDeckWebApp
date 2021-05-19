@@ -6,6 +6,7 @@ import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.TeamService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +29,13 @@ public class TeamController {
     String TeamPanel(Model model, Authentication auth){
         if(Objects.nonNull(userService.getUserByName(auth.getName()).getTeam())){
             Team teamFound = teamService.findTeamByLogInUser(auth.getName());
+            UserModel userModel = new UserModel();
             List<User> memberList = teamService.findMembers(teamFound);
             List<User> candidateList = teamService.findCandidate(teamFound);
             model.addAttribute("memberList", memberList);
             model.addAttribute("candidateList", candidateList);
             model.addAttribute("user", userService.getUserByName(auth.getName()));
+            model.addAttribute("candidate", userModel);
             model.addAttribute("teamFound", teamFound);
             model.addAttribute("team", new Team());
             return "teamPanel";
@@ -88,6 +91,16 @@ public class TeamController {
             teamService.delete(id);
         }
         return "/index";
+    }
+
+    @PutMapping("/teamPanel/acceptCandidate")
+    public String acceptUser(@ModelAttribute UserModel candidate) {
+        if(candidate.getNickname().equals("")){
+            return "redirect:/teamPanel";
+        }
+        teamService.acceptCandidate(candidate.getNickname());
+
+        return "redirect:/teamPanel";
     }
 
     public String codeGenerator(){

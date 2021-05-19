@@ -1,6 +1,7 @@
 package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Card;
+import io.github.brzezik919.model.State;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
@@ -22,7 +23,7 @@ public class CardMarketController {
 
     @GetMapping
     public String CardMarket(Model model){
-        List<Card> cardList = cardService.getCardsByState("For sell");
+        List<Card> cardList = cardService.getCardsByState(State.forSell.toString());
         if(cardList != null){
             model.addAttribute("cardList", cardList);
             model.addAttribute("user", new UserModel());
@@ -36,7 +37,7 @@ public class CardMarketController {
         if(card.getCardName().equals("")){
             return "redirect:/market";
         }
-        List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), "For sell");
+        List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), State.forSell.toString());
         if(cardList != null){
             model.addAttribute("cardList", cardList);
             model.addAttribute("user", new UserModel());
