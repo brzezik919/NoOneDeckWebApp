@@ -25,9 +25,10 @@
               </fieldset>
               <p>
                 <button type="submit">Search</button>
-                <button onclick="createDiv()">Add Card</button>
               </p>
             </form>
+            <button onclick="createDivAddCard()">Add Card</button>
+
           </div>
           <br>
           <div>
@@ -55,7 +56,7 @@
       </div>
     </fieldset>
   </div>
-    <div id="addForm"><!--style="display: none;"-->
+    <div id="addForm" style="display: none;"><!--style="display: none;"-->
       <fieldset>
         <legend>Add Card</legend>
         <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
@@ -72,7 +73,7 @@
         </form>
       </fieldset>
     </div>
-
+    <div id="addCard" name="addCard"></div>
     <fieldset id="editForm">
       <legend>Edit Card</legend>
       <form th:method="put" th:object="${card}">

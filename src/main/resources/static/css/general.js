@@ -1,6 +1,7 @@
-    function createDiv() {
-        var div = document.createElement('div');
-        var siema = document.getElementById('addForm').innerText;
-        div.appendChild(siema);
-        document.body.appendChild(div);
-}
+function createDivAddCard() {
+        if(document.querySelector("#addCard").innerHTML.trim() == ""){
+                let div = document.createElement('div');
+                div.innerHTML = document.getElementById('addForm').innerHTML;
+                document.getElementById('addCard').appendChild(div);
+        }
+}n
