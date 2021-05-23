@@ -47,7 +47,7 @@
                   <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
                     <td id="name" th:text="${currentCard}"></td>
                     <td th:text="${currentCard.state}"></td>
-                    <td><button>Edit</button></td>
+                    <td><button onClick="createDivEditCard()">Edit</button></td>
                   <tr/>
                   </tbody>
                 </table>
@@ -56,7 +56,7 @@
       </div>
     </fieldset>
   </div>
-    <div id="addForm" style="display: none;"><!--style="display: none;"-->
+    <div id="addForm" style="display: none;">
       <fieldset>
         <legend>Add Card</legend>
         <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
@@ -74,24 +74,27 @@
       </fieldset>
     </div>
     <div id="addCard" name="addCard"></div>
-    <fieldset id="editForm">
-      <legend>Edit Card</legend>
-      <form th:method="put" th:object="${card}">
-        <label>Name: </label>
-        <label>State: </label>
-        <select name="state">
-          <option value="defaultSelectState">-</option>
-          <option value="freeSelectState">Free</option>
-          <option value="boughtSelectState">Bought</option>
-          <option value="useSelectState">In Use</option>
-          <option value="sellSelectState">For Sell</option>
-        </select>
-        <p>
-          <button type="submit">Save</button>
-          <button id="delete">Delete</button>
-        </p>
-      </form>
-    </fieldset>
+    <div id="editForm" style="display: none;">
+      <fieldset>
+        <legend>Edit Card</legend>
+        <form th:method="put" th:object="${card}">
+          <label>Name: <label id="editName" name="editName"></label></label>
+          <label>State: </label>
+          <select name="state">
+            <option value="defaultSelectState">-</option>
+            <option value="freeSelectState">Free</option>
+            <option value="boughtSelectState">Bought</option>
+            <option value="useSelectState">In Use</option>
+            <option value="sellSelectState">For Sell</option>
+          </select>
+          <p>
+            <button type="submit">Save</button>
+            <button id="delete">Delete</button>
+          </p>
+        </form>
+      </fieldset>
+    </div>
+    <div id="editCard" name="editCard"></div>
     <fieldset>
       <form th:type="delete" th:action="@{/cardPanelDeleteCard}">
         <label>Are you sure?</label>
