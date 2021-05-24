@@ -65,12 +65,14 @@ public class CardController {
         return "redirect:/cardPanel";
     }
 
-    @PutMapping
-    String changeStateCard(@PathVariable int id, @PathVariable String state, @ModelAttribute CardModel card){
-        if(Objects.isNull(cardService.searchCardById(id))){
+    @PutMapping("/cardPanelEditCard")
+    String changeStateCard(@ModelAttribute CardModel card){
+        if(Objects.isNull(cardService.searchCardById(card.getId()))){
+            System.out.println("Siema3");
             return "redirect:/cardPanel";
         }
-        cardService.changeState(id, state);
+        System.out.println(card.getId() + " " + card.getState());
+        cardService.changeState(card.getId(), card.getState());
         return "redirect:/cardPanel";
     }
 

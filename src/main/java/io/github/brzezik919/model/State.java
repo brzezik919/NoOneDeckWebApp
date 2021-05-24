@@ -1,7 +1,7 @@
 package io.github.brzezik919.model;
 
 public enum State {
-    free ("Wolne"),
+    free ("Free"),
     bought ("Bought"),
     forSell ("For Sell"),
     inUse ("In Use");

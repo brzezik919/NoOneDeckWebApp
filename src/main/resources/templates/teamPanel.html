@@ -45,8 +45,8 @@
                     <form th:method="put" th:object="${candidate}" th:action="@{/teamPanel/acceptCandidate}">
                         <td th:text="${candidateList.nickname}"> </td>
                         <td ><input style="display: none;" type="text" th:value="${candidateList.nickname}" id="nickname" name="nickname">
-                            <button type="submit" name="acceptCandidate" value="true">+</button></td>
-                            <!--<td><button type="submit" name="acceptCandidate" value="false">-</button></td>-->
+                            <button type="submit" name="acceptCandidate" value="true">V</button>
+                            <button type="submit" name="acceptCandidate" value="false">X</button></td>
                     </form>
                 <tr/>
             </table>

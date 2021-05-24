@@ -45,9 +45,9 @@
                     <td colspan="4">No Cards</td>
                   </tr>
                   <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
-                    <td id="name" th:text="${currentCard}"></td>
+                    <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                     <td th:text="${currentCard.state}"></td>
-                    <td><button onClick="createDivEditCard()">Edit</button></td>
+                    <td><button th:id="${currentCard.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
                   <tr/>
                   </tbody>
                 </table>
@@ -74,18 +74,20 @@
       </fieldset>
     </div>
     <div id="addCard" name="addCard"></div>
+    <div id="editCard" name="editCard"></div>
     <div id="editForm" style="display: none;">
       <fieldset>
         <legend>Edit Card</legend>
-        <form th:method="put" th:object="${card}">
-          <label>Name: <label id="editName" name="editName"></label></label>
+          <form th:method="put" th:object="${card}" th:action="@{cardPanel/cardPanelEditCard}">
+          <input type="text" th:field="*{id}" id="idSelectedCard" name="idSelectedCard" value="test" style="display: none;"/>
+          <label id="nameSelectedCard">Name: </label>
           <label>State: </label>
-          <select name="state">
-            <option value="defaultSelectState">-</option>
-            <option value="freeSelectState">Free</option>
-            <option value="boughtSelectState">Bought</option>
-            <option value="useSelectState">In Use</option>
-            <option value="sellSelectState">For Sell</option>
+          <select id="stateSelectedCard" name="state" th:field="*{state}">
+            <option th:value="'-'" disabled>-</option>
+            <option th:value="'Free'" th:text="Free"></option>
+            <option th:value="'Bought'" th:text="Bought"></option>
+            <option th:value="'In Use'" th:text="|In Use|"></option>
+            <option th:value="'For Sell'" th:text="|For Sell|"></option>
           </select>
           <p>
             <button type="submit">Save</button>
@@ -94,7 +96,6 @@
         </form>
       </fieldset>
     </div>
-    <div id="editCard" name="editCard"></div>
     <fieldset>
       <form th:type="delete" th:action="@{/cardPanelDeleteCard}">
         <label>Are you sure?</label>

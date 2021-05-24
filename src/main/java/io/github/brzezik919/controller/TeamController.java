@@ -93,13 +93,21 @@ public class TeamController {
         return "/index";
     }
 
-    @PutMapping("/teamPanel/acceptCandidate")
+    @RequestMapping(value="/teamPanel/acceptCandidate", method = RequestMethod.PUT, params ="acceptCandidate=true")
     public String acceptUser(@ModelAttribute UserModel candidate) {
         if(candidate.getNickname().equals("")){
             return "redirect:/teamPanel";
         }
-        teamService.acceptCandidate(candidate.getNickname());
+        teamService.changeStatusCandidate(candidate.getNickname(),true);
+        return "redirect:/teamPanel";
+    }
 
+    @RequestMapping(value="/teamPanel/acceptCandidate", method = RequestMethod.PUT, params ="acceptCandidate=false")
+    public String refuseUser(@ModelAttribute UserModel candidate) {
+        if(candidate.getNickname().equals("")){
+            return "redirect:/teamPanel";
+        }
+        teamService.changeStatusCandidate(candidate.getNickname(),false);
         return "redirect:/teamPanel";
     }
 
