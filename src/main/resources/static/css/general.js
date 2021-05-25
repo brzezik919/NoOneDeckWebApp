@@ -15,3 +15,18 @@ function createDivEditCard(clicked_id) {
         document.getElementById('idSelectedCard').value = clicked_id;
         document.getElementById("nameSelectedCard").firstChild.nodeValue = "Name: "+valueName;
 }
+
+function createDeleteWindow(){
+        if(document.querySelector("#deleteWindow").innerHTML.trim() == ""){
+                let div = document.createElement('div');
+                div.innerHTML = document.getElementById('deleteMessage').innerHTML;
+                document.getElementById('deleteWindow').appendChild(div);
+        }
+        document.getElementById('idSelectedDeleteCard').value = document.getElementById("idSelectedCard").value;
+}
+
+function deleteDeleteWindow(){
+        if(document.querySelector("#deleteWindow").innerHTML.trim() != ""){
+                document.getElementById('deleteWindow').remove();
+        }
+}

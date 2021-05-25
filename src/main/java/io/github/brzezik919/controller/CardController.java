@@ -76,12 +76,12 @@ public class CardController {
         return "redirect:/cardPanel";
     }
 
-    @DeleteMapping
-    String deleteCard(@PathVariable int id, @ModelAttribute CardModel card){
-        if(Objects.isNull(cardService.searchCardById(id))){
+    @DeleteMapping("/cardPanelDeleteCard")
+    String deleteCard(@ModelAttribute CardModel card){
+        if(Objects.isNull(cardService.searchCardById(card.getId()))){
             return "redirect:/cardPanel";
         }
-        cardService.delete(id);
+        cardService.delete(card.getId());
         return "redirect:/cardPanel";
     }
 

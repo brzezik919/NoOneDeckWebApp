@@ -56,7 +56,7 @@ public class TeamController {
         if(team.getCode().equals("")) {
             return "redirect:/teamPanel";
         }
-        userJoinToTeam(team, auth.getName());
+        userJoinToTeam(team, auth.getName(), false);
         return "redirect:/teamPanel";
     }
 
@@ -67,16 +67,21 @@ public class TeamController {
         }
         team.setCode(codeGenerator());
         teamService.save(team);
-        userJoinToTeam(team, auth.getName());
+        userJoinToTeam(team, auth.getName(), true);
         return "redirect:/teamPanel";
     }
 
-    public void userJoinToTeam(Team team, String name){
+    public void userJoinToTeam(Team team, String name, boolean newTeam){
         Team teamFoundByCode = teamService.findTeamByCode(team.getCode());
         if(teamFoundByCode.getId() != 0){
             User user = userService.getIdByName(name);
             user.setTeam(teamFoundByCode);
-            user.setStatus(false);
+            if(newTeam == true){
+                user.setStatus(true);
+            }
+            else{
+                user.setStatus(false);
+            }
             userService.save(user);
         }
     }

@@ -91,18 +91,22 @@
           </select>
           <p>
             <button type="submit">Save</button>
-            <button id="delete">Delete</button>
           </p>
         </form>
+        <button id="deleteButton" onclick="createDeleteWindow()">Delete</button>
       </fieldset>
     </div>
-    <fieldset>
-      <form th:type="delete" th:action="@{/cardPanelDeleteCard}">
-        <label>Are you sure?</label>
-        <button type="submit">Yes</button>
-        <button id="noDelete">No</button>
-      </form>
-    </fieldset>
+    <div id="deleteWindow"></div>
+    <div id="deleteMessage" style="display: none;">
+      <fieldset>
+        <form th:method="delete" th:action="@{/cardPanel/cardPanelDeleteCard}" th:object="${card}">
+          <input type="text" th:field="*{id}" id="idSelectedDeleteCard" name="idSelectedDeleteCard" style="display: none;"/>
+          <label>Are you sure?</label>
+          <button type="submit">Yes</button>
+        </form>
+        <button onclick="deleteDeleteWindow()">No</button>
+      </fieldset>
+    </div>
   </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </main>
