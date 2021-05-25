@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoOneDeck App</title>
+    <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+
+
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+<div>
+    <fieldset>
+        <legend>Offer</legend>
+        <label>Id: <label th:text="${transaction.id}"></label></label></br>
+        <label>Cardname: <label th:text="${transaction.card.cardName.name}"></label></label></br>
+        <label>Seller: <label th:text="${transaction.ownerCard.nickname}"></label></label></br>
+        <label>Buyer: <label th:text="${transaction.ownerOffer.nickname}"></label></label></br>
+        <label>Description:  <label th:text="${transaction.description}"></label></label></br>
+        <label>State: <label th:text="${transaction.state}"></label></label>
+    </fieldset>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -15,41 +15,69 @@
   <fieldset th:if="${user.nickname != null}">
      <label>Hi <span th:text="${user.nickname}" /></label>
   </fieldset>
-  <fieldset>
-     <form th:if="${user.nickname == 'Unknown'}" th:method="put" th:object="${user}" th:action="@{/yourProfile/setUsername}">
+  <fieldset th:if="${user.nickname == 'Unknown'}">
+     <form th:method="put" th:object="${user}" th:action="@{/yourProfile/setUsername}">
        <label>Set nickname</label>
        <input type="text" th:field="*{nickname}">
        <button type="submit">Ok</button>
      </form>
-
-    <!-- <form th:method="put" th:object="user" th:action="@{/cardPanel/setEmail}">
-      <label>Set email</label>
-      <input type="text" th:field="*{user.email}">
-      <button type="submit">Ok</button>
-    </form>-->
   </fieldset>
-    <!--<fieldset>
+    <fieldset>
+        <legend>Offers</legend>
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
                 <td>Id</td>
+                <td>Name</td>
+                <td>Transaction Partner</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${transactionList.isEmpty()}">
+                <td colspan="4">No Offers</td>
+            </tr>
+            <tr th:if="${!transactionList.isEmpty()}" th:each="userTransaction : ${transactionList}">
+                <form th:method="put" th:object="${transaction}" th:action="@{/yourProfile/acceptOffer}">
+                    <td th:text="${userTransaction.id}"></td>
+                    <td th:text="${userTransaction.card.cardName.name}"></td>
+                    <td th:text="${userTransaction.ownerOffer.nickname}"></td>
+                    <td>
+                        <input input style="display: none;" type="text" th:value="${userTransaction.id}" id="id" name="id">
+                        <button type="submit" name="acceptOffer" value="true">Accept</button>
+                        <button type="submit" name="acceptOffer" value="false">Decline</button>
+                    </td>
+                </form>
+            <tr/>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>History</legend>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
                 <td>Transaction Partner</td>
                 <td>Status</td>
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${transactionList.isEmpty()}">
-                <td colspan="4">No Cards</td>
+            <tr th:if="${transactionHistory.isEmpty()}">
+                <td colspan="4">No Offers</td>
             </tr>
-            <tr th:if="${!transactionList.isEmpty()}" th:each="transactionList : ${transactionList}">
-                <td th:text="${transactionList}"></td>
-                <td th:text="${transactionList.partner}"></td>
-                <td th:text="${transactionList.state}"></td>
-                <td><button th:id="${transactionList.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
+            <tr th:if="${!transactionHistory.isEmpty()}" th:each="userHistory : ${transactionHistory}">
+                    <td th:text="${userHistory.id}"></td>
+                    <td th:text="${userHistory.card.cardName.name}"></td>
+                    <td th:text="${userHistory.ownerOffer.nickname}"></td>
+                    <td th:text="${userHistory.state}"></td>
+                    <td>
+                        <a th:href="@{/yourProfile/offer/{id}(id=${userHistory.id})}"><button>Show</button></a>
+                    </td>
             <tr/>
             </tbody>
         </table>
-    </fieldset>-->
+    </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </body>

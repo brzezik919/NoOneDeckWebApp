@@ -38,7 +38,9 @@
                     <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
                         <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                         <td th:text="${currentCard.user.nickname}"></td>
-                        <td><button th:id="${currentCard.id}" onclick="createWindowTransaction(this.id)">Buy</button></td>
+                        <td th:if="${currentCard.user.id} != ${userLogIn.id}">
+                            <button th:id="${currentCard.id}" onclick="createWindowTransaction(this.id)">Buy</button>
+                        </td>
                     <tr/>
                 </table>
             </fieldset>

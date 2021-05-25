@@ -3,7 +3,7 @@ package io.github.brzezik919.model;
 public enum State {
     free ("Free"),
     bought ("Bought"),
-    forSell ("For Sell"),
+    forSell ("For Sale"),
     inUse ("In Use"),
     pending("Pending");
 

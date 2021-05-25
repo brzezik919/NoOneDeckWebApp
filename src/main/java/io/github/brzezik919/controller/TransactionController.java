@@ -3,14 +3,15 @@ package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.service.TransactionService;
+import org.keycloak.adapters.jaas.AbstractKeycloakLoginModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Objects;
 
 @Controller
 public class TransactionController{
@@ -29,6 +30,17 @@ public class TransactionController{
 
         return "redirect:/market";
     }
+
+    @GetMapping("/yourProfile/offer/{id}")
+    String showOfferHistory(Model model, @PathVariable int id, Authentication auth){
+        Transaction transaction = transactionService.findTransaction(id);
+        if(!Objects.nonNull(transaction) || !auth.isAuthenticated()){
+            return "/index";
+        }
+        model.addAttribute("transaction", transaction);
+        return "/offer";
+    }
+
 
 
 }

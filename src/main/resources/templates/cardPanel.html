@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +13,14 @@
   <div th:insert="~{fragments/header :: header}"></div>
   <div align="center">
   <div>
-    <label> Witaj <span th:text="${user.nickname}" /></label>
+    <label> Hello <span th:text="${user.nickname}"></span></label>
     <fieldset>
       <legend>Your Cards</legend>
       <div>
           <div>
             <form method="get" th:action="@{/cardPanel/cardSearch}" th:object="${card}">
               <fieldset>
-                <input type="text" th:field="*{cardName}"/>
+                <label><input type="text" th:field="*{cardName}"/></label>
               </fieldset>
               <p>
                 <button type="submit">Search</button>
@@ -48,7 +47,7 @@
                     <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                     <td th:text="${currentCard.state}"></td>
                     <td><button th:id="${currentCard.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
-                  <tr/>
+                  </tr>
                   </tbody>
                 </table>
             </fieldset>
@@ -73,25 +72,23 @@
         </form>
       </fieldset>
     </div>
-    <div id="addCard" name="addCard"></div>
-    <div id="editCard" name="editCard"></div>
+    <div id="addCard"></div>
+    <div id="editCard"></div>
     <div id="editForm" style="display: none;">
       <fieldset>
         <legend>Edit Card</legend>
           <form th:method="put" th:object="${card}" th:action="@{cardPanel/cardPanelEditCard}">
-          <input type="text" th:field="*{id}" id="idSelectedCard" name="idSelectedCard" value="test" style="display: none;"/>
+          <label><input type="text" th:field="*{id}" id="idSelectedCard" name="idSelectedCard" value="test" style="display: none;"/></label>
           <label id="nameSelectedCard">Name: </label>
           <label>State: </label>
-          <select id="stateSelectedCard" name="state" th:field="*{state}">
+          <label><select id="stateSelectedCard" name="state" th:field="*{state}">
             <option th:value="'-'" disabled>-</option>
             <option th:value="'Free'" th:text="Free"></option>
             <option th:value="'Bought'" th:text="Bought"></option>
             <option th:value="'In Use'" th:text="|In Use|"></option>
-            <option th:value="'For Sell'" th:text="|For Sell|"></option>
-          </select>
-          <p>
+            <option th:value="'For Sale'" th:text="|For Sale|"></option>
+          </select></label>
             <button type="submit">Save</button>
-          </p>
         </form>
         <button id="deleteButton" onclick="createDeleteWindow()">Delete</button>
       </fieldset>
@@ -100,7 +97,7 @@
     <div id="deleteMessage" style="display: none;">
       <fieldset>
         <form th:method="delete" th:action="@{/cardPanel/cardPanelDeleteCard}" th:object="${card}">
-          <input type="text" th:field="*{id}" id="idSelectedDeleteCard" name="idSelectedDeleteCard" style="display: none;"/>
+          <label><input type="text" th:field="*{id}" id="idSelectedDeleteCard" name="idSelectedDeleteCard" style="display: none;"/></label>
           <label>Are you sure?</label>
           <button type="submit">Yes</button>
         </form>
