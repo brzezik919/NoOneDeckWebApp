@@ -28,6 +28,28 @@
       <button type="submit">Ok</button>
     </form>-->
   </fieldset>
+    <!--<fieldset>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Transaction Partner</td>
+                <td>Status</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${transactionList.isEmpty()}">
+                <td colspan="4">No Cards</td>
+            </tr>
+            <tr th:if="${!transactionList.isEmpty()}" th:each="transactionList : ${transactionList}">
+                <td th:text="${transactionList}"></td>
+                <td th:text="${transactionList.partner}"></td>
+                <td th:text="${transactionList.state}"></td>
+                <td><button th:id="${transactionList.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
+            <tr/>
+            </tbody>
+        </table>
+    </fieldset>-->
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </body>

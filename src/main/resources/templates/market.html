@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoOneDeck App: market</title>
     <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="../static/css/general.js" th:src="@{/css/general.js}"></script>
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
@@ -34,11 +35,26 @@
                     <tr th:if="${cardList.isEmpty()}">
                         <td colspan="4">No Cards</td>
                     </tr>
-                    <tr th:each="currentCard : ${cardList}">
-                        <td th:text="${currentCard}"></td>
+                    <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
+                        <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                         <td th:text="${currentCard.user.nickname}"></td>
+                        <td><button th:id="${currentCard.id}" onclick="createWindowTransaction(this.id)">Buy</button></td>
                     <tr/>
                 </table>
+            </fieldset>
+        </div>
+        <div id="formTransaction"></div>
+        <div id="transactionWindow" style="display: none">
+            <fieldset>
+                <div>
+                    <form th:method="post" th:object="${transaction}" th:action="@{/market/createOffer}">
+                        <legend>Create Offer</legend>
+                        <label><input type="text" th:field="*{card}" id="idSelectedCard" style="display: none"></label>
+                        <label id="nameSelectedCard">Name: </label>
+                        <label>Note: <input type="text" th:field="*{description}"></label>
+                        <button type="submit">Create Offer</button>
+                    </form>
+                </div>
             </fieldset>
         </div>
     </fieldset>

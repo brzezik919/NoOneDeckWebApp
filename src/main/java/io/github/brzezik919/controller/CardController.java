@@ -68,10 +68,8 @@ public class CardController {
     @PutMapping("/cardPanelEditCard")
     String changeStateCard(@ModelAttribute CardModel card){
         if(Objects.isNull(cardService.searchCardById(card.getId()))){
-            System.out.println("Siema3");
             return "redirect:/cardPanel";
         }
-        System.out.println(card.getId() + " " + card.getState());
         cardService.changeState(card.getId(), card.getState());
         return "redirect:/cardPanel";
     }

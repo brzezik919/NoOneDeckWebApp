@@ -50,7 +50,8 @@ public class CardService {
 
     public void save(Card card){cardRepository.save(card);}
     public void delete(int id){cardRepository.deleteById(id);}
-    public void changeState(int id, String state){
+    public void
+    changeState(int id, String state){
         Card card = cardRepository.findById(id);
         card.setState(state);
         cardRepository.save(card);

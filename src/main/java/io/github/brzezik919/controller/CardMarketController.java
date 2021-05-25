@@ -2,6 +2,7 @@ package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.State;
+import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
@@ -28,6 +29,7 @@ public class CardMarketController {
             model.addAttribute("cardList", cardList);
             model.addAttribute("user", new UserModel());
             model.addAttribute("card", new CardModel());
+            model.addAttribute("transaction", new Transaction());
         }
         return "market";
     }

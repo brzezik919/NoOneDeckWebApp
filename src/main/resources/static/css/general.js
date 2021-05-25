@@ -30,3 +30,14 @@ function deleteDeleteWindow(){
                 document.getElementById('deleteWindow').remove();
         }
 }
+
+function createWindowTransaction(clicked_id){
+        if(document.querySelector("#formTransaction").innerHTML.trim() == ""){
+                let div = document.createElement('div');
+                div.innerHTML = document.getElementById('transactionWindow').innerHTML;
+                document.getElementById('formTransaction').appendChild(div);
+        }
+        let valueName = document.getElementById("name"+clicked_id).innerText;
+        document.getElementById('idSelectedCard').value = clicked_id;
+        document.getElementById("nameSelectedCard").firstChild.nodeValue = "Name: "+valueName;
+}

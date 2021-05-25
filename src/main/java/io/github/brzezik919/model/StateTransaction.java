@@ -1,20 +1,17 @@
 package io.github.brzezik919.model;
 
-public enum State {
-    free ("Free"),
-    bought ("Bought"),
-    forSell ("For Sell"),
-    inUse ("In Use"),
-    pending("Pending");
+public enum StateTransaction {
+    pending ("Pending"),
+    accepted ("Accepted"),
+    canceled ("Canceled");
 
     private String state;
 
-    State(String value){
+    StateTransaction(String value){
         state = value;
     }
 
     public String toString(){
         return this.state;
     }
-
 }
