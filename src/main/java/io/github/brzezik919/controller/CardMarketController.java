@@ -1,21 +1,18 @@
 package io.github.brzezik919.controller;
 
-import io.github.brzezik919.model.Card;
-import io.github.brzezik919.model.State;
-import io.github.brzezik919.model.Transaction;
-import io.github.brzezik919.model.User;
+import io.github.brzezik919.model.*;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -29,7 +26,7 @@ public class CardMarketController {
     UserService userService;
 
     @GetMapping
-    public String CardMarket(Model model, Principal name){
+    public String CardMarket(Model model, Authentication name){
         User userLogIn = userService.getUserByName(name.getName());
         List<Card> cardList = cardService.getCardsByState(State.forSell.toString());
         if(cardList != null){
@@ -43,7 +40,7 @@ public class CardMarketController {
     }
 
     @GetMapping("/cardSearch")
-    public String CardMarketSearch(Model model, @ModelAttribute CardModel card, Principal name){
+    public String CardMarketSearch(Model model, @ModelAttribute CardModel card, Authentication name){
         User userLogIn = userService.getUserByName(name.getName());
         if(card.getCardName().equals("")){
             return "redirect:/market";

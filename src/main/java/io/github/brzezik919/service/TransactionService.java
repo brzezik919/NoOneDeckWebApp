@@ -31,15 +31,15 @@ public class TransactionService {
 
     public List<Transaction> findTransactionsPending(int id){
         if(id != 0){
-            return transactionRepository.findByOwnerCard_IdAndState(id, StateTransaction.pending.toString());
+            return transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.pending.toString(), id, StateTransaction.pending.toString());
         }
         return null;
     }
 
     public List<Transaction> findTransactionHistory(int id){
         if(id != 0){
-            List<Transaction> list = transactionRepository.findByOwnerCard_IdAndState(id, StateTransaction.accepted.toString());
-            list.addAll(transactionRepository.findByOwnerCard_IdAndState(id, StateTransaction.canceled.toString()));
+            List<Transaction> list = transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.accepted.toString(), id, StateTransaction.accepted.toString());
+            list.addAll(transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.canceled.toString(), id, StateTransaction.canceled.toString()));
             return list;
         }
         return null;

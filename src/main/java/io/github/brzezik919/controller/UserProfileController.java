@@ -1,6 +1,5 @@
 package io.github.brzezik919.controller;
 
-import io.github.brzezik919.model.Team;
 import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.TransactionService;
@@ -53,7 +52,7 @@ public class UserProfileController {
     }
 
     @RequestMapping(value="/acceptOffer", method = RequestMethod.PUT, params ="acceptOffer=false")
-    String declineOffer(@ModelAttribute Transaction transaction){
+    String declineOrResignOffer(@ModelAttribute Transaction transaction){
         transactionService.resultOffer(transaction, false);
         return "redirect:/yourProfile";
     }

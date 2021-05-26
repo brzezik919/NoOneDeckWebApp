@@ -2,7 +2,9 @@ package io.github.brzezik919.controller;
 
 
 import io.github.brzezik919.model.Transaction;
+import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.TransactionService;
+import io.github.brzezik919.service.UserService;
 import org.keycloak.adapters.jaas.AbstractKeycloakLoginModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,9 @@ public class TransactionController{
     @Autowired
     TransactionService transactionService;
 
+    @Autowired
+    UserService userService;
+
     @PostMapping
     @RequestMapping("/market/createOffer")
     String createTransaction(@ModelAttribute Transaction transaction, Authentication auth){
@@ -34,11 +39,12 @@ public class TransactionController{
     @GetMapping("/yourProfile/offer/{id}")
     String showOfferHistory(Model model, @PathVariable int id, Authentication auth){
         Transaction transaction = transactionService.findTransaction(id);
-        if(!Objects.nonNull(transaction) || !auth.isAuthenticated()){
-            return "/index";
+        User userLogIn = userService.getIdByName(auth.getName());
+        if(!Objects.nonNull(transaction) || !auth.isAuthenticated() || userLogIn.getId() == transaction.getOwnerOffer().getId() || userLogIn.getId() == transaction.getOwnerCard().getId()){
+            model.addAttribute("transaction", transaction);
+            return "/offer";
         }
-        model.addAttribute("transaction", transaction);
-        return "/offer";
+        return "/index";
     }
 
 

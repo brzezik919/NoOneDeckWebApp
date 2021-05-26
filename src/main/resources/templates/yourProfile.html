@@ -43,10 +43,12 @@
                     <td th:text="${userTransaction.ownerOffer.nickname}"></td>
                     <td>
                         <input input style="display: none;" type="text" th:value="${userTransaction.id}" id="id" name="id">
-                        <button type="submit" name="acceptOffer" value="true">Accept</button>
-                        <button type="submit" name="acceptOffer" value="false">Decline</button>
+                        <button type="submit" name="acceptOffer" value="true" th:if="${userTransaction.ownerCard.id} == ${user.id}">Accept</button>
+                        <button type="submit" name="acceptOffer" value="false" th:if="${userTransaction.ownerCard.id} == ${user.id}">Decline</button>
+                        <button type="submit" name="acceptOffer" value="false" th:if="${userTransaction.ownerCard.id} != ${user.id}">Resign</button>
                     </td>
                 </form>
+                <td><a th:href="@{/yourProfile/offer/{id}(id=${userTransaction.id})}"><button>Show</button></a></td>
             <tr/>
             </tbody>
         </table>
@@ -69,7 +71,8 @@
             <tr th:if="${!transactionHistory.isEmpty()}" th:each="userHistory : ${transactionHistory}">
                     <td th:text="${userHistory.id}"></td>
                     <td th:text="${userHistory.card.cardName.name}"></td>
-                    <td th:text="${userHistory.ownerOffer.nickname}"></td>
+                    <td th:if="${userHistory.ownerCard.id} != ${user.id}" th:text="${userHistory.ownerCard.nickname}"></td>
+                    <td th:if="${userHistory.ownerCard.id} == ${user.id}" th:text="${userHistory.ownerOffer.nickname}"></td>
                     <td th:text="${userHistory.state}"></td>
                     <td>
                         <a th:href="@{/yourProfile/offer/{id}(id=${userHistory.id})}"><button>Show</button></a>
