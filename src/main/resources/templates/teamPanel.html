@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +23,7 @@
                 <table>
                     <tr th:each="memberList : ${memberList}">
                         <td th:text="${memberList.nickname}"></td>
-                    <tr/>
+                    </tr>
                 </table>
             </div>
     </fieldset>
@@ -44,18 +43,20 @@
                 <tr th:each="candidateList : ${candidateList}">
                     <form th:method="put" th:object="${candidate}" th:action="@{/teamPanel/acceptCandidate}">
                         <td th:text="${candidateList.nickname}"> </td>
-                        <td ><input style="display: none;" type="text" th:value="${candidateList.nickname}" id="nickname" name="nickname">
+                        <td >
+                            <label><input style="display: none;" type="text" th:value="${candidateList.nickname}" id="nickname" name="nickname"></label>
                             <button type="submit" name="acceptCandidate" value="true">V</button>
-                            <button type="submit" name="acceptCandidate" value="false">X</button></td>
+                            <button type="submit" name="acceptCandidate" value="false">X</button>
+                        </td>
                     </form>
-                <tr/>
+                </tr>
             </table>
         </div>
     </fieldset>
 </div>
 <div>
     <fieldset th:if="${user.status == false}">
-        <label>You must wait for decidion team <span th:text="${teamFound.name}"></span> about accepted you.</label>
+        <label>You must wait for decision team <span th:text="${teamFound.name}"></span> about accepted you.</label>
     </fieldset>
 </div>
 <div th:if="${user.status == true}">

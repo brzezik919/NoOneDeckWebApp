@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,12 +25,10 @@
         <div>
             <fieldset>
                 <table>
-                    <th>
                         <tr>
                             <td>Name</td>
                             <td>User</td>
                         </tr>
-                    </th>
                     <tr th:if="${cardList.isEmpty()}">
                         <td colspan="4">No Cards</td>
                     </tr>
@@ -43,7 +40,7 @@
                         <td th:if="${currentCard.user.id} != ${userLogIn.id}">
                             <button th:id="${currentCard.id}" onclick="createWindowTransaction(this.id)">Buy</button>
                         </td>
-                    <tr/>
+                    </tr>
                 </table>
             </fieldset>
         </div>

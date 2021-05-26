@@ -5,14 +5,12 @@ import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.TransactionService;
 import io.github.brzezik919.service.UserService;
-import org.keycloak.adapters.jaas.AbstractKeycloakLoginModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Objects;
 
 @Controller

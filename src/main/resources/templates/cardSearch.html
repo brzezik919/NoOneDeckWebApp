@@ -24,15 +24,13 @@
             <label>Who have that card in your team</label>
             <div>
                 <table>
-                    <th>
                         <tr>
                             <td>Name</td>
                             <td>User</td>
                         </tr>
-                    </th>
-                    <tr th:each="currentCard : ${cardList}">
-                        <td th:text="${currentCard}"></td>
-                        <td th:text="${currentCard.user.nickname}"></td>
+                    <tr th:each="cardList : ${cardList}">
+                        <td th:text="${cardList}"></td>
+                        <td th:text="${cardList.user.nickname}"></td>
                     </tr>
                 </table>
             </div>

@@ -5,7 +5,7 @@ public enum StateTransaction {
     accepted ("Accepted"),
     canceled ("Canceled");
 
-    private String state;
+    private final String state;
 
     StateTransaction(String value){
         state = value;

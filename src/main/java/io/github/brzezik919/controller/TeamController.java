@@ -6,7 +6,6 @@ import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.TeamService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,7 +75,7 @@ public class TeamController {
         if(teamFoundByCode.getId() != 0){
             User user = userService.getIdByName(name);
             user.setTeam(teamFoundByCode);
-            if(newTeam == true){
+            if(newTeam){
                 user.setStatus(true);
             }
             else{
@@ -122,11 +121,10 @@ public class TeamController {
         int targetStringLength = 8;
         Random random = new Random();
 
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
+        return random.ints(leftLimit, rightLimit + 1)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-        return generatedString;
     }
 }

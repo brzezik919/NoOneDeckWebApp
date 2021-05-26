@@ -46,7 +46,7 @@ public class TeamService {
 
     public void changeStatusCandidate(String nickname, boolean state){
         User user = userRepository.findByNickname(nickname);
-        if(state == true){
+        if(state){
             user.setStatus(true);
         }
         else{

@@ -7,7 +7,7 @@ public enum State {
     inUse ("In Use"),
     pending("Pending");
 
-    private String state;
+    private final String state;
 
     State(String value){
         state = value;

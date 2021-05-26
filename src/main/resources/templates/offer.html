@@ -14,11 +14,11 @@
 <div>
     <fieldset>
         <legend>Offer</legend>
-        <label>Id: <label th:text="${transaction.id}"></label></label></br>
-        <label>Cardname: <label th:text="${transaction.card.cardName.name}"></label></label></br>
-        <label>Seller: <label th:text="${transaction.ownerCard.nickname}"></label></label></br>
-        <label>Buyer: <label th:text="${transaction.ownerOffer.nickname}"></label></label></br>
-        <label>Description:  <label th:text="${transaction.description}"></label></label></br>
+        <label>Id: <label th:text="${transaction.id}"></label></label><br />
+        <label>Card name: <label th:text="${transaction.card.cardName.name}"></label></label><br />
+        <label>Seller: <label th:text="${transaction.ownerCard.nickname}"></label></label><br />
+        <label>Buyer: <label th:text="${transaction.ownerOffer.nickname}"></label></label><br />
+        <label>Description:  <label th:text="${transaction.description}"></label></label><br />
         <label>State: <label th:text="${transaction.state}"></label></label>
     </fieldset>
 </div>
