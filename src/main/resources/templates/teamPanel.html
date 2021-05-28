@@ -10,15 +10,25 @@
 </head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
-<div th:if="${user.status == true}">
-    <fieldset th:object="${teamFound}">
-        <label>Name: <span th:text="${teamFound.name}"></span></label><br />
-        <label>Description: <span th:text="${teamFound.description}"></span></label>
-    </fieldset>
-</div>
-<div th:if="${user.status == true}">
-    <fieldset>
-        <label>Members</label>
+<div align="center">
+    <div th:if="${user.status == true}">
+        <fieldset id="teamInfoFieldset" th:object="${teamFound}">
+            <label>Name: <span th:text="${teamFound.name}"></span></label><br />
+            <label>Description:
+                <label id="labelDescription" th:text="${teamFound.description}"></label>
+                <button>Edit</button>
+                <!--<form th:method="put" th:object="${teamFound}" th:action="@{/teamPanel/changeDescription}">
+                    <label>
+                        <input type="text" th:field="*{description}">
+                        <button type="submit">Save</button>
+                    </label>
+                </form>-->
+            </label>
+        </fieldset>
+    </div>
+    <div th:if="${user.status == true}">
+        <fieldset>
+            <label>Members</label>
             <div>
                 <table>
                     <tr th:each="memberList : ${memberList}">
@@ -26,52 +36,53 @@
                     </tr>
                 </table>
             </div>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
 
-<div th:if="${user.status == true}">
-    <fieldset>
-        <label>Code to your team is: <span th:text="${teamFound.code}"></span></label>
-    </fieldset>
-</div>
+    <div th:if="${user.status == true}">
+        <fieldset>
+            <label>Code to your team is: <span th:text="${teamFound.code}"></span></label>
+        </fieldset>
+    </div>
 
-<div th:if="${!candidateList.isEmpty() and user.status == true}">
-    <fieldset>
-        <label>List of Candidate</label>
-        <div>
-            <table>
-                <tr th:each="candidateList : ${candidateList}">
-                    <form th:method="put" th:object="${candidate}" th:action="@{/teamPanel/acceptCandidate}">
-                        <td th:text="${candidateList.nickname}"> </td>
-                        <td >
-                            <label><input style="display: none;" type="text" th:value="${candidateList.nickname}" id="nickname" name="nickname"></label>
-                            <button type="submit" name="acceptCandidate" value="true">V</button>
-                            <button type="submit" name="acceptCandidate" value="false">X</button>
-                        </td>
-                    </form>
-                </tr>
-            </table>
-        </div>
-    </fieldset>
-</div>
-<div>
-    <fieldset th:if="${user.status == false}">
-        <label>You must wait for decision team <span th:text="${teamFound.name}"></span> about accepted you.</label>
-    </fieldset>
-</div>
-<div th:if="${user.status == true}">
-    <fieldset>
-        <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
-            <button type="submit">Leave the team</button>
-        </form>
-    </fieldset>
-</div>
-<div th:if="${user.status == false}">
-    <fieldset>
-        <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
-            <button type="submit">Resign</button>
-        </form>
-    </fieldset>
+    <div th:if="${!candidateList.isEmpty() and user.status == true}">
+        <fieldset>
+            <label>List of Candidate</label>
+            <div>
+                <table>
+                    <tr th:each="candidateList : ${candidateList}">
+                        <form th:method="put" th:object="${candidate}" th:action="@{/teamPanel/acceptCandidate}">
+                            <td th:text="${candidateList.nickname}"> </td>
+                            <td >
+                                <label><input style="display: none;" type="text" th:value="${candidateList.nickname}" id="nickname" name="nickname"></label>
+                                <button type="submit" name="acceptCandidate" value="true">V</button>
+                                <button type="submit" name="acceptCandidate" value="false">X</button>
+                            </td>
+                        </form>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset th:if="${user.status == false}">
+            <label>You must wait for decision team <span th:text="${teamFound.name}"></span> about accepted you.</label>
+        </fieldset>
+    </div>
+    <div th:if="${user.status == true}">
+        <fieldset>
+            <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
+                <button type="submit">Leave the team</button>
+            </form>
+        </fieldset>
+    </div>
+    <div th:if="${user.status == false}">
+        <fieldset>
+            <form th:method="put" th:object="${user}" th:action="@{/teamPanel/leaveTheTeam}">
+                <button type="submit">Resign</button>
+            </form>
+        </fieldset>
+    </div>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </body>

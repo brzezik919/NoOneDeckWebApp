@@ -19,6 +19,8 @@ public class Card {
 
     private String state;
 
+    private String note;
+
     public Card(){
     }
 
@@ -52,6 +54,14 @@ public class Card {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override

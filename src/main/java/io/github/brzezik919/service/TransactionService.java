@@ -23,23 +23,23 @@ public class TransactionService {
         User user = userRepository.findByLogin(login);
         Card card = cardRepository.findById(transaction.getCard().getId());
         transaction.setOwnerOffer(user);
-        transaction.setState(StateTransaction.pending.toString());
-        card.setState(State.pending.toString());
+        transaction.setState(StateTransaction.PENDING.toString());
+        card.setState(StateCard.PENDING.toString());
         cardRepository.save(card);
         transactionRepository.save(transaction);
     }
 
     public List<Transaction> findTransactionsPending(int id){
         if(id != 0){
-            return transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.pending.toString(), id, StateTransaction.pending.toString());
+            return transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.PENDING.toString(), id, StateTransaction.PENDING.toString());
         }
         return null;
     }
 
     public List<Transaction> findTransactionHistory(int id){
         if(id != 0){
-            List<Transaction> list = transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.accepted.toString(), id, StateTransaction.accepted.toString());
-            list.addAll(transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.canceled.toString(), id, StateTransaction.canceled.toString()));
+            List<Transaction> list = transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.ACCEPTED.toString(), id, StateTransaction.ACCEPTED.toString());
+            list.addAll(transactionRepository.findByOwnerCard_IdAndStateOrOwnerOffer_IdAndState(id, StateTransaction.CANCELED.toString(), id, StateTransaction.CANCELED.toString()));
             return list;
         }
         return null;
@@ -50,12 +50,12 @@ public class TransactionService {
         Card card = cardRepository.findById(transaction.getCard().getId());
         if(state){
             card.setUser(transaction.getOwnerOffer());
-            card.setState(State.bought.toString());
-            transaction.setState(StateTransaction.accepted.toString());
+            card.setState(StateCard.BOUGHT.toString());
+            transaction.setState(StateTransaction.ACCEPTED.toString());
         }
         else{
-            card.setState(State.forSell.toString());
-            transaction.setState(StateTransaction.canceled.toString());
+            card.setState(StateCard.FORSALE.toString());
+            transaction.setState(StateTransaction.CANCELED.toString());
         }
         cardRepository.save(card);
         transactionRepository.save(transaction);

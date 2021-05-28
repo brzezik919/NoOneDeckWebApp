@@ -5,7 +5,6 @@ import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +18,18 @@ import java.util.List;
 @RequestMapping("/market")
 public class CardMarketController {
 
-    @Autowired
-    CardService cardService;
+    private final CardService cardService;
+    private final UserService userService;
 
-    @Autowired
-    UserService userService;
+    public CardMarketController(CardService cardService, UserService userService) {
+        this.cardService = cardService;
+        this.userService = userService;
+    }
 
     @GetMapping
-    public String CardMarket(Model model, Authentication name){
+    public String showCardMarket(Model model, Authentication name){
         User userLogIn = userService.getUserByName(name.getName());
-        List<Card> cardList = cardService.getCardsByState(State.forSell.toString());
+        List<Card> cardList = cardService.getCardsByState(StateCard.FORSALE.toString());
         if(cardList != null){
             model.addAttribute("cardList", cardList);
             model.addAttribute("user", new UserModel());
@@ -40,12 +41,12 @@ public class CardMarketController {
     }
 
     @GetMapping("/cardSearch")
-    public String CardMarketSearch(Model model, @ModelAttribute CardModel card, Authentication name){
+    public String cardSearchCardMarket(Model model, @ModelAttribute CardModel card, Authentication name){
         User userLogIn = userService.getUserByName(name.getName());
         if(card.getCardName().equals("")){
             return "redirect:/market";
         }
-        List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), State.forSell.toString());
+        List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString());
         if(cardList != null){
             model.addAttribute("userLogIn", userLogIn);
             model.addAttribute("cardList", cardList);

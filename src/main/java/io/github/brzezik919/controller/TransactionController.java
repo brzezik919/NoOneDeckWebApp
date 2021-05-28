@@ -5,7 +5,6 @@ import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.TransactionService;
 import io.github.brzezik919.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +15,13 @@ import java.util.Objects;
 @Controller
 public class TransactionController{
 
-    @Autowired
-    TransactionService transactionService;
+    private final TransactionService transactionService;
+    private final UserService userService;
 
-    @Autowired
-    UserService userService;
+    public TransactionController(TransactionService transactionService, UserService userService) {
+        this.transactionService = transactionService;
+        this.userService = userService;
+    }
 
     @PostMapping
     @RequestMapping("/market/createOffer")
@@ -28,14 +29,12 @@ public class TransactionController{
         if(transaction.getCard() == null){
             return "redirect:/market";
         }
-
         transactionService.createOffer(transaction, auth.getName());
-
         return "redirect:/market";
     }
 
     @GetMapping("/yourProfile/offer/{id}")
-    String showOfferHistory(Model model, @PathVariable int id, Authentication auth){
+    String showTransactionsHistory(Model model, @PathVariable int id, Authentication auth){
         Transaction transaction = transactionService.findTransaction(id);
         User userLogIn = userService.getIdByName(auth.getName());
         if(!Objects.nonNull(transaction) || !auth.isAuthenticated() || userLogIn.getId() == transaction.getOwnerOffer().getId() || userLogIn.getId() == transaction.getOwnerCard().getId()){

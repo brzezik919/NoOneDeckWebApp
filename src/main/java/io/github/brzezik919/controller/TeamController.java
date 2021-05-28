@@ -5,7 +5,6 @@ import io.github.brzezik919.model.User;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.TeamService;
 import io.github.brzezik919.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +17,21 @@ import java.util.Random;
 @Controller
 @RequestMapping
 public class TeamController {
-    @Autowired
-    TeamService teamService;
 
-    @Autowired
-    UserService userService;
+    private final TeamService teamService;
+    private final UserService userService;
+
+    public TeamController(TeamService teamService, UserService userService) {
+        this.teamService = teamService;
+        this.userService = userService;
+    }
 
     @GetMapping("/teamPanel")
-    String TeamPanel(Model model, Authentication auth){
+    String showTeamPanel(Model model, Authentication auth){
         if(Objects.nonNull(userService.getUserByName(auth.getName()).getTeam())){
             Team teamFound = teamService.findTeamByLogInUser(auth.getName());
             UserModel userModel = new UserModel();
-            List<User> memberList = teamService.findMembers(teamFound);
+            List<User> memberList = teamService.findMembers(teamFound.getId());
             List<User> candidateList = teamService.findCandidate(teamFound);
             model.addAttribute("memberList", memberList);
             model.addAttribute("candidateList", candidateList);
@@ -45,7 +47,7 @@ public class TeamController {
     }
 
     @GetMapping("/teamJoinPanel")
-    String TeamJoinPanel(Model model){
+    String showTeamJoinPanel(Model model){
         model.addAttribute("team", new Team());
         return "teamJoinPanel";
     }
@@ -61,12 +63,16 @@ public class TeamController {
 
     @PostMapping("/teamJoinPanel")
     String createTeam(@ModelAttribute Team team, Authentication auth){
+        team.setName(team.getName().trim());
         if(team.getName().equals("")){
             return "redirect:/teamPanel";
         }
         team.setCode(codeGenerator());
-        teamService.save(team);
-        userJoinToTeam(team, auth.getName(), true);
+        boolean teamExist = teamService.checkExistTeam(team.getCode(), team.getName());
+        if(teamExist){
+            teamService.save(team);
+            userJoinToTeam(team, auth.getName(), true);
+        }
         return "redirect:/teamPanel";
     }
 

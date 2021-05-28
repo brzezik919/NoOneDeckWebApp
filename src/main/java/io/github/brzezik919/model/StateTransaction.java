@@ -1,9 +1,9 @@
 package io.github.brzezik919.model;
 
 public enum StateTransaction {
-    pending ("Pending"),
-    accepted ("Accepted"),
-    canceled ("Canceled");
+    PENDING ("Pending"),
+    ACCEPTED ("Accepted"),
+    CANCELED ("Canceled");
 
     private final String state;
 

@@ -10,37 +10,43 @@
 <body>
 <main>
     <div th:insert="~{fragments/header :: header}"></div>
-    <div th:object="${user}">
-        <fieldset th:if="${user.team != null and user.status == true}" >
-            <span>Search Card</span>
-            <form method="post" th:action="@{/cardSearch}" th:object="${card}">
-                <label>
-                    <input type="text" th:field="*{cardName}"/>
-                    <button type="submit">Search</button>
-                </label>
-            </form>
-        </fieldset>
-        <fieldset th:if="${cardList !=null}">
-            <label>Who have that card in your team</label>
-            <div>
-                <table>
+    <div align="center">
+        <div th:object="${user}">
+            <fieldset th:if="${user.team != null and user.status == true}" >
+                <span>Search Card</span>
+                <form method="post" th:action="@{/cardSearch}" th:object="${card}">
+                    <label>
+                        <input type="text" th:field="*{cardName}"/>
+                        <button type="submit">Search</button>
+                    </label>
+                </form>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset th:if="${cardList !=null}">
+                <label>Who have that card in your team</label>
+                <div>
+                    <table>
                         <tr>
                             <td>Name</td>
                             <td>User</td>
                         </tr>
-                    <tr th:each="cardList : ${cardList}">
-                        <td th:text="${cardList}"></td>
-                        <td th:text="${cardList.user.nickname}"></td>
-                    </tr>
-                </table>
-            </div>
-        </fieldset>
-        <fieldset th:if="${user.team == null}">
-            <label>You are not member any team click <a th:href="@{/teamPanel}">here</a> for join</label>
-        </fieldset>
-        <fieldset th:if="${user.status == false and user.team != null}">
-            <label>You must be accepted member of team for search card</label>
-        </fieldset>
+                        <tr th:each="cardList : ${cardList}">
+                            <td th:text="${cardList}"></td>
+                            <td th:text="${cardList.user.nickname}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset th:if="${user.team == null}">
+                <label>You are not member any team click <a th:href="@{/teamPanel}">here</a> for join</label>
+            </fieldset>
+            <fieldset th:if="${user.status == false and user.team != null}">
+                <label>You must be accepted member of team for search card</label>
+            </fieldset>
+        </div>
     </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </main>

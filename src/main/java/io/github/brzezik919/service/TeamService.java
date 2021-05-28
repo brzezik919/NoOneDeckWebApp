@@ -54,4 +54,14 @@ public class TeamService {
         }
         userRepository.save(user);
     }
+
+    public boolean checkExistTeam(String code, String name){
+        if (Objects.isNull(teamRepository.findByName(name))){
+            if(Objects.isNull(teamRepository.findByCode(code))){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }

@@ -4,7 +4,6 @@ import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +17,17 @@ import java.util.List;
 @Controller
 @RequestMapping("/cardSearch")
 public class CardSearchController {
-    @Autowired
-    CardService cardService;
 
-    @Autowired
-    UserService userService;
+    private final CardService cardService;
+    private final UserService userService;
+
+    public CardSearchController(CardService cardService, UserService userService) {
+        this.cardService = cardService;
+        this.userService = userService;
+    }
 
     @GetMapping
-    String CardPanel(Model model, Principal name){
+    String showCardSearch(Model model, Principal name){
         model.addAttribute("cardList", null);
         model.addAttribute("card", new CardModel());
         model.addAttribute("user", userService.getUserByName(name.getName()));

@@ -2,7 +2,7 @@ package io.github.brzezik919.model.projection;
 
 import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.CardName;
-import io.github.brzezik919.model.State;
+import io.github.brzezik919.model.StateCard;
 import io.github.brzezik919.model.User;
 
 public class CardModel {
@@ -38,7 +38,7 @@ public class CardModel {
         var result = new Card();
         result.setCardName(cardName);
         result.setUser(user);
-        result.setState(State.free.toString());
+        result.setState(StateCard.FREE.toString());
         return result;
     }
 }

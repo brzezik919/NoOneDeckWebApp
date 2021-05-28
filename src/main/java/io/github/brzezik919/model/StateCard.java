@@ -1,15 +1,15 @@
 package io.github.brzezik919.model;
 
-public enum State {
-    free ("Free"),
-    bought ("Bought"),
-    forSell ("For Sale"),
-    inUse ("In Use"),
-    pending("Pending");
+public enum StateCard {
+    FREE ("Free"),
+    BOUGHT ("Bought"),
+    FORSALE("For Sale"),
+    INUSE ("In Use"),
+    PENDING("Pending");
 
     private final String state;
 
-    State(String value){
+    StateCard(String value){
         state = value;
     }
 

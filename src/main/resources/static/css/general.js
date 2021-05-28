@@ -41,3 +41,7 @@ function createWindowTransaction(clicked_id){
         document.getElementById('idSelectedCard').value = clicked_id;
         document.getElementById("nameSelectedCard").firstChild.nodeValue = "Name: "+valueName;
 }
+
+function changeDescriptionTeam(){
+
+}

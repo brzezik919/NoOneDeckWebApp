@@ -6,7 +6,6 @@ import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +18,16 @@ import java.util.Objects;
 @RequestMapping("/cardPanel")
 public class CardController {
 
-    @Autowired
-    CardService cardService;
+    private final  CardService cardService;
+    private final UserService userService;
 
-    @Autowired
-    UserService userService;
+    public CardController(CardService cardService, UserService userService) {
+        this.cardService = cardService;
+        this.userService = userService;
+    }
 
     @GetMapping
-    public String CardPanel(Model model, Principal name){
+    public String showCardPanel(Model model, Principal name){
         User userLogIn = userService.getUserByName(name.getName());
         List<Card> cardList = cardService.getAllStats(name.getName());
         model.addAttribute("user", userLogIn);
@@ -36,7 +37,7 @@ public class CardController {
     }
 
     @GetMapping("/cardSearch")
-    public String CardPanelCardSearch(Model model, @ModelAttribute CardModel card, Principal name){
+    public String cardSearchCardPanel(Model model, @ModelAttribute CardModel card, Principal name){
         if(card.getCardName().equals("")){
             return "redirect:/cardPanel";
         }

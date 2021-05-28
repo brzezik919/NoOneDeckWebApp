@@ -4,7 +4,6 @@ import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.TransactionService;
 import io.github.brzezik919.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +16,13 @@ import java.util.List;
 @RequestMapping("/yourProfile")
 public class UserProfileController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+    private final TransactionService transactionService;
 
-    @Autowired
-    TransactionService transactionService;
+    public UserProfileController(UserService userService, TransactionService transactionService) {
+        this.userService = userService;
+        this.transactionService = transactionService;
+    }
 
     @GetMapping
     String getYouProfile(Model model, Principal name){
