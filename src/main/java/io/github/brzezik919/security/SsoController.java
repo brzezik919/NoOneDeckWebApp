@@ -11,6 +11,6 @@ class SsoController {
     @GetMapping("/logout")
     String logout(HttpServletRequest request) throws ServletException {
         request.logout();
-        return "redirect:/";
+        return "redirect:";
     }
 }

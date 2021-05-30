@@ -41,15 +41,17 @@ public class TeamService {
 
     public void delete(int id){teamRepository.deleteById(id);}
 
-    public void changeStatusCandidate(String nickname, boolean state){
+    public void changeStatusCandidate(String nickname, boolean state, String login){
         User user = userRepository.findByNickname(nickname);
-        if(state){
-            user.setStatus(true);
+        if(user != null && user.getTeam() == userRepository.findByLogin(login).getTeam()){
+            if(state){
+                user.setStatus(true);
+            }
+            else{
+                user.setTeam(null);
+            }
+            userRepository.save(user);
         }
-        else{
-            user.setTeam(null);
-        }
-        userRepository.save(user);
     }
 
     public boolean checkExistTeam(String code, String name){

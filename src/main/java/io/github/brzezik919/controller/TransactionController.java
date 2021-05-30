@@ -29,7 +29,7 @@ public class TransactionController{
         if(transaction.getCard() == null){
             return "redirect:/market";
         }
-        transactionService.createOffer(transaction, auth.getName());
+        transactionService.createOffer(transaction.getCard().getId(), transaction.getDescription(), auth.getName());
         return "redirect:/market";
     }
 
@@ -41,6 +41,6 @@ public class TransactionController{
             model.addAttribute("transaction", transaction);
             return "/offer";
         }
-        return "/index";
+        return "redirect:/yourProfile";
     }
 }

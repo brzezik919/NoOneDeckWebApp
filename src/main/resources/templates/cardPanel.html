@@ -37,6 +37,7 @@
                   <tr>
                     <td>Name</td>
                     <td>State</td>
+                    <td>Description</td>
                   </tr>
                   </thead>
                   <tbody>
@@ -60,7 +61,7 @@
       <fieldset>
         <legend>Add Card</legend>
         <!--/*@thymesVar id="card" type="io.github.brzezik919.model.projection.CardModel"*/-->
-        <form method="post" th:action="@{/cardPanel}" th:object="${card}">
+        <form method="post" th:action="@{/cardPanel/addCard}" th:object="${card}">
           <fieldset>
             <label>Card Name
               <input type="text" th:field="*{cardName}"/>
@@ -86,7 +87,6 @@
             <select id="stateSelectedCard" name="state" th:field="*{state}">
               <option th:value="'-'" disabled>-</option>
               <option th:value="'Free'" th:text="Free"></option>
-              <option th:value="'Bought'" th:text="Bought"></option>
               <option th:value="'In Use'" th:text="|In Use|"></option>
               <option th:value="'For Sale'" th:text="|For Sale|"></option>
             </select>

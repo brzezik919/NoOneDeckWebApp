@@ -54,7 +54,7 @@ public class TeamController {
 
     @PutMapping("/teamJoinPanel")
     String joinToTeam(@ModelAttribute Team team, Authentication auth){
-        if(team.getCode().equals("")) {
+        if(team.getCode().trim().equals("")) {
             return "redirect:/teamPanel";
         }
         userJoinToTeam(team, auth.getName(), false);
@@ -63,12 +63,11 @@ public class TeamController {
 
     @PostMapping("/teamJoinPanel")
     String createTeam(@ModelAttribute Team team, Authentication auth){
-        team.setName(team.getName().trim());
-        if(team.getName().equals("")){
+        if(team.getName().trim().equals("")){
             return "redirect:/teamPanel";
         }
         team.setCode(codeGenerator());
-        boolean teamExist = teamService.checkExistTeam(team.getCode(), team.getName());
+        boolean teamExist = teamService.checkExistTeam(team.getCode(), team.getName().trim());
         if(teamExist){
             teamService.save(team);
             userJoinToTeam(team, auth.getName(), true);
@@ -104,20 +103,20 @@ public class TeamController {
     }
 
     @RequestMapping(value="/teamPanel/acceptCandidate", method = RequestMethod.PUT, params ="acceptCandidate=true")
-    public String acceptUser(@ModelAttribute UserModel candidate) {
+    public String acceptUser(@ModelAttribute UserModel candidate, Authentication auth) {
         if(candidate.getNickname().equals("")){
             return "redirect:/teamPanel";
         }
-        teamService.changeStatusCandidate(candidate.getNickname(),true);
+        teamService.changeStatusCandidate(candidate.getNickname(),true, auth.getName());
         return "redirect:/teamPanel";
     }
 
     @RequestMapping(value="/teamPanel/acceptCandidate", method = RequestMethod.PUT, params ="acceptCandidate=false")
-    public String refuseUser(@ModelAttribute UserModel candidate) {
+    public String refuseUser(@ModelAttribute UserModel candidate, Authentication auth) {
         if(candidate.getNickname().equals("")){
             return "redirect:/teamPanel";
         }
-        teamService.changeStatusCandidate(candidate.getNickname(),false);
+        teamService.changeStatusCandidate(candidate.getNickname(),false, auth.getName());
         return "redirect:/teamPanel";
     }
 
@@ -135,7 +134,7 @@ public class TeamController {
     }
 
     @PutMapping("/teamPanel/changeDescription")
-    public String changeDescriptionTeam(@ModelAttribute Team team, Authentication auth){
+    public String changeDescriptionTeam(@ModelAttribute Team team){
         if(team.getDescription()==""){
             return "redirect:/teamPanel";
         }

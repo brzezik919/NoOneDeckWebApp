@@ -51,12 +51,20 @@ public class CardService {
     }
 
     public void save(Card card){cardRepository.save(card);}
-    public void delete(int id){cardRepository.deleteById(id);}
-    public void changeState(int id, String state, String note){
+
+    public void delete(int userId, int id){
         Card card = cardRepository.findById(id);
-        card.setState(state);
-        card.setNote(note);
-        cardRepository.save(card);
+        if(card.getUser().getId() == userId){
+            cardRepository.deleteById(id);
+        }
+    }
+    public void changeState(int userId, int id, String state, String note){
+        Card card = cardRepository.findById(id);
+        if(card.getUser().getId() == userId){
+            card.setState(state);
+            card.setNote(note);
+            cardRepository.save(card);
+        }
     }
 
     public Page<Card> findPaginated(Pageable pageable, List cards){

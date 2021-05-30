@@ -38,23 +38,22 @@ public class UserProfileController {
 
     @PutMapping("/setUsername")
     String getUserNickname(@ModelAttribute User user, Authentication auth){
-        if(user.getNickname().equals("")) {
+        if(user.getNickname().trim().equals("") || !auth.isAuthenticated()) {
             return "redirect:/yourProfile";
         }
-        userService.userSetNickname(user.getNickname(), auth.getName());
+        userService.userSetNickname(user.getNickname().trim(), auth.getName());
         return "redirect:/yourProfile";
-
     }
 
     @RequestMapping(value="/acceptOffer", method = RequestMethod.PUT, params ="acceptOffer=true")
-    String acceptOffer(@ModelAttribute Transaction transaction){
-        transactionService.resultOffer(transaction, true);
+    String acceptOffer(@ModelAttribute Transaction transaction, Authentication auth){
+        transactionService.resultOffer(transaction, true, auth.getName());
         return "redirect:/yourProfile";
     }
 
     @RequestMapping(value="/acceptOffer", method = RequestMethod.PUT, params ="acceptOffer=false")
-    String declineOrResignOffer(@ModelAttribute Transaction transaction){
-        transactionService.resultOffer(transaction, false);
+    String declineOrResignOffer(@ModelAttribute Transaction transaction, Authentication auth){
+        transactionService.resultOffer(transaction, false, auth.getName());
         return "redirect:/yourProfile";
     }
 }

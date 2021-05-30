@@ -4,6 +4,7 @@ import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class CardSearchController {
     }
 
     @PostMapping
-    String searchCard(Model model, @ModelAttribute CardModel card, Principal name){
+    String searchCard(Model model, @ModelAttribute CardModel card, Authentication name){
         if(card.getCardName().equals("") || userService.getUserByName(name.getName()).getTeam() == null){
             return "redirect:/cardSearch";
         }
