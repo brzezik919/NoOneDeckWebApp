@@ -16,7 +16,7 @@
             <fieldset>
                 <legend>Market</legend>
                 <div>
-                    <form method="get" th:action="@{/market/cardSearch}" th:object="${card}">
+                    <form method="post" th:action="@{/market/cardSearch}" th:object="${card}">
                         <label><input type="text" th:field="*{cardName}"/><button type="submit">Search</button></label>
                     </form>
                 </div>
@@ -30,10 +30,10 @@
                             <td>User</td>
                             <td>Note</td>
                         </tr>
-                    <tr th:if="${cardList.isEmpty()}">
+                    <tr th:if="${cardPage.content.isEmpty()}">
                         <td colspan="4">No Cards</td>
                     </tr>
-                    <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
+                    <tr th:if="${!cardPage.content.isEmpty()}" th:each="currentCard : ${cardPage.content}">
                         <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                         <td th:text="${currentCard.user.nickname}"></td>
                         <td th:text="${currentCard.note}"></td>
@@ -42,6 +42,12 @@
                         </td>
                     </tr>
                 </table>
+                <div th:if="${cardPage.totalPages > 0}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/market(size=${cardPage.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}
+                       th:class="${pageNumber==cardPage.number + 1} ? active"></a>
+                </div>
             </fieldset>
         </div>
         <div id="formTransaction"></div>

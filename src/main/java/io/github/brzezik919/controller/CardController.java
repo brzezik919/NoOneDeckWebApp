@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +27,7 @@ public class CardController {
     }
 
     @GetMapping
-    public String showCardPanel(Model model, Principal name){
+    public String showCardPanel(Model model, Authentication name){
         User userLogIn = userService.getUserByName(name.getName());
         List<Card> cardList = cardService.getAllStats(name.getName());
         model.addAttribute("user", userLogIn);

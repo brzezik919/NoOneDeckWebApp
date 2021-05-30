@@ -1,8 +1,10 @@
 package io.github.brzezik919.service;
 
 import io.github.brzezik919.model.*;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -55,5 +57,24 @@ public class CardService {
         card.setState(state);
         card.setNote(note);
         cardRepository.save(card);
+    }
+
+    public Page<Card> findPaginated(Pageable pageable, List cards){
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Card> list;
+
+        if(cards.size() < startItem){
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, cards.size());
+            list = cards.subList(startItem, toIndex);
+        }
+
+        Page<Card> cardPage
+                = new PageImpl<Card>(list, PageRequest.of(currentPage, pageSize), cards.size());
+
+        return cardPage;
     }
 }
