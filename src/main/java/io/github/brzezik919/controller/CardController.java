@@ -6,6 +6,7 @@ import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class CardController {
     }
 
     @GetMapping("/cardSearch")
-    public String cardSearchCardPanel(Model model, @ModelAttribute CardModel card, Principal name){
+    public String cardSearchCardPanel(Model model, @ModelAttribute CardModel card, Authentication name){
         if(card.getCardName().equals("")){
             return "redirect:/cardPanel";
         }
@@ -51,11 +52,11 @@ public class CardController {
     }
 
     @PostMapping
-    String addCard(@ModelAttribute CardModel card, Principal name){
-        if(card.getCardName().equals("")) {
+    String addCard(@ModelAttribute CardModel card, Authentication name){
+        if(card.getCardName().trim().equals("")) {
             return "redirect:/cardPanel";
         }
-        CardName cardNameFound = this.cardService.getCardName(card.getCardName());
+        CardName cardNameFound = this.cardService.getCardName(card.getCardName().trim());
 
         if(Objects.nonNull(cardNameFound)){
             Card cardToSave = card.newCard(cardNameFound, userService.getAllUserStats(name.getName()));
@@ -71,7 +72,7 @@ public class CardController {
         if(Objects.isNull(cardService.searchCardById(card.getId()))){
             return "redirect:/cardPanel";
         }
-        cardService.changeState(card.getId(), card.getState());
+        cardService.changeState(card.getId(), card.getState(), card.getNote().trim());
         return "redirect:/cardPanel";
     }
 
@@ -83,5 +84,4 @@ public class CardController {
         cardService.delete(card.getId());
         return "redirect:/cardPanel";
     }
-
 }

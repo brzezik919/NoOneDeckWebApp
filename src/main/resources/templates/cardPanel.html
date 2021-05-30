@@ -46,6 +46,7 @@
                   <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
                     <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                     <td th:text="${currentCard.state}"></td>
+                    <td th:text="${currentCard.note}"></td>
                     <td><button th:id="${currentCard.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
                   </tr>
                   </tbody>
@@ -81,13 +82,16 @@
           <label><input type="text" th:field="*{id}" id="idSelectedCard" name="idSelectedCard" value="test" style="display: none;"/></label>
           <label id="nameSelectedCard">Name: </label>
           <label>State: </label>
-          <label><select id="stateSelectedCard" name="state" th:field="*{state}">
-            <option th:value="'-'" disabled>-</option>
-            <option th:value="'Free'" th:text="Free"></option>
-            <option th:value="'Bought'" th:text="Bought"></option>
-            <option th:value="'In Use'" th:text="|In Use|"></option>
-            <option th:value="'For Sale'" th:text="|For Sale|"></option>
-          </select></label>
+          <label>
+            <select id="stateSelectedCard" name="state" th:field="*{state}">
+              <option th:value="'-'" disabled>-</option>
+              <option th:value="'Free'" th:text="Free"></option>
+              <option th:value="'Bought'" th:text="Bought"></option>
+              <option th:value="'In Use'" th:text="|In Use|"></option>
+              <option th:value="'For Sale'" th:text="|For Sale|"></option>
+            </select>
+          </label>
+            <label>Note: <input type="text" th:field="*{note}" /></label>
             <button type="submit">Save</button>
         </form>
         <button id="deleteButton" onclick="createDeleteWindow()">Delete</button>

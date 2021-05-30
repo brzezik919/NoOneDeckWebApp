@@ -43,7 +43,4 @@ public class TransactionController{
         }
         return "/index";
     }
-
-
-
 }

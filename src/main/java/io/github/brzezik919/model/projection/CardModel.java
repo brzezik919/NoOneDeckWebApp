@@ -9,6 +9,7 @@ public class CardModel {
     private int id;
     private String state;
     private String cardName;
+    private String note;
 
     public String getState() {
         return state;
@@ -32,6 +33,14 @@ public class CardModel {
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public Card newCard(CardName cardName, User user){

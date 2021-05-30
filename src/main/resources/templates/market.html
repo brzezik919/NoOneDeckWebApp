@@ -28,6 +28,7 @@
                         <tr>
                             <td>Name</td>
                             <td>User</td>
+                            <td>Note</td>
                         </tr>
                     <tr th:if="${cardList.isEmpty()}">
                         <td colspan="4">No Cards</td>
@@ -35,8 +36,7 @@
                     <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
                         <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
                         <td th:text="${currentCard.user.nickname}"></td>
-                        <!--<td th:if="${currentCard.user.team} != null" th:text="${currentCard.user.team}"></td>
-                        <td th:if="${currentCard.user.team} == null" th:text="None"></td>-->
+                        <td th:text="${currentCard.note}"></td>
                         <td th:if="${currentCard.user.id} != ${userLogIn.id}">
                             <button th:id="${currentCard.id}" onclick="createWindowTransaction(this.id)">Buy</button>
                         </td>

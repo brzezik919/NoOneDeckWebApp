@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/market")
@@ -28,6 +29,9 @@ public class CardMarketController {
 
     @GetMapping
     public String showCardMarket(Model model, Authentication name){
+        if(Objects.isNull(name)){
+            return "redirect:/login";
+        }
         User userLogIn = userService.getUserByName(name.getName());
         List<Card> cardList = cardService.getCardsByState(StateCard.FORSALE.toString());
         if(cardList != null){
