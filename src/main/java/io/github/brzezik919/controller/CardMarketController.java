@@ -30,23 +30,6 @@ public class CardMarketController {
         this.userService = userService;
     }
 
-    /*@GetMapping("/cardSearch")
-    public String cardSearchCardMarket(Model model, @ModelAttribute CardModel card, Authentication name){
-        User userLogIn = userService.getUserByName(name.getName());
-        if(card.getCardName().equals("")){
-            return "redirect:/market";
-        }
-        List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString());
-        if(cardList != null){
-            model.addAttribute("userLogIn", userLogIn);
-            model.addAttribute("cardList", cardList);
-            model.addAttribute("user", new UserModel());
-            model.addAttribute("card", new CardModel());
-            model.addAttribute("transaction", new Transaction());
-        }
-        return "market";
-    }*/
-
     @GetMapping
     public String showCardMarket(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,  Authentication name){
         if(Objects.isNull(name)){
@@ -54,27 +37,51 @@ public class CardMarketController {
         }
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(20);
+        int pageSize = size.orElse(3);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cards = cardService.getCardsByState(StateCard.FORSALE.toString());
         Page<Card> cardPage = cardService.findPaginated(PageRequest.of(currentPage - 1, pageSize), cards);
+        model.addAttribute("search", false);
 
         return getString(model, userLogIn, cardPage);
     }
 
-    @PostMapping("/cardSearch")
+    @PostMapping("/cardSearch/cardname")
     public String cardSearchCardMarket(@ModelAttribute CardModel card, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,  Authentication name){
         if(Objects.isNull(name)){
             return "redirect:/login";
         }
-
+        if(card.getCardName().equals("")){
+            return "redirect:/market";
+        }
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(20);
+        int pageSize = size.orElse(3);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString());
         Page<Card> cardPage = cardService.findPaginated(PageRequest.of(currentPage - 1, pageSize), cardList);
+        model.addAttribute("search", true);
+        model.addAttribute("searchName", card.getCardName());
+        return getString(model, userLogIn, cardPage);
+    }
+
+    @GetMapping("/cardSearch")
+    public String cardSearchCardMarketPageable(Model model, @RequestParam("cardName") Optional<String> cardName, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,  Authentication name){
+        if(Objects.isNull(name)){
+            return "redirect:/login";
+        }
+        if(cardName.get().equals("")){
+            return "redirect:/market";
+        }
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(3);
+        User userLogIn = userService.getUserByName(name.getName());
+
+        List<Card> cardList = cardService.searchAllCardNamesForSell(cardName.get(), StateCard.FORSALE.toString());
+        Page<Card> cardPage = cardService.findPaginated(PageRequest.of(currentPage - 1, pageSize), cardList);
+        model.addAttribute("search", true);
+        model.addAttribute("searchName", cardName.get());
 
         return getString(model, userLogIn, cardPage);
     }

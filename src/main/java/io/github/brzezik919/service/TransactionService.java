@@ -20,7 +20,6 @@ public class TransactionService {
 
     public void createOffer(int id, String description, String login){
         Card card = cardRepository.findById(id);
-        System.out.println(card.getState());
         if(card.getState().equals(StateCard.FORSALE.toString())){
             User user = userRepository.findByLogin(login);
             Transaction transaction = new Transaction();
