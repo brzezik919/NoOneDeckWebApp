@@ -14,7 +14,7 @@
         <div th:object="${user}">
             <fieldset th:if="${user.team != null and user.status == true}" >
                 <span>Search Card</span>
-                <form method="post" th:action="@{/cardSearch}" th:object="${card}">
+                <form method="post" th:action="@{/cardSearch/cardname}" th:object="${card}">
                     <label>
                         <input type="text" th:field="*{cardName}"/>
                         <button type="submit">Search</button>
@@ -23,19 +23,39 @@
             </fieldset>
         </div>
         <div>
-            <fieldset th:if="${cardList !=null}">
-                <label>Who have that card in your team</label>
+            <fieldset>
+                <label th:if="${search} == true">Who have that card in your team</label>
                 <div>
                     <table>
                         <tr>
                             <td>Name</td>
                             <td>User</td>
+                            <td>Note</td>
                         </tr>
-                        <tr th:each="cardList : ${cardList}">
-                            <td th:text="${cardList}"></td>
-                            <td th:text="${cardList.user.nickname}"></td>
+                        <tr th:if="${cardPage.content.isEmpty()}">
+                            <td colspan="4">No cards in team</td>
+                        </tr>
+                        <tr th:if="${!cardPage.content.isEmpty()}" th:each="currentCard : ${cardPage.content}">
+                            <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
+                            <td th:text="${currentCard.user.nickname}"></td>
+                            <td th:text="${currentCard.note}"></td>
                         </tr>
                     </table>
+                </div>
+                <div>
+                    <label th:if="${cardPage.totalPages > 0 and search == false}" class="pagination"
+                           th:each="pageNumber : ${pageNumbers}">
+                        <a th:href="@{/cardSearch(size=${cardPage.size}, page=${pageNumber})}"
+                           th:text=${pageNumber}
+                           th:class="${pageNumber==cardPage.number + 1} ? active"></a>
+                    </label>
+                    <label th:if="${cardPage.totalPages > 0 and search == true}" class="pagination"
+                           th:each="pageNumber : ${pageNumbers}">
+                        <a type="submit" th:href="@{/cardSearch/search(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber})}"
+                           th:text=${pageNumber}
+                           th:class="${pageNumber==cardPage.number + 1} ? active">
+                        </a>
+                    </label>
                 </div>
             </fieldset>
         </div>

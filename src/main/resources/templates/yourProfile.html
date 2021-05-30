@@ -37,10 +37,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${transactionList.isEmpty()}">
+                    <tr th:if="${cardPageActually.content.isEmpty()}">
                         <td colspan="4">No Offers</td>
                     </tr>
-                    <tr th:if="${!transactionList.isEmpty()}" th:each="userTransaction : ${transactionList}">
+                    <tr th:if="${!cardPageActually.content.isEmpty()}" th:each="userTransaction : ${cardPageActually.content}">
                         <form th:method="put" th:object="${transaction}" th:action="@{/yourProfile/acceptOffer}">
                             <td th:text="${userTransaction.id}"></td>
                             <td th:text="${userTransaction.card.cardName.name}"></td>
@@ -56,6 +56,14 @@
                     </tr>
                     </tbody>
                 </table>
+                <div>
+                    <label th:if="${cardPageActually.totalPages > 0}" class="pagination"
+                           th:each="pageNumbersTransaction : ${pageNumbersTransaction}">
+                        <a th:href="@{/yourProfile(size=${cardPageActually.size}, pageActually=${pageNumbersTransaction})}"
+                           th:text=${pageNumbersTransaction}
+                           th:class="${pageNumbersTransaction==cardPageActually.number + 1} ? active"></a>
+                    </label>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>History</legend>
@@ -69,10 +77,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${transactionHistory.isEmpty()}">
+                    <tr th:if="${cardPageHistory.content.isEmpty()}">
                         <td colspan="4">No Offers</td>
                     </tr>
-                    <tr th:if="${!transactionHistory.isEmpty()}" th:each="userHistory : ${transactionHistory}">
+                    <tr th:if="${!cardPageHistory.content.isEmpty()}" th:each="userHistory : ${cardPageHistory.content}">
                         <td th:text="${userHistory.id}"></td>
                         <td th:text="${userHistory.card.cardName.name}"></td>
                         <td th:if="${userHistory.ownerCard.id} != ${user.id}" th:text="${userHistory.ownerCard.nickname}"></td>
@@ -84,6 +92,14 @@
                     </tr>
                     </tbody>
                 </table>
+                <div>
+                    <label th:if="${cardPageHistory.totalPages > 0}" class="pagination"
+                           th:each="pageNumbersHistory : ${pageNumbersHistory}">
+                        <a th:href="@{/yourProfile(size=${cardPageHistory.size}, pageHistory=${pageNumbersHistory})}"
+                           th:text=${pageNumbersHistory}
+                           th:class="${pageNumbersHistory==cardPageHistory.number + 1} ? active"></a>
+                    </label>
+                </div>
             </fieldset>
         </fieldset>
     </div>

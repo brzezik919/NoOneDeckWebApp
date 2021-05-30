@@ -37,7 +37,7 @@ public class CardMarketController {
         }
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cards = cardService.getCardsByState(StateCard.FORSALE.toString());
@@ -56,7 +56,7 @@ public class CardMarketController {
             return "redirect:/market";
         }
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString());
@@ -75,7 +75,7 @@ public class CardMarketController {
             return "redirect:/market";
         }
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cardList = cardService.searchAllCardNamesForSell(cardName.get(), StateCard.FORSALE.toString());
