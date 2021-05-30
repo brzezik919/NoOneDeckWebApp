@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoOneDeck App: team panel</title>
     <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
-    <script src="../static/css/general.js"></script>
+    <script src="../static/css/general.js" th:src="@{/css/general.js}"></script>
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 </head>
 <body>
@@ -16,18 +16,21 @@
             <label>Name: <span th:text="${teamFound.name}"></span></label><br />
             <label>Description:
                 <label id="labelDescription" th:text="${teamFound.description}"></label>
-                <button>Edit</button>
-                <!--<form th:method="put" th:object="${teamFound}" th:action="@{/teamPanel/changeDescription}">
-                    <label>
-                        <input type="text" th:field="*{description}">
-                        <button type="submit">Save</button>
-                    </label>
-                </form>-->
+                <button th:id="${teamFound.id}" onclick="changeDescriptionTeam()">Edit</button>
+                <div id="descriptionForm"></div>
+                <div id="descriptionWindow" style="display: none;">
+                    <form th:method="put" th:object="${teamFound}" th:action="@{/teamPanel/changeDescription}" >
+                        <label>
+                            <input type="text" th:field="*{id}" style="display: none">
+                            <input type="text" th:field="*{description}">
+                            <button type="submit">Save</button>
+                        </label>
+                    </form>
+                </div>
             </label>
         </fieldset>
     </div>
     <div th:if="${user.status == true}">
-        <fieldset>
             <label>Members</label>
             <div>
                 <table>
@@ -36,7 +39,6 @@
                     </tr>
                 </table>
             </div>
-        </fieldset>
     </div>
 
     <div th:if="${user.status == true}">

@@ -133,4 +133,13 @@ public class TeamController {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
+    @PutMapping("/teamPanel/changeDescription")
+    public String changeDescriptionTeam(@ModelAttribute Team team, Authentication auth){
+        if(team.getDescription()==""){
+            return "redirect:/teamPanel";
+        }
+        teamService.changeDescription(team.getId(), team.getDescription());
+        return "redirect:/teamPanel";
+    }
 }

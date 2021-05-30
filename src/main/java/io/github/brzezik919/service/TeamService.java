@@ -27,9 +27,6 @@ public class TeamService {
         return null;
     }
 
-    public List<User> findMembers(Team team){
-        return userRepository.findByTeam_IdAndStatus(team.getId(), true);
-    }
     public List<User> findMembers(int id){
         return userRepository.findByTeam_IdAndStatus(id, true);
     }
@@ -63,5 +60,11 @@ public class TeamService {
             return false;
         }
         return false;
+    }
+
+    public void changeDescription(int id, String description){
+        Team team = teamRepository.findById(id);
+        team.setDescription(description);
+        teamRepository.save(team);
     }
 }

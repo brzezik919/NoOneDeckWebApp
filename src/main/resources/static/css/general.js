@@ -43,5 +43,9 @@ function createWindowTransaction(clicked_id){
 }
 
 function changeDescriptionTeam(){
-
+        if(document.querySelector("#descriptionForm").innerHTML.trim() == ""){
+                let div = document.createElement('div');
+                div.innerHTML = document.getElementById('descriptionWindow').innerHTML;
+                document.getElementById('descriptionForm').appendChild(div);
+        }
 }
