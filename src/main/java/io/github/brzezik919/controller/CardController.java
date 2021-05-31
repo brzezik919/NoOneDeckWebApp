@@ -33,32 +33,6 @@ public class CardController {
         this.globalService = globalService;
     }
 
-    /*@GetMapping
-    public String showCardPanel(Model model, Authentication name){
-        User userLogIn = userService.getUserByName(name.getName());
-        List<Card> cardList = cardService.getAllStats(name.getName());
-        model.addAttribute("user", userLogIn);
-        model.addAttribute("cardList", cardList);
-        model.addAttribute("card", new CardModel());
-        return "cardPanel";
-    }*/
-
-    /*@GetMapping("/cardSearch")
-    public String cardSearchCardPanel(Model model, @ModelAttribute CardModel card, Authentication name){
-        if(card.getCardName().equals("")){
-            return "redirect:/cardPanel";
-        }
-        User userLogIn = userService.getUserByName(name.getName());
-        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName(), name.getName());
-        if(cardList != null){
-            model.addAttribute("cardList", cardList);
-            model.addAttribute("user", userLogIn);
-            model.addAttribute("card", new CardModel());
-        }
-        return "cardPanel";
-    }*/
-
-
     @GetMapping
     public String showCardSearch(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Authentication name){
         if(Objects.isNull(name)){
@@ -66,7 +40,7 @@ public class CardController {
         }
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cards = cardService.getAllStats(name.getName());
@@ -86,7 +60,7 @@ public class CardController {
         }
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cardList = cardService.searchAllCardsNames(card.getCardName(), name.getName());
@@ -105,7 +79,7 @@ public class CardController {
             return "redirect:/cardPanel";
         }
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
         List<Card> cardList = cardService.searchAllCardsNames(cardName.get(), name.getName());
@@ -131,27 +105,6 @@ public class CardController {
         }
         return "cardPanel";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @PostMapping("/addCard")
     String addCard(@ModelAttribute CardModel card, Authentication name){

@@ -1,16 +1,14 @@
 package io.github.brzezik919.controller;
 
-import io.github.brzezik919.model.Card;
-import io.github.brzezik919.model.Team;
+import io.github.brzezik919.model.StateCard;
 import io.github.brzezik919.model.User;
-import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.TeamModel;
 import io.github.brzezik919.model.projection.UserModel;
+import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.service.GlobalService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +29,12 @@ public class UserController {
 
     private final UserService userService;
     private final GlobalService globalService;
+    private final CardService cardService;
 
-    public UserController(UserService userService, GlobalService globalService) {
+    public UserController(UserService userService, GlobalService globalService, CardService cardService) {
         this.userService = userService;
         this.globalService = globalService;
+        this.cardService = cardService;
     }
 
     @GetMapping
@@ -111,7 +111,9 @@ public class UserController {
             return "redirect:/login";
         }
         User user = userService.getUserById(id);
+        int countCardsForSell = cardService.searchAllCardsUserByState(id, StateCard.FORSALE.toString()).size();
         model.addAttribute("user", user);
+        model.addAttribute("cardsCount", countCardsForSell);
         return "userProfile";
     }
 }

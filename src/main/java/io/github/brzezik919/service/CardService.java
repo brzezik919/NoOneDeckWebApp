@@ -1,10 +1,8 @@
 package io.github.brzezik919.service;
 
 import io.github.brzezik919.model.*;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -41,6 +39,10 @@ public class CardService {
 
     public List<Card> searchAllCardNamesForSell(String name, String state){
         return cardRepository.findByCardName_NameAndState(name, state);
+    }
+
+    public List<Card> searchAllCardsUserByState(int id, String state){
+        return cardRepository.findByUser_IdAndState(id, state);
     }
 
     public CardName getCardName(String name){

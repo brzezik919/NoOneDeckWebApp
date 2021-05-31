@@ -13,11 +13,9 @@
 <div th:insert="~{fragments/header :: header}"></div>
 <div align="center">
   <fieldset>
-    <div th:object="${user}">
-      <label>Nickname: <span th:text="${user.nickname}"/></label><br />
-      <label>Team: <span th:if="${user.team} != null" th:text="${user.team.name}"/><span th:if="${user.team} == null" /></label><br />
-      <label>Opinion: <span /></label><br />
-      <label th:object="${cardsCount}">Count cards for sell: <span th:text="${cardsCount}"/></label><br />
+    <legend>About Us</legend>
+    <div>
+      <label>I will write about us here :)</label>
     </div>
   </fieldset>
 </div>
