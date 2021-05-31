@@ -18,7 +18,7 @@
       <legend>Your Cards</legend>
       <div>
           <div>
-            <form method="get" th:action="@{/cardPanel/cardSearch}" th:object="${card}">
+            <form method="post" th:action="@{/cardPanel/cardSearch}" th:object="${card}">
               <fieldset>
                 <label><input type="text" th:field="*{cardName}"/></label>
               </fieldset>
@@ -30,30 +30,44 @@
 
           </div>
           <br>
-          <div>
-            <fieldset>
-                <table class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <td>Name</td>
-                    <td>State</td>
-                    <td>Description</td>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr th:if="${cardList.isEmpty()}">
-                    <td colspan="4">No Cards</td>
-                  </tr>
-                  <tr th:if="${!cardList.isEmpty()}" th:each="currentCard : ${cardList}">
-                    <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
-                    <td th:text="${currentCard.state}"></td>
-                    <td th:text="${currentCard.note}"></td>
-                    <td><button th:id="${currentCard.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
-                  </tr>
-                  </tbody>
-                </table>
-            </fieldset>
-          </div>
+        <div>
+          <fieldset>
+            <label th:if="${search} == true">Who have that card in your team</label>
+            <div>
+              <table>
+                <tr>
+                  <td>Name</td>
+                  <td>State</td>
+                  <td>Description</td>
+                </tr>
+                <tr th:if="${cardPage.content.isEmpty()}">
+                  <td colspan="4">No cards</td>
+                </tr>
+                <tr th:if="${!cardPage.content.isEmpty()}" th:each="currentCard : ${cardPage.content}">
+                  <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
+                  <td th:text="${currentCard.state}"></td>
+                  <td th:text="${currentCard.note}"></td>
+                  <td><button th:id="${currentCard.id}" onClick="createDivEditCard(this.id)">Edit</button></td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <label th:if="${cardPage.totalPages > 0 and search == false}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/cardPanel(size=${cardPage.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}
+                   th:class="${pageNumber==cardPage.number + 1} ? active"></a>
+              </label>
+              <label th:if="${cardPage.totalPages > 0 and search == true}" class="pagination"
+                     th:each="pageNumber : ${pageNumbers}">
+                <a type="submit" th:href="@{/cardPanel/cardSearch(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}
+                   th:class="${pageNumber==cardPage.number + 1} ? active">
+                </a>
+              </label>
+            </div>
+          </fieldset>
+        </div>
       </div>
     </fieldset>
   </div>
@@ -79,7 +93,7 @@
     <div id="editForm" style="display: none;">
       <fieldset>
         <legend>Edit Card</legend>
-          <form th:method="put" th:object="${card}" th:action="@{cardPanel/cardPanelEditCard}">
+          <form th:method="put" th:object="${card}" th:action="@{/cardPanel/cardPanelEditCard}">
           <label><input type="text" th:field="*{id}" id="idSelectedCard" name="idSelectedCard" value="test" style="display: none;"/></label>
           <label id="nameSelectedCard">Name: </label>
           <label>State: </label>

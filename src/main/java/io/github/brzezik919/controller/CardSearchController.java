@@ -56,7 +56,7 @@ public class CardSearchController {
             return "redirect:/login";
         }
         if(card.getCardName().equals("")){
-            return "redirect:/market";
+            return "redirect:/cardSearch";
         }
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(20);
@@ -75,7 +75,7 @@ public class CardSearchController {
             return "redirect:/login";
         }
         if(cardName.get().equals("")){
-            return "redirect:/market";
+            return "redirect:/cardSearch";
         }
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(20);
