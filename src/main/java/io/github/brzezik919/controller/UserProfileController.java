@@ -3,7 +3,7 @@ package io.github.brzezik919.controller;
 import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
-import io.github.brzezik919.model.projection.CardModel;
+import io.github.brzezik919.service.GlobalService;
 import io.github.brzezik919.service.TransactionService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,23 +25,13 @@ public class UserProfileController {
 
     private final UserService userService;
     private final TransactionService transactionService;
+    private final GlobalService globalService;
 
-    public UserProfileController(UserService userService, TransactionService transactionService) {
+    public UserProfileController(UserService userService, TransactionService transactionService, GlobalService globalService) {
         this.userService = userService;
         this.transactionService = transactionService;
+        this.globalService = globalService;
     }
-
-    /*@GetMapping
-    String getYouProfile(Model model, Principal name){
-        User userLogIn = userService.getUserByName(name.getName());
-        List<Transaction> transactionList = transactionService.findTransactionsPending(userLogIn.getId());
-        List<Transaction> transactionHistory = transactionService.findTransactionHistory(userLogIn.getId());
-        model.addAttribute("user", userLogIn);
-        model.addAttribute("transactionList", transactionList);
-        model.addAttribute("transactionHistory", transactionHistory);
-        model.addAttribute("transaction", new Transaction());
-        return "yourProfile";
-    }*/
 
     @GetMapping
     public String getYouProfile(Model model, @RequestParam("pageActually") Optional<Integer> pageActually, @RequestParam("pageHistory") Optional<Integer> pageHistory, @RequestParam("size") Optional<Integer> size, Authentication name){
@@ -61,8 +50,8 @@ public class UserProfileController {
         List<Transaction> transactionHistory = transactionService.findTransactionHistory(userLogIn.getId());
 
 
-        Page<Card> cardPageActually = transactionService.findPaginated(PageRequest.of(currentPageActually - 1, pageSize), transactionList);
-        Page<Card> cardPageHistory = transactionService.findPaginated(PageRequest.of(currentPageHistory - 1, pageSize), transactionHistory);
+        Page<Card> cardPageActually = globalService.findPaginatedCard(PageRequest.of(currentPageActually - 1, pageSize), transactionList);
+        Page<Card> cardPageHistory = globalService.findPaginatedCard(PageRequest.of(currentPageHistory - 1, pageSize), transactionHistory);
 
         model.addAttribute("cardPageActually", cardPageActually);
         model.addAttribute("cardPageHistory", cardPageHistory);

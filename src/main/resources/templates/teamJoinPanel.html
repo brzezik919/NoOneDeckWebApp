@@ -13,12 +13,12 @@
   <fieldset>
     <div>
       <fieldset>
-        <h1>Create or Join Team</h1><br />
+        <h3>Create or Join Team</h3><br />
       </fieldset>
     </div>
     <div>
       <fieldset>
-        <label>Create a team: </label>
+        <legend>Create a team: </legend>
         <form method="post" th:action="@{/teamJoinPanel}" th:object="${team}">
           <label>Name:
             <input type="text" th:field="*{name}">
@@ -30,6 +30,7 @@
 
     <div>
       <fieldset>
+        <legend>Join team</legend>
         <form th:method="put" th:action="@{/teamJoinPanel}" th:object="${team}">
           <label>Enter team code: </label>
           <label><input type="text" th:field="*{code}"/></label>

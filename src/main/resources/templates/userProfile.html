@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoOneDeck App</title>
+  <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+
+
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+<div align="center">
+  <fieldset>
+    <div th:object="${user}">
+      <label>Nickname: <span th:text="${user.nickname}"/></label><br />
+      <label>Team: <span th:if="${user.team} != null" th:text="${user.team.name}"/><span th:if="${user.team} == null" /></label><br />
+      <label>Opinion: <span /></label><br />
+      <label>Count cards for sell: <span /></label><br />
+    </div>
+  </fieldset>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -4,6 +4,7 @@ import io.github.brzezik919.model.User;
 import io.github.brzezik919.model.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,6 +48,14 @@ public class UserService {
         return userRepository.findByLogin(login);
     }
 
+    public User getUserByNickname(String login){
+        if(Objects.nonNull(userRepository.findByNickname(login))){
+            System.out.println("siema");
+            return userRepository.findByNickname(login);
+        }
+        return null;
+    }
+
     public void userSetNickname(String nickname, String login){
         User userToSave = getUserByName(login);
         userToSave.setNickname(nickname);
@@ -58,5 +67,9 @@ public class UserService {
         userToSave.setTeam(null);
         userToSave.setStatus(false);
         userRepository.save(userToSave);
+    }
+
+    public List<User> searchAll(){
+        return userRepository.findAll();
     }
 }

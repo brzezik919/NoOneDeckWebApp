@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoOneDeck App: team panel</title>
+  <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+<div align="center">
+  <fieldset>
+    <div>
+      <fieldset>
+        <legend>User Card</legend>
+        <form method="post" th:action="@{/findUser}" th:object="${user}">
+          <label>
+            <input type="text" th:field="*{nickname}"/>
+            <button type="submit">Search</button>
+          </label>
+        </form>
+      </fieldset>
+    </div>
+    <div>
+      <fieldset>
+        <legend>User list</legend>
+        <div>
+          <table th:object="${team}">
+            <tr>
+              <td>Nickname</td>
+              <td>Team</td>
+            </tr>
+            <tr th:if="${userPage.content.isEmpty()}">
+              <td colspan="4">No cards in team</td>
+            </tr>
+            <tr th:if="${!userPage.content.isEmpty()}" th:each="users : ${userPage.content}">
+              <td th:text="${users.nickname}"></td>
+              <td th:if="${users.team} != null" th:text="${users.team.name}"></td>
+              <td th:if="${users.team} == null"></td>
+              <td><a th:href="@{findUser/userProfile/{id}(id=${users.id})}"><button>Show</button></a></td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <label th:if="${userPage.totalPages > 0 and search == false}" class="pagination"
+                 th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/findUser(size=${userPage.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==userPage.number + 1} ? active"></a>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </fieldset>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

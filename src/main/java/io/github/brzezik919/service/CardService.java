@@ -71,23 +71,4 @@ public class CardService {
             cardRepository.save(card);
         }
     }
-
-    public Page<Card> findPaginated(Pageable pageable, List cards){
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Card> list;
-
-        if(cards.size() < startItem){
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, cards.size());
-            list = cards.subList(startItem, toIndex);
-        }
-
-        Page<Card> cardPage
-                = new PageImpl<Card>(list, PageRequest.of(currentPage, pageSize), cards.size());
-
-        return cardPage;
-    }
 }

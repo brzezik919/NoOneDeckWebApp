@@ -6,7 +6,7 @@ public class UserModel {
     private String login;
     private String nickname;
     private String email;
-    private Team team;
+    private TeamModel team;
 
     public String getLogin() {
         return login;
@@ -32,11 +32,11 @@ public class UserModel {
         this.email = email;
     }
 
-    public Team getTeam() {
+    public TeamModel getTeam() {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(TeamModel team) {
         this.team = team;
     }
 }
