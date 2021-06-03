@@ -10,8 +10,8 @@
 <body>
 <main>
     <div th:insert="~{fragments/header :: header}"></div>
-    <div align="center">
-        <div th:object="${user}">
+    <div align="center" th:object="${user}">
+        <div>
             <fieldset th:if="${user.team != null and user.status == true}" >
                 <span>Search Card</span>
                 <form method="post" th:action="@{/cardSearch/cardname}" th:object="${card}">
@@ -23,7 +23,7 @@
             </fieldset>
         </div>
         <div>
-            <fieldset>
+            <fieldset th:if="${user.team != null and user.status == true}">
                 <label th:if="${search} == true">Who have that card in your team</label>
                 <div>
                     <table>

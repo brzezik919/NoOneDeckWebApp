@@ -11,17 +11,32 @@
 </head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
-<div align="center">
+<div>
     <div>
         <fieldset>
             <legend>Offer</legend>
             <label>Id: <label th:text="${transaction.id}"></label></label><br />
             <label>Card name: <label th:text="${transaction.card.cardName.name}"></label></label><br />
-            <label>Seller: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerCard.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label><br />
-            <label>Buyer: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerOffer.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label><br />
+            <label>Seller: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerCard.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
+            <label>Buyer: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerOffer.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
             <label>Description:  <label th:text="${transaction.description}"></label></label><br />
             <label>State: <label th:text="${transaction.state}"></label></label>
         </fieldset>
+    </div>
+    <div>
+        <div th:if="${!messageList.isEmpty()}">
+            <fieldset>
+                <p th:each="messageList : ${messageList}">
+                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerCard.id}" style="color: blue"></label>
+                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerOffer.id}" style="color: red"></label>
+                </p>
+            </fieldset>
+        </div>
+        <div th:object="${messageTransaction}">
+            <form th:method="post" th:action="@{/yourProfile/offer/{id}/sendMessage(id=${transaction.id})}">
+                <label><input type="text" th:field="*{messageText}"/><button type="submit">Send</button></label>
+            </form>
+        </div>
     </div>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>

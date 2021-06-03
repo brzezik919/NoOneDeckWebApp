@@ -42,12 +42,14 @@ public class CardSearchController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
+        model.addAttribute("user", userLogIn);
         List<Card> cards = cardService.searchAllCardInTeam(name.getName());
+        if(cards == null){
+            return "cardSearch";
+        }
         Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cards);
-        model.addAttribute("search", false);
-
         return getString(model, userLogIn, cardPage);
+
     }
 
     @PostMapping("/cardname")
@@ -100,7 +102,6 @@ public class CardSearchController {
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("cardList", null);
             model.addAttribute("card", new CardModel());
-            model.addAttribute("user", userService.getUserByName(userLogIn.getLogin()));
         }
         return "cardSearch";
     }

@@ -27,7 +27,10 @@ public class CardService {
 
     public List<Card> searchAllCardInTeam(String login){
         User user = userRepository.findByLogin(login);
-        return cardRepository.findByUser_Team_Id(user.getTeam().getId());
+        if(user.getTeam() != null){
+            return cardRepository.findByUser_Team_Id(user.getTeam().getId());
+        }
+        return null;
     }
 
     public List<Card> searchAllCardNamesInTeam(String name, String login){
