@@ -83,9 +83,10 @@
                     <tr th:if="${!cardPageHistory.content.isEmpty()}" th:each="userHistory : ${cardPageHistory.content}">
                         <td th:text="${userHistory.id}"></td>
                         <td th:text="${userHistory.card.cardName.name}"></td>
-                        <td th:if="${userHistory.ownerCard.id} != ${user.id} and ${userHistory.ownerCard} != null" th:text="${userHistory.ownerCard.nickname}"></td>
-                        <td th:if="${userHistory.ownerCard.id} == ${user.id} and ${userHistory.ownerCard} != null" th:text="${userHistory.ownerOffer.nickname}"></td>
                         <td th:if="${userHistory.ownerCard} == null">Deleted Account</td>
+                        <td th:if="${userHistory.ownerOffer} == null">Deleted Account</td>
+                        <td th:if="${userHistory.ownerCard} != null and ${userHistory.ownerCard.id} != ${user.id}" th:text="${userHistory.ownerCard.nickname}"></td>
+                        <td th:if="${userHistory.ownerOffer} != null and ${userHistory.ownerCard} != null and ${userHistory.ownerCard.id} == ${user.id}" th:text="${userHistory.ownerOffer.nickname}"></td>
                         <td th:text="${userHistory.state}"></td>
                         <td>
                             <a th:href="@{/yourProfile/offer/{id}(id=${userHistory.id})}"><button>Show</button></a>

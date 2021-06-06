@@ -79,7 +79,6 @@ public class UserProfileController {
         return "yourProfile";
     }
 
-
     @PutMapping("/setUsername")
     String getUserNickname(@ModelAttribute User user, Authentication auth){
         if(user.getNickname().trim().equals("") || !auth.isAuthenticated()) {

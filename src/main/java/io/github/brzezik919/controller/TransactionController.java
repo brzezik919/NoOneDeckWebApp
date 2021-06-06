@@ -42,8 +42,11 @@ public class TransactionController{
     @GetMapping("/yourProfile/offer/{id}")
     String showTransactionsHistory(Model model, @PathVariable int id, Authentication auth){
         Transaction transaction = transactionService.findTransaction(id);
+        if(Objects.isNull(auth)){
+            return "redirect:/yourProfile";
+        }
         User userLogIn = userService.getIdByName(auth.getName());
-        if(!Objects.nonNull(transaction) || !auth.isAuthenticated() || userLogIn.getId() == transaction.getOwnerOffer().getId() || userLogIn.getId() == transaction.getOwnerCard().getId()){
+        if(!Objects.nonNull(transaction) || userLogIn.getId() == transaction.getOwnerOffer().getId() || userLogIn.getId() == transaction.getOwnerCard().getId()){
             model.addAttribute("transaction", transaction);
             List<TransactionMessage> messageList = transactionMessageService.findAllMessagesFromTransaction(transaction.getId());
             model.addAttribute("messageTransaction", new TransactionMessage());

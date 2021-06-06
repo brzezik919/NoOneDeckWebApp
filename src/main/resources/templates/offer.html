@@ -11,7 +11,7 @@
 </head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
-<div>
+<div align="center">
     <div>
         <fieldset>
             <legend>Offer</legend>
@@ -22,14 +22,25 @@
             <label>Description:  <label th:text="${transaction.description}"></label></label><br />
             <label>State: <label th:text="${transaction.state}"></label></label>
         </fieldset>
+        <fieldset>
+            <legend>Opinion</legend>
+            <label>How you grade that seller?</label>
+            <form th:method="post" th:action="@{/yourProfile/offer/{id}/gradeTransaction(id=${transaction.id})}">
+                <input type="text" style="display: none" th:value="${transaction.id}" id="id" name="id"/>
+                <button type="submit" name="gradeTransaction" value="true">Positive</button>
+                <button type="submit" name="gradeTransaction" value="false">Negative</button>
+            </form>
+        </fieldset>
     </div>
     <div>
         <div th:if="${!messageList.isEmpty()}">
             <fieldset>
                 <p th:each="messageList : ${messageList}">
-                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerCard.id}" style="color: blue"></label>
-                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerOffer.id}" style="color: red"></label>
+                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerCard.id}" style="float: right; background-color: #cccccc;"></label>
+                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerOffer.id}" style="float: left; background-color: cornflowerblue;"></label>
+                    <br />
                 </p>
+
             </fieldset>
         </div>
         <div th:object="${messageTransaction}">

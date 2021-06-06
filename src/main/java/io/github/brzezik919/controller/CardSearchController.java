@@ -39,15 +39,11 @@ public class CardSearchController {
             return "redirect:/login";
         }
 
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
         model.addAttribute("user", userLogIn);
-        List<Card> cards = cardService.searchAllCardInTeam(name.getName());
-        if(cards == null){
-            return "cardSearch";
-        }
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cards);
+        Page<Card> cardPage = cardService.searchAllCardInTeam(name.getName(), currentPage, pageSize);
         return getString(model, userLogIn, cardPage);
 
     }
@@ -60,12 +56,13 @@ public class CardSearchController {
         if(card.getCardName().equals("")){
             return "redirect:/cardSearch";
         }
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
-        List<Card> cardList = cardService.searchAllCardNamesInTeam(card.getCardName(), name.getName());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cardList);
+        Page<Card> cardPage = cardService.searchAllCardNamesInTeam(card.getCardName(), name.getName(), currentPage, pageSize);
+        if(cardPage.isEmpty()){
+            return "redirect:/market";
+        }
         model.addAttribute("search", true);
         model.addAttribute("searchName", card.getCardName());
         return getString(model, userLogIn, cardPage);
@@ -79,12 +76,11 @@ public class CardSearchController {
         if(cardName.get().equals("")){
             return "redirect:/cardSearch";
         }
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
-        List<Card> cardList = cardService.searchAllCardNamesInTeam(cardName.get(), name.getName());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cardList);
+        Page<Card> cardPage = cardService.searchAllCardNamesInTeam(cardName.get(), name.getName(), currentPage, pageSize);
         model.addAttribute("search", true);
         model.addAttribute("searchName", cardName.get());
 

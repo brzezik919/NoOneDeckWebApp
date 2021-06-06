@@ -13,7 +13,6 @@
   <div th:insert="~{fragments/header :: header}"></div>
   <div align="center">
   <div>
-    <label> Hello <span th:text="${user.nickname}"></span></label>
     <fieldset>
       <legend>Your Cards</legend>
       <div>
@@ -27,7 +26,6 @@
               </p>
             </form>
             <button onclick="createDivAddCard()">Add Card</button>
-
           </div>
           <br>
         <div>
@@ -54,13 +52,13 @@
             <div>
               <label th:if="${cardPage.totalPages > 0 and search == false}" class="pagination"
                      th:each="pageNumber : ${pageNumbers}">
-                <a th:href="@{/cardPanel(size=${cardPage.size}, page=${pageNumber})}"
+                <a th:href="@{/cardPanel(size=${cardPage.size}, page=${pageNumber-1})}"
                    th:text=${pageNumber}
                    th:class="${pageNumber==cardPage.number + 1} ? active"></a>
               </label>
               <label th:if="${cardPage.totalPages > 0 and search == true}" class="pagination"
                      th:each="pageNumber : ${pageNumbers}">
-                <a type="submit" th:href="@{/cardPanel/cardSearch(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber})}"
+                <a type="submit" th:href="@{/cardPanel/cardSearch(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber-1})}"
                    th:text=${pageNumber}
                    th:class="${pageNumber==cardPage.number + 1} ? active">
                 </a>

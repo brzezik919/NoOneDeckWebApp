@@ -39,12 +39,11 @@ public class CardMarketController {
             return "redirect:/login";
         }
 
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
-        List<Card> cards = cardService.getCardsByState(StateCard.FORSALE.toString());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cards);
+        Page<Card> cardPage = cardService.getCardsByState(StateCard.FORSALE.toString(), currentPage, pageSize);
         model.addAttribute("search", false);
 
         return getString(model, userLogIn, cardPage);
@@ -58,12 +57,14 @@ public class CardMarketController {
         if(card.getCardName().equals("")){
             return "redirect:/market";
         }
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
-        List<Card> cardList = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cardList);
+        Page<Card> cardPage = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString(), currentPage, pageSize);
+        if(cardPage.isEmpty()){
+            return "redirect:/market";
+        }
         model.addAttribute("search", true);
         model.addAttribute("searchName", card.getCardName());
         return getString(model, userLogIn, cardPage);
@@ -77,12 +78,11 @@ public class CardMarketController {
         if(cardName.get().equals("")){
             return "redirect:/market";
         }
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
-        List<Card> cardList = cardService.searchAllCardNamesForSell(cardName.get(), StateCard.FORSALE.toString());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cardList);
+        Page<Card> cardPage = cardService.searchAllCardNamesForSell(cardName.get(), StateCard.FORSALE.toString(), currentPage, pageSize);
         model.addAttribute("search", true);
         model.addAttribute("searchName", cardName.get());
 

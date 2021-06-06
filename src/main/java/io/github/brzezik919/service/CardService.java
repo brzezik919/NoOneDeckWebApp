@@ -1,6 +1,9 @@
 package io.github.brzezik919.service;
 
 import io.github.brzezik919.model.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,31 +20,39 @@ public class CardService {
         this.cardNameRepository = cardNameRepository;
     }
 
-    public List<Card> getAllStats(String name){
-        return cardRepository.findByUser_Login(name);
+    public Page<Card> getAllStats(String name, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return cardRepository.findByUser_Login_OrderByCardName_Name_Asc(name, page);
     }
 
-    public List<Card> searchAllCardsNames(String name, String login){
-        return cardRepository.findByCardName_NameAndUser_Login(name, login);
+    public Page<Card> searchAllCardsNames(String name, String login, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return cardRepository.findByCardName_NameAndUser_LoginOrderByCardName_Name_Asc(name, login, page);
     }
 
-    public List<Card> searchAllCardInTeam(String login){
+    public Page<Card> searchAllCardInTeam(String login, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
         User user = userRepository.findByLogin(login);
         if(user.getTeam() != null){
-            return cardRepository.findByUser_Team_Id(user.getTeam().getId());
+            return cardRepository.findByUser_Team_IdOrderByCardName_Name_Asc(user.getTeam().getId(), page);
         }
         return null;
     }
 
-    public List<Card> searchAllCardNamesInTeam(String name, String login){
+    public Page<Card> searchAllCardNamesInTeam(String name, String login, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
         User user = userRepository.findByLogin(login);
-        return cardRepository.findByCardName_NameAndUser_Team_Id(name, user.getTeam().getId());
+        return cardRepository.findByCardName_NameAndUser_Team_IdOrderByCardName_Name_Asc(name, user.getTeam().getId(), page);
     }
 
-    public List<Card> getCardsByState(String state){return cardRepository.findByState(state);}
+    public Page<Card> getCardsByState(String state, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return cardRepository.findByStateOrderByCardName_Name_Asc(state, page);
+    }
 
-    public List<Card> searchAllCardNamesForSell(String name, String state){
-        return cardRepository.findByCardName_NameAndState(name, state);
+    public Page<Card> searchAllCardNamesForSell(String name, String state, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return cardRepository.findByCardName_NameAndStateOrderByCardName_Name_Asc(name, state, page);
     }
 
     public List<Card> searchAllCardsUserByState(int id, String state){

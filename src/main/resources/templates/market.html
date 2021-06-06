@@ -45,13 +45,13 @@
                 <div>
                     <label th:if="${cardPage.totalPages > 0 and search == false}" class="pagination"
                            th:each="pageNumber : ${pageNumbers}">
-                        <a th:href="@{/market(size=${cardPage.size}, page=${pageNumber})}"
+                        <a th:href="@{/market(size=${cardPage.size}, page=${pageNumber-1})}"
                            th:text=${pageNumber}
                            th:class="${pageNumber==cardPage.number + 1} ? active"></a>
                     </label>
                     <label th:if="${cardPage.totalPages > 0 and search == true}" class="pagination"
                            th:each="pageNumber : ${pageNumbers}">
-                        <a type="submit" th:href="@{/market/cardSearch/(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber})}"
+                        <a type="submit" th:href="@{/market/cardSearch/(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber-1})}"
                            th:text=${pageNumber}
                            th:class="${pageNumber==cardPage.number + 1} ? active">
                         </a>

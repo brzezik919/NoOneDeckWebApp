@@ -2,9 +2,11 @@ package io.github.brzezik919.service;
 
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.model.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,12 +50,9 @@ public class UserService {
         return userRepository.findByLogin(login);
     }
 
-    public User getUserByNickname(String login){
-        if(Objects.nonNull(userRepository.findByNickname(login))){
-            System.out.println("siema");
-            return userRepository.findByNickname(login);
-        }
-        return null;
+    public Page<User> getUserByNickname(String login, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return userRepository.findByNicknameOrderByNicknameAsc(login, page);
     }
 
     public void userSetNickname(String nickname, String login){
@@ -69,7 +68,8 @@ public class UserService {
         userRepository.save(userToSave);
     }
 
-    public List<User> searchAll(){
-        return userRepository.findAll();
+    public Page<User> searchAll(int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return userRepository.findAllByOrderByNicknameAsc(page);
     }
 }

@@ -58,11 +58,10 @@ public class UserController {
     public String showFindUserPanel(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         model.addAttribute("userSearch", new UserModel());
 
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
 
-        List<User> users = userService.searchAll();
-        Page<User> userPage = globalService.findPaginatedUser(PageRequest.of(currentPage - 1, pageSize), users);
+        Page<User> userPage = userService.searchAll(currentPage, pageSize);
         model.addAttribute("search", false);
 
         return getString(model, userPage);
@@ -74,17 +73,10 @@ public class UserController {
             return "redirect:/findUser";
         }
         user.setNickname(user.getNickname().trim());
-        System.out.println(user.getNickname());
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(3);
+        int currentPage = page.orElse(0);
+        int pageSize = size.orElse(20);
 
-        List<User> users = new ArrayList<>();
-        users.add(userService.getUserByNickname(user.getNickname()));
-
-        if(Objects.isNull(userService.getUserByNickname(user.getNickname()))){
-            return "redirect:/findUser";
-        }
-        Page<User> userPage = globalService.findPaginatedUser(PageRequest.of(currentPage - 1, pageSize), users);
+        Page <User> userPage = userService.getUserByNickname(user.getNickname(), currentPage, pageSize);
         model.addAttribute("search", true);
 
         return getString(model, userPage);

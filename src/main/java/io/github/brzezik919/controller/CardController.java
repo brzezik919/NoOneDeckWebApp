@@ -25,12 +25,10 @@ public class CardController {
 
     private final  CardService cardService;
     private final UserService userService;
-    private final GlobalService globalService;
 
-    public CardController(CardService cardService, UserService userService, GlobalService globalService) {
+    public CardController(CardService cardService, UserService userService) {
         this.cardService = cardService;
         this.userService = userService;
-        this.globalService = globalService;
     }
 
     @GetMapping
@@ -39,15 +37,13 @@ public class CardController {
             return "redirect:/login";
         }
 
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
-        List<Card> cards = cardService.getAllStats(name.getName());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cards);
+        Page<Card> cards = cardService.getAllStats(name.getName(), currentPage, pageSize);
         model.addAttribute("search", false);
 
-        return getString(model, userLogIn, cardPage);
+        return getString(model, userLogIn,  cards);
     }
 
     @PostMapping("/cardSearch")
@@ -59,12 +55,13 @@ public class CardController {
             return "redirect:/cardPanel";
         }
 
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
-        List<Card> cardList = cardService.searchAllCardsNames(card.getCardName(), name.getName());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cardList);
+        Page<Card> cardPage = cardService.searchAllCardsNames(card.getCardName(), name.getName(), currentPage, pageSize);
+        if(cardPage.isEmpty()){
+            return "redirect:/market";
+        }
         model.addAttribute("search", true);
         model.addAttribute("searchName", card.getCardName());
         return getString(model, userLogIn, cardPage);
@@ -78,12 +75,11 @@ public class CardController {
         if(cardName.get().equals("")){
             return "redirect:/cardPanel";
         }
-        int currentPage = page.orElse(1);
+        int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
 
-        List<Card> cardList = cardService.searchAllCardsNames(cardName.get(), name.getName());
-        Page<Card> cardPage = globalService.findPaginatedCard(PageRequest.of(currentPage - 1, pageSize), cardList);
+        Page<Card> cardPage = cardService.searchAllCardsNames(cardName.get(), name.getName(), currentPage, pageSize);
         model.addAttribute("search", true);
         model.addAttribute("searchName", cardName.get());
 
