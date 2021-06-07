@@ -4,6 +4,7 @@ import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.GlobalService;
+import io.github.brzezik919.service.OpinionService;
 import io.github.brzezik919.service.TransactionService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.data.domain.Page;
@@ -26,11 +27,13 @@ public class UserProfileController {
     private final UserService userService;
     private final TransactionService transactionService;
     private final GlobalService globalService;
+    private final OpinionService opinionService;
 
-    public UserProfileController(UserService userService, TransactionService transactionService, GlobalService globalService) {
+    public UserProfileController(UserService userService, TransactionService transactionService, GlobalService globalService, OpinionService opinionService) {
         this.userService = userService;
         this.transactionService = transactionService;
         this.globalService = globalService;
+        this.opinionService = opinionService;
     }
 
     @GetMapping
@@ -75,6 +78,8 @@ public class UserProfileController {
         model.addAttribute("transactionList", transactionList);
         model.addAttribute("transactionHistory", transactionHistory);
         model.addAttribute("transaction", new Transaction());
+        model.addAttribute("countPositive", opinionService.countOpinionByState(userLogIn.getId(), true));
+        model.addAttribute("countNegative", opinionService.countOpinionByState(userLogIn.getId(), false));
 
         return "yourProfile";
     }

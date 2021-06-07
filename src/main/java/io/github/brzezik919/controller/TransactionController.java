@@ -1,13 +1,14 @@
 package io.github.brzezik919.controller;
 
 
+import io.github.brzezik919.model.Opinion;
 import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.TransactionMessage;
 import io.github.brzezik919.model.User;
+import io.github.brzezik919.service.OpinionService;
 import io.github.brzezik919.service.TransactionMessageService;
 import io.github.brzezik919.service.TransactionService;
 import io.github.brzezik919.service.UserService;
-import org.keycloak.adapters.jaas.AbstractKeycloakLoginModule;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +23,13 @@ public class TransactionController{
     private final TransactionService transactionService;
     private final UserService userService;
     private final TransactionMessageService transactionMessageService;
+    private final OpinionService opinionService;
 
-    public TransactionController(TransactionService transactionService, UserService userService, TransactionMessageService transactionMessageService) {
+    public TransactionController(TransactionService transactionService, UserService userService, TransactionMessageService transactionMessageService, OpinionService opinionService) {
         this.transactionService = transactionService;
         this.userService = userService;
         this.transactionMessageService = transactionMessageService;
+        this.opinionService = opinionService;
     }
 
     @PostMapping
@@ -49,6 +52,19 @@ public class TransactionController{
         if(!Objects.nonNull(transaction) || userLogIn.getId() == transaction.getOwnerOffer().getId() || userLogIn.getId() == transaction.getOwnerCard().getId()){
             model.addAttribute("transaction", transaction);
             List<TransactionMessage> messageList = transactionMessageService.findAllMessagesFromTransaction(transaction.getId());
+            int idUserOpinion;
+            if(transaction.getOwnerCard().getId() == userLogIn.getId()){
+                idUserOpinion = transaction.getOwnerOffer().getId();
+            }
+            else{
+                idUserOpinion = transaction.getOwnerCard().getId();
+            }
+            Opinion foundGrade = opinionService.gradeExist(id, idUserOpinion);
+            if (Objects.isNull(foundGrade)) {
+                model.addAttribute("opinion", null);
+            } else {
+                model.addAttribute("opinion", foundGrade);
+            }
             model.addAttribute("messageTransaction", new TransactionMessage());
             model.addAttribute("messageList", messageList);
             return "/offer";

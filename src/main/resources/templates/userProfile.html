@@ -16,8 +16,18 @@
     <div th:object="${user}">
       <label>Nickname: <span th:text="${user.nickname}"/></label><br />
       <label>Team: <span th:if="${user.team} != null" th:text="${user.team.name}"/><span th:if="${user.team} == null" /></label><br />
-      <label>Opinion: <span /></label><br />
-      <label th:object="${cardsCount}">Count cards for sell: <span th:text="${cardsCount}"/><button th:href="@{findUser/userProfile/{id}/cards(id=${user.id})}">Show</button></label><br />
+      <label>Opinion:
+        <label th:text="${countPositive}" style="color: green;"></label>
+        <label> </label>
+        <label th:text="${countNegative}" style="color: red;"></label>
+      </label><br />
+      <label th:object="${cardsCount}">Count cards for sell:
+        <span th:text="${cardsCount}"/>
+        <label>
+          <button th:href="@{findUser/userProfile/{id}/cards(id=${user.id})}">Show</button>
+        </label>
+
+      </label><br />
     </div>
   </fieldset>
 </div>

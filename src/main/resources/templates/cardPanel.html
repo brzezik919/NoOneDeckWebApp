@@ -52,14 +52,14 @@
             <div>
               <label th:if="${cardPage.totalPages > 0 and search == false}" class="pagination"
                      th:each="pageNumber : ${pageNumbers}">
-                <a th:href="@{/cardPanel(size=${cardPage.size}, page=${pageNumber-1})}"
-                   th:text=${pageNumber}
+                <a th:href="@{/cardPanel(size=${cardPage.size}, page=${pageNumber - 1})}"
+                   th:text="${pageNumber}"
                    th:class="${pageNumber==cardPage.number + 1} ? active"></a>
               </label>
               <label th:if="${cardPage.totalPages > 0 and search == true}" class="pagination"
                      th:each="pageNumber : ${pageNumbers}">
-                <a type="submit" th:href="@{/cardPanel/cardSearch(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber-1})}"
-                   th:text=${pageNumber}
+                <a type="submit" th:href="@{/cardPanel/cardSearch(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber - 1})}"
+                   th:text="${pageNumber}"
                    th:class="${pageNumber==cardPage.number + 1} ? active">
                 </a>
               </label>

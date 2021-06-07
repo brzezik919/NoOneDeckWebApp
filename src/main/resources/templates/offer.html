@@ -20,9 +20,10 @@
             <label>Seller: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerCard.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
             <label>Buyer: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerOffer.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
             <label>Description:  <label th:text="${transaction.description}"></label></label><br />
-            <label>State: <label th:text="${transaction.state}"></label></label>
+            <label>State: <label th:text="${transaction.state}"></label></label><br />
+            <label th:if="${opinion} != null">Opinion: <label th:if="${opinion.grade} == true" style="color: green">Positive</label><label th:if="${opinion.grade} == false" style="color: red">Negative</label></label>
         </fieldset>
-        <fieldset>
+        <fieldset th:if="${opinion} == null">
             <legend>Opinion</legend>
             <label>How you grade that seller?</label>
             <form th:method="post" th:action="@{/yourProfile/offer/{id}/gradeTransaction(id=${transaction.id})}">

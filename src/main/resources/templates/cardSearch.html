@@ -12,7 +12,7 @@
     <div th:insert="~{fragments/header :: header}"></div>
     <div align="center" th:object="${user}">
         <div>
-            <fieldset th:if="${user.team != null and user.status == true}" >
+            <fieldset th:if="${user.status == true and user.team != null}" >
                 <span>Search Card</span>
                 <form method="post" th:action="@{/cardSearch/cardname}" th:object="${card}">
                     <label>
@@ -45,14 +45,14 @@
                 <div>
                     <label th:if="${cardPage.totalPages > 0 and search == false}" class="pagination"
                            th:each="pageNumber : ${pageNumbers}">
-                        <a th:href="@{/cardSearch(size=${cardPage.size}, page=${pageNumber-1})}"
-                           th:text=${pageNumber}
+                        <a th:href="@{/cardSearch(size=${cardPage.size}, page=${pageNumber - 1})}"
+                           th:text="${pageNumber}"
                            th:class="${pageNumber==cardPage.number + 1} ? active"></a>
                     </label>
                     <label th:if="${cardPage.totalPages > 0 and search == true}" class="pagination"
                            th:each="pageNumber : ${pageNumbers}">
-                        <a type="submit" th:href="@{/cardSearch/search(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber-1})}"
-                           th:text=${pageNumber}
+                        <a type="submit" th:href="@{/cardSearch/search(cardName=${searchName}, size=${cardPage.size}, page=${pageNumber - 1})}"
+                           th:text="${pageNumber}"
                            th:class="${pageNumber==cardPage.number + 1} ? active">
                         </a>
                     </label>

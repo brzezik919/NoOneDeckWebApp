@@ -4,10 +4,8 @@ import io.github.brzezik919.model.*;
 import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
-import io.github.brzezik919.service.GlobalService;
 import io.github.brzezik919.service.UserService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +23,10 @@ public class CardMarketController {
 
     private final CardService cardService;
     private final UserService userService;
-    private final GlobalService globalService;
 
-    public CardMarketController(CardService cardService, UserService userService, GlobalService globalService) {
+    public CardMarketController(CardService cardService, UserService userService) {
         this.cardService = cardService;
-        this.userService = userService;
-        this.globalService = globalService;
-    }
+        this.userService = userService; }
 
     @GetMapping
     public String showCardMarket(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,  Authentication name){
