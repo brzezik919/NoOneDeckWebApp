@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoOneDeck App: market</title>
+  <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+  <script src="../static/css/general.js" th:src="@{/css/general.js}"></script>
+  <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+  <div th:insert="~{fragments/header :: header}"></div>
+  <div align="center">
+    <div>
+      <fieldset>
+        <table>
+          <tr>
+            <td>Name</td>
+            <td>Note</td>
+          </tr>
+          <tr th:if="${cardPage.content.isEmpty()}">
+            <td colspan="4">No Cards</td>
+          </tr>
+          <tr th:if="${!cardPage.content.isEmpty()}" th:each="currentCard : ${cardPage.content}">
+            <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
+            <td th:text="${currentCard.note}"></td>
+            <td th:if="${currentCard.user.id} != ${userLogIn.id}">
+              <button th:id="${currentCard.id}" onclick="createWindowTransaction(this.id)">Buy</button>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <label th:if="${cardPage.totalPages > 0}" class="pagination"
+                 th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/findUser/userProfile/{id}/cards(id=${idUser}, size=${cardPage.size}, page=${pageNumber - 1})}"
+               th:text="${pageNumber}"
+               th:class="${pageNumber == cardPage.number + 1} ? active"></a>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+    <div id="formTransaction"></div>
+    <div id="transactionWindow" style="display: none">
+      <fieldset th:if="${!cardPage.content.isEmpty()}">
+        <div>
+          <form th:method="post" th:object="${transaction}" th:action="@{/market/createOffer}">
+            <legend>Create Offer</legend>
+            <label><input type="text" th:field="*{card}" id="idSelectedCard" style="display: none"></label>
+            <label id="nameSelectedCard">Name: </label>
+            <label>Note: <input type="text" th:field="*{description}"></label>
+            <button type="submit">Create Offer</button>
+          </form>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</main>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>

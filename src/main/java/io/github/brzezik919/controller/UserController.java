@@ -1,7 +1,10 @@
 package io.github.brzezik919.controller;
 
+import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.StateCard;
+import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
+import io.github.brzezik919.model.projection.CardModel;
 import io.github.brzezik919.model.projection.TeamModel;
 import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
@@ -107,5 +110,31 @@ public class UserController {
         model.addAttribute("countNegative", opinionService.countOpinionByState(id, false));
         model.addAttribute("cardsCount", countCardsForSell);
         return "userProfile";
+    }
+
+    @GetMapping("/findUser/userProfile/{id}/cards")
+    public String getUserProfileCards(Model model, @PathVariable int id, Authentication name, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        int currentPage = page.orElse(0);
+        int pageSize = size.orElse(20);
+        User userLogIn = userService.getUserByName(name.getName());
+        Page<Card> cardPage = cardService.getCardsByStateAndUserId(StateCard.FORSALE.toString(), id, currentPage, pageSize);
+        model.addAttribute("idUser", id);
+        return getString(model, userLogIn, cardPage);
+    }
+
+    private String getString(Model model, User userLogIn, Page<Card> cardPage) {
+        model.addAttribute("cardPage", cardPage);
+        int totalPages = cardPage.getTotalPages();
+        if(totalPages > 0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+            model.addAttribute("userLogIn", userLogIn);
+            model.addAttribute("user", new UserModel());
+            model.addAttribute("card", new CardModel());
+            model.addAttribute("transaction", new Transaction());
+        }
+        return "cardsUser";
     }
 }

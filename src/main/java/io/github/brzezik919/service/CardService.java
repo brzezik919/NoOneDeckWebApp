@@ -50,6 +50,12 @@ public class CardService {
         return cardRepository.findByStateOrderByCardName_Name_Asc(state, page);
     }
 
+    public Page<Card> getCardsByStateAndUserId(String state, int id, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return cardRepository.findByStateAndUser_IdOrderByCardName_Name_Asc(state, id, page);
+    }
+
+
     public Page<Card> searchAllCardNamesForSell(String name, String state, int currentPage, int pageSize){
         Pageable page = PageRequest.of(currentPage, pageSize);
         return cardRepository.findByCardName_NameAndStateOrderByCardName_Name_Asc(name, state, page);

@@ -12,17 +12,16 @@
 <div th:insert="~{fragments/header :: header}"></div>
 <div align="center">
     <div th:object="${user}">
+        <fieldset th:if="${user.nickname != null}">
+            <label>Hi <span th:text="${user.nickname}" ></span></label>
+        </fieldset>
         <fieldset>
-            <img th:src="@{${user.photosImagePath}}" />
-            <label th:text="${user.photosImagePath}" />
+            <img th:src="@{${user.photosImagePath}}" style="width: 200px; height: 200px "/>
             <form th:method="put" th:action="@{/yourProfile/setAvatar}" enctype="multipart/form-data">
                 <label>Avatar: </label>
                 <input type="file" name="image" id="image" accept="image/png, image/jpeg" >
                 <button type="submit">Ok</button>
             </form>
-        </fieldset>
-        <fieldset th:if="${user.nickname != null}">
-            <label>Hi <span th:text="${user.nickname}" ></span></label>
         </fieldset>
         <fieldset th:if="${user.nickname == 'Unknown'}">
             <form th:method="put" th:action="@{/yourProfile/setUsername}">
@@ -33,7 +32,7 @@
         </fieldset>
         <label>Opinion:
             <label th:text="${countPositive}" style="color: green;"></label>
-            <label> </label>
+            <label>/</label>
             <label th:text="${countNegative}" style="color: red;"></label>
         </label><br />
     </div>

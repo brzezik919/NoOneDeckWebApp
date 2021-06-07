@@ -14,6 +14,7 @@ public interface CardRepository {
     Page<Card> findByCardName_NameAndStateOrderByCardName_Name_Asc (String name, String state, Pageable pageable);
     Page<Card> findByStateOrderByCardName_Name_Asc(String state, Pageable pageable);
     Page<Card> findByUser_Team_IdOrderByCardName_Name_Asc(int team, Pageable pageable);
+    Page<Card> findByStateAndUser_IdOrderByCardName_Name_Asc(String state, int id, Pageable pageable);
     List<Card> findByUser_IdAndState(int id, String state);
     Page<Card> findByCardName_NameAndUser_Team_IdOrderByCardName_Name_Asc(String name, int team, Pageable pageable);
 }
