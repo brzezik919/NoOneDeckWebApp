@@ -7,17 +7,25 @@
   <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
   <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
 
-
 </head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
 <div align="center">
-    <div>
+    <div th:object="${user}">
+        <fieldset>
+            <img th:src="@{${user.photosImagePath}}" />
+            <label th:text="${user.photosImagePath}" />
+            <form th:method="put" th:action="@{/yourProfile/setAvatar}" enctype="multipart/form-data">
+                <label>Avatar: </label>
+                <input type="file" name="image" id="image" accept="image/png, image/jpeg" >
+                <button type="submit">Ok</button>
+            </form>
+        </fieldset>
         <fieldset th:if="${user.nickname != null}">
             <label>Hi <span th:text="${user.nickname}" ></span></label>
         </fieldset>
         <fieldset th:if="${user.nickname == 'Unknown'}">
-            <form th:method="put" th:object="${user}" th:action="@{/yourProfile/setUsername}">
+            <form th:method="put" th:action="@{/yourProfile/setUsername}">
                 <label>Set nickname</label>
                 <label><input type="text" th:field="*{nickname}"></label>
                 <button type="submit">Ok</button>

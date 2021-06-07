@@ -1,6 +1,7 @@
 package io.github.brzezik919.controller;
 
 import io.github.brzezik919.model.Card;
+import io.github.brzezik919.model.FileUploadUtil;
 import io.github.brzezik919.model.Transaction;
 import io.github.brzezik919.model.User;
 import io.github.brzezik919.service.GlobalService;
@@ -12,8 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -104,4 +108,19 @@ public class UserProfileController {
         transactionService.resultOffer(transaction, false, auth.getName());
         return "redirect:/yourProfile";
     }
+
+    @PutMapping("/setAvatar")
+    String getAvatar(@ModelAttribute User user, Authentication auth, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        if(fileName == ""){
+            return "redirect:/yourProfile";
+        }
+        User userLogIn = userService.getUserByName(auth.getName());
+        userLogIn.setAvatar(fileName);
+        userService.save(userLogIn);
+        String uploadDir = "photos/" + userLogIn.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        return "redirect:/yourProfile";
+    }
+
 }
