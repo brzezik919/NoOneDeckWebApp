@@ -40,6 +40,9 @@ public class CardSearchController {
         User userLogIn = userService.getUserByName(name.getName());
         model.addAttribute("user", userLogIn);
         Page<Card> cardPage = cardService.searchAllCardInTeam(name.getName(), currentPage, pageSize);
+        if(Objects.isNull(cardPage)){
+            return "cardSearch";
+        }
         return getString(model, cardPage);
 
     }
@@ -56,7 +59,7 @@ public class CardSearchController {
         int pageSize = size.orElse(20);
         Page<Card> cardPage = cardService.searchAllCardNamesInTeam(card.getCardName(), name.getName(), currentPage, pageSize);
         if(cardPage.isEmpty()){
-            return "redirect:/market";
+            return "cardSearch";
         }
         User userLogIn = userService.getUserByName(name.getName());
         model.addAttribute("user", userLogIn);

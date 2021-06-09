@@ -42,7 +42,7 @@
                   <td colspan="4">No cards</td>
                 </tr>
                 <tr th:if="${!cardPage.content.isEmpty()}" th:each="currentCard : ${cardPage.content}">
-                  <td th:id="name+${currentCard.id}" th:text="${currentCard}"></td>
+                  <td th:id="name+${currentCard.id}"><a th:href="@{https://yugioh.fandom.com/wiki/{cardNameLink}(cardNameLink = ${currentCard})}" th:text="${currentCard}"></a></td>
                   <td th:text="${currentCard.state}"></td>
                   <td th:text="${currentCard.note}"></td>
                   <td><button th:id="${currentCard.id}" onClick="createDivEditCard(this.id)">Edit</button></td>

@@ -56,7 +56,6 @@ public class UserProfileController {
         List<Transaction> transactionList = transactionService.findTransactionsPending(userLogIn.getId());
         List<Transaction> transactionHistory = transactionService.findTransactionHistory(userLogIn.getId());
 
-
         Page<Card> cardPageActually = globalService.findPaginatedCard(PageRequest.of(currentPageActually - 1, pageSize), transactionList);
         Page<Card> cardPageHistory = globalService.findPaginatedCard(PageRequest.of(currentPageHistory - 1, pageSize), transactionHistory);
 

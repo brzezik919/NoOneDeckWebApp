@@ -56,7 +56,10 @@
                         <form th:method="put" th:object="${transaction}" th:action="@{/yourProfile/acceptOffer}">
                             <td th:text="${userTransaction.id}"></td>
                             <td th:text="${userTransaction.card.cardName.name}"></td>
-                            <td th:text="${userTransaction.ownerOffer.nickname}"></td>
+                            <td th:if="${userTransaction.ownerCard} == null">Deleted Account</td>
+                            <td th:if="${userTransaction.ownerOffer} == null">Deleted Account</td>
+                            <td th:if="${userTransaction.ownerCard} != null and ${userTransaction.ownerCard.id} != ${user.id}" th:text="${userTransaction.ownerCard.nickname}"></td>
+                            <td th:if="${userTransaction.ownerOffer} != null and ${userTransaction.ownerCard} != null and ${userTransaction.ownerCard.id} == ${user.id}" th:text="${userTransaction.ownerOffer.nickname}"></td>
                             <td>
                                 <label><input style="display: none;" type="text" th:value="${userTransaction.id}" id="id" name="id"></label>
                                 <button type="submit" name="acceptOffer" value="true" th:if="${userTransaction.ownerCard.id} == ${user.id}">Accept</button>

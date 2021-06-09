@@ -58,7 +58,7 @@ public class CardController {
         User userLogIn = userService.getUserByName(name.getName());
         Page<Card> cardPage = cardService.searchAllCardsNames(card.getCardName(), name.getName(), currentPage, pageSize);
         if(cardPage.isEmpty()){
-            return "redirect:/market";
+            return "redirect:/cardPanel";
         }
         model.addAttribute("search", true);
         model.addAttribute("searchName", card.getCardName());

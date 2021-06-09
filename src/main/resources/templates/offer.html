@@ -16,14 +16,15 @@
         <fieldset>
             <legend>Offer</legend>
             <label>Id: <label th:text="${transaction.id}"></label></label><br />
-            <label>Card name: <label th:text="${transaction.card.cardName.name}"></label></label><br />
+
+            <label>Card name: <a th:href="@{https://yugioh.fandom.com/wiki/{cardNameLink}(cardNameLink = ${transaction.card.cardName.name})}"><label th:text="${transaction.card.cardName.name}"></label></a></label><br />
             <label>Seller: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerCard.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
             <label>Buyer: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerOffer.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
             <label>Description:  <label th:text="${transaction.description}"></label></label><br />
             <label>State: <label th:text="${transaction.state}"></label></label><br />
             <label th:if="${opinion} != null">Opinion: <label th:if="${opinion.grade} == true" style="color: green">Positive</label><label th:if="${opinion.grade} == false" style="color: red">Negative</label></label>
         </fieldset>
-        <fieldset th:if="${opinion} == null">
+        <fieldset th:if="${opinion} == null and ${transaction.state} != 'Pending'">
             <legend>Opinion</legend>
             <label>How you grade that seller?</label>
             <form th:method="post" th:action="@{/yourProfile/offer/{id}/gradeTransaction(id=${transaction.id})}">
