@@ -1,6 +1,7 @@
 package io.github.brzezik919.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "message")
@@ -16,6 +17,8 @@ public class TransactionMessage {
     private int idUser;
 
     private String messageText;
+
+    private LocalDateTime time;
 
     public int getId() {
         return id;
@@ -47,5 +50,13 @@ public class TransactionMessage {
 
     public void setMessageText(String messageText) {
         this.messageText = messageText;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }

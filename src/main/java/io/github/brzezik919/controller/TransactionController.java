@@ -66,6 +66,7 @@ public class TransactionController{
                 model.addAttribute("opinion", foundGrade);
             }
             model.addAttribute("messageTransaction", new TransactionMessage());
+            model.addAttribute("userLogInId", userLogIn.getId());
             model.addAttribute("messageList", messageList);
             return "/offer";
         }

@@ -38,11 +38,10 @@
         <div th:if="${!messageList.isEmpty()}">
             <fieldset>
                 <p th:each="messageList : ${messageList}">
-                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerCard.id}" style="float: right; background-color: #cccccc;"></label>
-                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == transaction.ownerOffer.id}" style="float: left; background-color: cornflowerblue;"></label>
+                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser == userLogInId}" style="float: right; background-color: #cccccc;"></label>
+                    <label th:text="${messageList.messageText}" th:if="${messageList.idUser != userLogInId}" style="float: left; background-color: cornflowerblue;"></label>
                     <br />
                 </p>
-
             </fieldset>
         </div>
         <div th:object="${messageTransaction}">
