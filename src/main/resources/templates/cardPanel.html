@@ -13,6 +13,9 @@
   <div th:insert="~{fragments/header :: header}"></div>
   <div align="center">
   <div>
+    <fieldset th:if="${cardNameNotFound} == true">
+      <label style="color: red;">Cardname is not correct.</label>
+    </fieldset>
     <fieldset>
       <legend>Your Cards</legend>
       <div>
@@ -30,7 +33,6 @@
           <br>
         <div>
           <fieldset>
-            <label th:if="${search} == true">Who have that card in your team</label>
             <div>
               <table>
                 <tr>

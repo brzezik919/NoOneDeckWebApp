@@ -12,7 +12,10 @@
     <div th:insert="~{fragments/header :: header}"></div>
     <div align="center" th:object="${user}">
         <div>
-            <fieldset th:if="${user.status == true and user.team != null}" >
+            <fieldset th:if="${cardNameNotFound} == true">
+                <label style="color: red;">Cardname is not correct.</label>
+            </fieldset>
+            <fieldset th:if="${user.team} != null and ${user.status == true}" >
                 <span>Search Card</span>
                 <form method="post" th:action="@{/cardSearch/cardname}" th:object="${card}">
                     <label>
@@ -23,7 +26,7 @@
             </fieldset>
         </div>
         <div>
-            <fieldset th:if="${user.team != null and user.status == true}">
+            <fieldset th:if="${user.team} != null and ${user.status} == true">
                 <label th:if="${search} == true">Who have that card in your team</label>
                 <div>
                     <table>

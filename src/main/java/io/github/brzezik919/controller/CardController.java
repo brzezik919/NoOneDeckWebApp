@@ -40,7 +40,6 @@ public class CardController {
         User userLogIn = userService.getUserByName(name.getName());
         Page<Card> cards = cardService.getAllStats(name.getName(), currentPage, pageSize);
         model.addAttribute("search", false);
-
         return getString(model, userLogIn,  cards);
     }
 
@@ -57,11 +56,12 @@ public class CardController {
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
         Page<Card> cardPage = cardService.searchAllCardsNames(card.getCardName(), name.getName(), currentPage, pageSize);
+        model.addAttribute("search", false);
         if(cardPage.isEmpty()){
-            return "redirect:/cardPanel";
+            Page<Card> cards = cardService.getAllStats(name.getName(), currentPage, pageSize);
+            model.addAttribute("cardNameNotFound", true);
+            return getString(model, userLogIn,  cards);
         }
-        model.addAttribute("search", true);
-        model.addAttribute("searchName", card.getCardName());
         return getString(model, userLogIn, cardPage);
     }
 
@@ -106,7 +106,6 @@ public class CardController {
             return "redirect:/cardPanel";
         }
         CardName cardNameFound = this.cardService.getCardName(card.getCardName().trim());
-
         if(Objects.nonNull(cardNameFound)){
             Card cardToSave = card.newCard(cardNameFound, userService.getAllUserStats(name.getName()));
             cardService.save(cardToSave);

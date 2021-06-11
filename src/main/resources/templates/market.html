@@ -13,6 +13,9 @@
     <div th:insert="~{fragments/header :: header}"></div>
     <div align="center">
         <div>
+            <fieldset th:if="${cardNameNotFound} == true">
+                <label style="color: red;">Cardname is not correct.</label>
+            </fieldset>
             <fieldset>
                 <legend>Market</legend>
                 <div>

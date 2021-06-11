@@ -58,7 +58,9 @@ public class CardMarketController {
 
         Page<Card> cardPage = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString(), currentPage, pageSize);
         if(cardPage.isEmpty()){
-            return "redirect:/market";
+            cardPage = cardService.getCardsByState(StateCard.FORSALE.toString(), currentPage, pageSize);
+            model.addAttribute("cardNameNotFound", true);
+            return getString(model, userLogIn,  cardPage);
         }
         model.addAttribute("search", true);
         model.addAttribute("searchName", card.getCardName());

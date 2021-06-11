@@ -76,9 +76,13 @@ public class UserController {
         user.setNickname(user.getNickname().trim());
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
-
-        Page <User> userPage = userService.getUserByNickname(user.getNickname(), currentPage, pageSize);
         model.addAttribute("search", true);
+        Page <User> userPage = userService.getUserByNickname(user.getNickname(), currentPage, pageSize);
+        if(userPage.isEmpty()){
+            userPage = userService.searchAll(currentPage, pageSize);
+            model.addAttribute("userNotFound", true);
+            return getString(model, userPage);
+        }
 
         return getString(model, userPage);
     }

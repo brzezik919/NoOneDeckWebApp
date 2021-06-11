@@ -12,6 +12,9 @@
 <div align="center">
   <fieldset>
     <div>
+      <fieldset th:if="${userNotFound} == true">
+        <label style="color: red;">User not found.</label>
+      </fieldset>
       <fieldset>
         <legend>User Card</legend>
         <form method="post" th:action="@{/findUser}" th:object="${user}">
