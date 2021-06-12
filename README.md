@@ -10,7 +10,7 @@ This project is based on Spring, Hibernate and JPA. https://spring.io/projects/s
 Download the latest version of Keycloak (I used 13.0.1): https://www.keycloak.org/downloads.
 
 Extract the archive into folder and use following commands in terminal:
-- `cd keycloak-13.0.0/bin/`
+- `cd keycloak-13.0.1/bin/`
 - `sudo ./standalone.sh -Djboss.socket.binding.port-offset=100`
 
 Parameter port-offset is standard keycloak ports + paramether. Keycloak application is using port 8080, but Spring app can't be compiled while using the same port and that's why it needs to be changed.
