@@ -10,6 +10,8 @@ import io.github.brzezik919.model.projection.UserModel;
 import io.github.brzezik919.service.CardService;
 import io.github.brzezik919.service.OpinionService;
 import io.github.brzezik919.service.UserService;
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -49,7 +51,12 @@ public class UserController {
         if(Objects.isNull(userLogIn)){
             User userToCreate = new User();
             userToCreate.setLogin(auth.getName());
-            userToCreate.setNickname("Unknown");
+
+            if(auth.getPrincipal() instanceof KeycloakPrincipal){
+                KeycloakPrincipal<KeycloakSecurityContext> kp = (KeycloakPrincipal<KeycloakSecurityContext>) auth.getPrincipal();
+                userToCreate.setNickname(kp.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
+                System.out.println(userToCreate.getNickname());
+            }
             userService.save(userToCreate);
         }
         return "redirect:";

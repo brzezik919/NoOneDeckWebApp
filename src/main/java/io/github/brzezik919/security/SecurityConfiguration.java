@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
@@ -17,8 +18,11 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @KeycloakConfiguration
 public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+
+    public SecurityConfiguration(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {

@@ -75,7 +75,7 @@
                     <label th:if="${cardPageActually.totalPages > 0}" class="pagination"
                            th:each="pageNumbersTransaction : ${pageNumbersTransaction}">
                         <a th:href="@{/yourProfile(size=${cardPageActually.size}, pageActually=${pageNumbersTransaction})}"
-                           th:text=${pageNumbersTransaction}
+                           th:text="${pageNumbersTransaction}"
                            th:class="${pageNumbersTransaction==cardPageActually.number + 1} ? active"></a>
                     </label>
                 </div>
@@ -113,7 +113,7 @@
                     <label th:if="${cardPageHistory.totalPages > 0}" class="pagination"
                            th:each="pageNumbersHistory : ${pageNumbersHistory}">
                         <a th:href="@{/yourProfile(size=${cardPageHistory.size}, pageHistory=${pageNumbersHistory})}"
-                           th:text=${pageNumbersHistory}
+                           th:text="${pageNumbersHistory}"
                            th:class="${pageNumbersHistory==cardPageHistory.number + 1} ? active"></a>
                     </label>
                 </div>

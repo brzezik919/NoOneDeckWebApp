@@ -13,4 +13,5 @@ public interface UserRepository {
     Page<User> findByNicknameOrderByNicknameAsc(String nickname, Pageable pageable);
     List<User> findByTeam_IdAndStatus(int id, boolean status);
     User save(User user);
+    User deleteById(int id);
 }

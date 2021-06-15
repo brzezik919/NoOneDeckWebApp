@@ -72,4 +72,10 @@ public class UserService {
         Pageable page = PageRequest.of(currentPage, pageSize);
         return userRepository.findAllByOrderByNicknameAsc(page);
     }
+
+    public void deleteUser(String login){
+        User userToDelete = userRepository.findByLogin(login);
+        userRepository.deleteById(userToDelete.getId());
+
+    }
 }
