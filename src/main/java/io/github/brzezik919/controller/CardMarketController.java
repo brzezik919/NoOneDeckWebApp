@@ -33,14 +33,13 @@ public class CardMarketController {
         if(Objects.isNull(name)){
             return "redirect:/login";
         }
-
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
-        Page<Card> cardPage = cardService.getCardsByState(StateCard.FORSALE.toString(), currentPage, pageSize);
         model.addAttribute("search", false);
-
+        model.addAttribute("card", new CardModel());
+        model.addAttribute("transaction", new Transaction());
+        Page<Card> cardPage = cardService.getCardsByState(StateCard.FORSALE.toString(), currentPage, pageSize);
         return getString(model, userLogIn, cardPage);
     }
 
@@ -55,15 +54,14 @@ public class CardMarketController {
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
+        model.addAttribute("search", true);
+        model.addAttribute("searchName", card.getCardName());
         Page<Card> cardPage = cardService.searchAllCardNamesForSell(card.getCardName(), StateCard.FORSALE.toString(), currentPage, pageSize);
         if(cardPage.isEmpty()){
             cardPage = cardService.getCardsByState(StateCard.FORSALE.toString(), currentPage, pageSize);
             model.addAttribute("cardNameNotFound", true);
             return getString(model, userLogIn,  cardPage);
         }
-        model.addAttribute("search", true);
-        model.addAttribute("searchName", card.getCardName());
         return getString(model, userLogIn, cardPage);
     }
 
@@ -78,17 +76,13 @@ public class CardMarketController {
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
-        Page<Card> cardPage = cardService.searchAllCardNamesForSell(cardName.get(), StateCard.FORSALE.toString(), currentPage, pageSize);
         model.addAttribute("search", true);
         model.addAttribute("searchName", cardName.get());
-
+        Page<Card> cardPage = cardService.searchAllCardNamesForSell(cardName.get(), StateCard.FORSALE.toString(), currentPage, pageSize);
         return getString(model, userLogIn, cardPage);
     }
 
     private String getString(Model model, User userLogIn, Page<Card> cardPage) {
-        model.addAttribute("cardPage", cardPage);
-
         int totalPages = cardPage.getTotalPages();
         if(totalPages > 0){
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -100,6 +94,7 @@ public class CardMarketController {
             model.addAttribute("card", new CardModel());
             model.addAttribute("transaction", new Transaction());
         }
+        model.addAttribute("cardPage", cardPage);
         return "market";
     }
 }

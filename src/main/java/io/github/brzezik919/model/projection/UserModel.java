@@ -1,11 +1,8 @@
 package io.github.brzezik919.model.projection;
 
-import io.github.brzezik919.model.Team;
-
 public class UserModel {
     private String login;
     private String nickname;
-    private String email;
     private TeamModel team;
 
     public String getLogin() {
@@ -22,14 +19,6 @@ public class UserModel {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public TeamModel getTeam() {

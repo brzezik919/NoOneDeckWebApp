@@ -45,38 +45,32 @@ public class UserProfileController {
         if(Objects.isNull(name)){
             return "redirect:/login";
         }
-
         int currentPageActually = pageActually.orElse(1);
         int currentPageHistory = pageHistory.orElse(1);
         int pageSize = size.orElse(10);
-
         User userLogIn = userService.getUserByName(name.getName());
-
-
         List<Transaction> transactionList = transactionService.findTransactionsPending(userLogIn.getId());
         List<Transaction> transactionHistory = transactionService.findTransactionHistory(userLogIn.getId());
-
         Page<Card> cardPageActually = globalService.findPaginatedCard(PageRequest.of(currentPageActually - 1, pageSize), transactionList);
         Page<Card> cardPageHistory = globalService.findPaginatedCard(PageRequest.of(currentPageHistory - 1, pageSize), transactionHistory);
-
-        model.addAttribute("cardPageActually", cardPageActually);
-        model.addAttribute("cardPageHistory", cardPageHistory);
-
         int totalPagesActually = cardPageActually.getTotalPages();
+        int totalPagesHistory = cardPageHistory.getTotalPages();
+
         if(totalPagesActually > 0){
             List<Integer> pageNumbersTransaction = IntStream.rangeClosed(1, totalPagesActually)
                     .boxed()
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbersTransaction", pageNumbersTransaction);
         }
-
-        int totalPagesHistory = cardPageHistory.getTotalPages();
         if(totalPagesHistory > 0){
             List<Integer> pageNumbersHistory = IntStream.rangeClosed(1, totalPagesHistory)
                     .boxed()
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbersHistory", pageNumbersHistory);
         }
+
+        model.addAttribute("cardPageActually", cardPageActually);
+        model.addAttribute("cardPageHistory", cardPageHistory);
         model.addAttribute("user", userLogIn);
         model.addAttribute("transactionList", transactionList);
         model.addAttribute("transactionHistory", transactionHistory);

@@ -38,7 +38,10 @@ public class CardSearchController {
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
+
         model.addAttribute("user", userLogIn);
+        model.addAttribute("card", new CardModel());
+
         Page<Card> cardPage = cardService.searchAllCardInTeam(name.getName(), currentPage, pageSize);
         if(Objects.isNull(cardPage)){
             return "cardSearch";
@@ -55,20 +58,21 @@ public class CardSearchController {
         if(card.getCardName().equals("")){
             return "redirect:/cardSearch";
         }
+
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-        Page<Card> cardPage = cardService.searchAllCardNamesInTeam(card.getCardName(), name.getName(), currentPage, pageSize);
+
         model.addAttribute("user", userLogIn);
+        model.addAttribute("search", true);
+        model.addAttribute("searchName", card.getCardName());
+
+        Page<Card> cardPage = cardService.searchAllCardNamesInTeam(card.getCardName(), name.getName(), currentPage, pageSize);
         if(cardPage.isEmpty()){
             Page<Card> cards = cardService.searchAllCardInTeam(name.getName(), currentPage, pageSize);
             model.addAttribute("cardNameNotFound", true);
             return getString(model, cards);
         }
-
-
-        model.addAttribute("search", true);
-        model.addAttribute("searchName", card.getCardName());
         return getString(model, cardPage);
     }
 

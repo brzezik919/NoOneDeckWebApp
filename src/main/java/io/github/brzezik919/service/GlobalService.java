@@ -32,23 +32,4 @@ public class GlobalService {
 
         return cardPage;
     }
-
-    public Page<User> findPaginatedUser(Pageable pageable, List importList){
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<User> list;
-
-        if(importList.size() < startItem){
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, importList.size());
-            list = importList.subList(startItem, toIndex);
-        }
-
-        Page<User> userPage
-                = new PageImpl<User>(list, PageRequest.of(currentPage, pageSize), importList.size());
-
-        return userPage;
-    }
 }
