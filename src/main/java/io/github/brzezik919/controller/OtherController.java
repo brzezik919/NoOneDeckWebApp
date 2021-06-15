@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class OtherController {
 
     @GetMapping("/statute")
-    String showStatute(){
-        return "statute";
-    }
+    String showStatute(){ return "statute"; }
 
     @GetMapping("/about")
     String showAboutUs(){

@@ -40,6 +40,7 @@ public class CardController {
         User userLogIn = userService.getUserByName(name.getName());
         Page<Card> cards = cardService.getAllStats(name.getName(), currentPage, pageSize);
         model.addAttribute("search", false);
+        model.addAttribute("card", new CardModel());
         return getString(model, userLogIn,  cards);
     }
 
