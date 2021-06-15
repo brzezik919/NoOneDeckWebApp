@@ -55,12 +55,6 @@ public class UserService {
         return userRepository.findByNicknameOrderByNicknameAsc(login, page);
     }
 
-    public void userSetNickname(String nickname, String login){
-        User userToSave = getUserByName(login);
-        userToSave.setNickname(nickname);
-        userRepository.save(userToSave);
-    }
-
     public void userLeaveTheTeam(String login){
         User userToSave = getUserByName(login);
         userToSave.setTeam(null);
@@ -76,6 +70,5 @@ public class UserService {
     public void deleteUser(String login){
         User userToDelete = userRepository.findByLogin(login);
         userRepository.deleteById(userToDelete.getId());
-
     }
 }

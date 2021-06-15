@@ -55,7 +55,6 @@ public class UserController {
             if(auth.getPrincipal() instanceof KeycloakPrincipal){
                 KeycloakPrincipal<KeycloakSecurityContext> kp = (KeycloakPrincipal<KeycloakSecurityContext>) auth.getPrincipal();
                 userToCreate.setNickname(kp.getKeycloakSecurityContext().getIdToken().getPreferredUsername());
-                System.out.println(userToCreate.getNickname());
             }
             userService.save(userToCreate);
         }

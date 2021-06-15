@@ -87,15 +87,6 @@ public class UserProfileController {
         return "yourProfile";
     }
 
-    @PutMapping("/setUsername")
-    String getUserNickname(@ModelAttribute User user, Authentication auth){
-        if(user.getNickname().trim().equals("") || !auth.isAuthenticated()) {
-            return "redirect:/yourProfile";
-        }
-        userService.userSetNickname(user.getNickname().trim(), auth.getName());
-        return "redirect:/yourProfile";
-    }
-
     @RequestMapping(value="/acceptOffer", method = RequestMethod.PUT, params ="acceptOffer=true")
     String acceptOffer(@ModelAttribute Transaction transaction, Authentication auth){
         transactionService.resultOffer(transaction, true, auth.getName());
