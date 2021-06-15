@@ -19,7 +19,7 @@ Parameter port-offset is standard keycloak ports + parameter. Keycloak applicati
 
 Keycloak configuration realms : https://www.keycloak.org/docs/latest/server_admin/
 
-My KeyCloak configuration file: *****.
+My KeyCloak configuration file: https://github.com/brzezik919/NoOneDeckWebApp/blob/master/src/main/resources/configurationFiles/realm-export.json.
 
 # Import Data to DataBase
 
