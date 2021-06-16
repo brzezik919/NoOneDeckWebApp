@@ -12,12 +12,18 @@
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
 <div align="center">
-    <a href="/cardPanel"><button class="block">Yours Cards</button></a>
-    <a href="/cardSearch"><button class="block">Search Team Card</button></a>
-    <a href="/createDecklist"><button class="block">Create Decklist</button></a><br>
-    <a href="/market"><button class="block">Market</button></a>
-    <a href="/decklists"><button class="block">Decklists</button></a>
-    <a href="/teamPanel"><button class="block">Your Team</button></a>
+    <fieldset>
+        <legend>Private decklist</legend>
+        <label>Private</label>
+    </fieldset>
+    <fieldset>
+        <legend>NonPublic decklist</legend>
+        <label>NonPublic</label>
+    </fieldset>
+    <fieldset>
+        <legend>Public decklists</legend>
+        <label>Public</label>
+    </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>
 </body>

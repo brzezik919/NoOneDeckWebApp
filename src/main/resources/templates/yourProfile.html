@@ -23,13 +23,6 @@
                 <button type="submit">Ok</button>
             </form>
         </fieldset>
-        <fieldset th:if="${user.nickname == 'Unknown'}">
-            <form th:method="put" th:action="@{/yourProfile/setUsername}">
-                <label>Set nickname</label>
-                <label><input type="text" th:field="*{nickname}"></label>
-                <button type="submit">Ok</button>
-            </form>
-        </fieldset>
         <label>Opinion:
             <label th:text="${countPositive}" style="color: green;"></label>
             <label>/</label>
