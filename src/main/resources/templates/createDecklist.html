@@ -21,6 +21,26 @@
     </form>
   </fieldset>
   <fieldset>
+    <legend>Your Decklists</legend>
+    <table>
+      <tr>
+        <td>Name</td>
+        <td>User</td>
+        <td>Permission</td>
+        <td></td>
+      </tr>
+      <tr th:if="${decklistPage.content.isEmpty()}">
+        <td colspan="4">No cards</td>
+      </tr>
+      <tr th:if="${!decklistPage.content.isEmpty()}" th:each="currentDecklist : ${decklistPage.content}">
+        <td th:text="${currentDecklist.name}"></td>
+        <td th:text="${currentDecklist.user.nickname}"></td>
+        <td><label>Team: <input type="checkbox" /></label><label>Public: <input type="checkbox" value=true/></label></td>
+        <td><button>Show</button><button>Delete</button></td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset>
     <legend>Generated Decklist</legend>
     <div>
       Here is decklist :)

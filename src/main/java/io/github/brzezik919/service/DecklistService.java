@@ -1,8 +1,12 @@
 package io.github.brzezik919.service;
 
+import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.Decklist;
 import io.github.brzezik919.model.DecklistRepository;
 import io.github.brzezik919.model.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,5 +41,10 @@ public class DecklistService {
         byte[] decodedBytes = Base64.getDecoder().decode(decklist);
         String decodedString = new String(decodedBytes);
         return decodedString;
+    }
+
+    public Page<Decklist> getAllUserDecklist(int id, int currentPage, int pageSize){
+        Pageable page = PageRequest.of(currentPage, pageSize);
+        return decklistRepository.findByUser_IdOrderByNameDesc(id, page);
     }
 }

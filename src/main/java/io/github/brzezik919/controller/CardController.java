@@ -77,7 +77,6 @@ public class CardController {
         int currentPage = page.orElse(0);
         int pageSize = size.orElse(20);
         User userLogIn = userService.getUserByName(name.getName());
-
         Page<Card> cardPage = cardService.searchAllCardsNames(cardName.get(), name.getName(), currentPage, pageSize);
         model.addAttribute("search", true);
         model.addAttribute("searchName", cardName.get());
