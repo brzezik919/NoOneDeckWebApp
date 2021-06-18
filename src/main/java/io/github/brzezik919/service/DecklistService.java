@@ -1,9 +1,6 @@
 package io.github.brzezik919.service;
 
-import io.github.brzezik919.model.Card;
-import io.github.brzezik919.model.Decklist;
-import io.github.brzezik919.model.DecklistRepository;
-import io.github.brzezik919.model.UserRepository;
+import io.github.brzezik919.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,5 +43,32 @@ public class DecklistService {
     public Page<Decklist> getAllUserDecklist(int id, int currentPage, int pageSize){
         Pageable page = PageRequest.of(currentPage, pageSize);
         return decklistRepository.findByUser_IdOrderByNameDesc(id, page);
+    }
+
+    public Page<Decklist> getAllTeamDecklist(int id, int currentTeamPage, int pageSize){
+        Pageable page = PageRequest.of(currentTeamPage, pageSize);
+        return decklistRepository.findByUser_Team_IdAndTeamSharedOrderByNameDesc(id, true, page);
+    }
+
+    public Page<Decklist> getAllPublicDecklist(int currentPublicPage, int pageSize){
+        Pageable page = PageRequest.of(currentPublicPage, pageSize);
+        return decklistRepository.findByPublicSharedOrderByNameDesc(true, page);
+    }
+
+    public Decklist getDecklistById(int id){
+        return decklistRepository.findById(id);
+    }
+
+    public boolean getPermissionToDecklist(String userLogInLogin, int idDecklist){
+        Decklist decklist = decklistRepository.findById(idDecklist);
+        User userLogIn = userRepository.findByLogin(userLogInLogin);
+
+        if(!decklist.isPublicShared()){
+            if(decklist.isTeamShared() && decklist.getUser().getTeam() == userLogIn.getTeam()){
+               return true;
+            }
+            return false;
+        }
+        return true;
     }
 }

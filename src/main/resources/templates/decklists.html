@@ -13,12 +13,61 @@
 <div th:insert="~{fragments/header :: header}"></div>
 <div align="center">
     <fieldset>
-        <legend>Private decklist</legend>
-        <label>Private</label>
+        <legend>Team decklist</legend>
+        <label th:if="${permissionToDecklist} == false"></label>
+        <div>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>User</td>
+                    <td></td>
+                </tr>
+                <tr th:if="${decklistTeamPage.content.isEmpty()}">
+                    <td colspan="4">No cards</td>
+                </tr>
+                <tr th:if="${!decklistTeamPage.content.isEmpty()}" th:each="currentTeamDecklist : ${decklistTeamPage.content}">
+                    <td th:text="${currentTeamDecklist.name}"></td>
+                    <td th:text="${currentTeamDecklist.user.nickname}"></td>
+                    <td><a th:href="@{/decklists/deck/{id}(id=${currentTeamDecklist.id})}"><button>Show</button></a></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <label th:if="${decklistTeamPage.totalPages > 0}" class="pagination"
+                   th:each="pageTeamNumbers : ${pageTeamNumbers}">
+                <a th:href="@{/decklist(size=${decklistTeamPage.size}, pageTeam=${pageTeamNumbers - 1})}"
+                   th:text="${pageTeamNumbers}"
+                   th:class="${pageTeamNumbers==decklistTeamPage.number + 1} ? active"></a>
+            </label>
+        </div>
     </fieldset>
     <fieldset>
         <legend>Public decklists</legend>
-        <label>Public</label>
+        <div>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>User</td>
+                    <td></td>
+                </tr>
+                <tr th:if="${decklistPublicPage.content.isEmpty()}">
+                    <td colspan="4">No cards</td>
+                </tr>
+                <tr th:if="${!decklistPublicPage.content.isEmpty()}" th:each="currentPublicDecklist : ${decklistPublicPage.content}">
+                    <td th:text="${currentPublicDecklist.name}"></td>
+                    <td th:text="${currentPublicDecklist.user.nickname}"></td>
+                    <td><a th:href="@{/decklists/deck/{id}(id=${currentPublicDecklist.id})}"><button>Show</button></a></td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <label th:if="${decklistPublicPage.totalPages > 0}" class="pagination"
+                   th:each="pagePublicNumbers : ${pagePublicNumbers}">
+                <a th:href="@{/decklist(size=${decklistPublicPage.size}, pagePublic=${pagePublicNumbers - 1})}"
+                   th:text="${pageNumber}"
+                   th:class="${pagePublicNumbers==decklistPublicPage.number + 1} ? active"></a>
+            </label>
+        </div>
     </fieldset>
 </div>
 <div th:insert="~{fragments/footer :: footer}"></div>

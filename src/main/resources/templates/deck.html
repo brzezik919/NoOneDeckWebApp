@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoOneDeck App</title>
+  <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+
+
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+<div align="center">
+  <fieldset>
+    <div th:if="${permissionToDecklist}">
+      <label>Name: <label th:text="${decklist.name}"></label></label>
+    </div>
+    <div th:if="${!permissionToDecklist}">
+      <label>You have no permission to access this decklist</label>
+    </div>
+  </fieldset>
+</div>
+<div th:insert="~{fragments/footer :: footer}"></div>
+</body>
+</html>
