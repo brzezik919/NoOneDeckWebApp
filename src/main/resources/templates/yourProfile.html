@@ -16,7 +16,7 @@
             <label>Hi <span th:text="${user.nickname}" ></span></label>
         </fieldset>
         <fieldset>
-            <img th:src="@{${user.photosImagePath}}" style="width: 200px; height: 200px "/>
+            <img th:if = "${user.photosImagePath} != null" th:src="@{${user.photosImagePath}}" style="width: 200px; height: 200px "/>
             <form th:method="put" th:action="@{/yourProfile/setAvatar}" enctype="multipart/form-data">
                 <label>Avatar: </label>
                 <input type="file" name="image" id="image" accept="image/png, image/jpeg" >

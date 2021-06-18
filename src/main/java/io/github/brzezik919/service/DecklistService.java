@@ -45,9 +45,12 @@ public class DecklistService {
         return decklistRepository.findByUser_IdOrderByNameDesc(id, page);
     }
 
-    public Page<Decklist> getAllTeamDecklist(int id, int currentTeamPage, int pageSize){
+    public Page<Decklist> getAllTeamDecklist(Team team, int currentTeamPage, int pageSize){
         Pageable page = PageRequest.of(currentTeamPage, pageSize);
-        return decklistRepository.findByUser_Team_IdAndTeamSharedOrderByNameDesc(id, true, page);
+        if(team != null){
+            return decklistRepository.findByUser_Team_IdAndTeamSharedOrderByNameDesc(team.getId(), true, page);
+        }
+        return null;
     }
 
     public Page<Decklist> getAllPublicDecklist(int currentPublicPage, int pageSize){
@@ -64,11 +67,15 @@ public class DecklistService {
         User userLogIn = userRepository.findByLogin(userLogInLogin);
 
         if(!decklist.isPublicShared()){
-            if(decklist.isTeamShared() && decklist.getUser().getTeam() == userLogIn.getTeam()){
+            if(decklist.isTeamShared() && decklist.getUser().getTeam() == userLogIn.getTeam() || decklist.getUser() == userLogIn){
                return true;
             }
             return false;
         }
         return true;
+    }
+
+    public void deleteById(int id){
+        decklistRepository.deleteById(id);
     }
 }

@@ -9,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -50,10 +47,16 @@ public class DecklistController {
         int currentPublicPage = pagePublic.orElse(0);
         int pageSize = size.orElse(5);
         User userLogIn = userService.getUserByName(name.getName());
-        Page<Decklist> userTeamDecklist = decklistService.getAllTeamDecklist(userLogIn.getTeam().getId(), currentTeamPage, pageSize);
+
+        Page<Decklist> userTeamDecklist = decklistService.getAllTeamDecklist(userLogIn.getTeam(), currentTeamPage, pageSize);
         Page<Decklist> userPublicDecklist = decklistService.getAllPublicDecklist(currentPublicPage, pageSize);
 
-        if(userTeamDecklist.getTotalPages() > 0){
+        model.addAttribute("pageTeamNumbers", 0);
+        model.addAttribute("pagePublicNumbers", 0);
+        model.addAttribute("decklistPublicPage", userPublicDecklist);
+        model.addAttribute("decklistTeamPage", userTeamDecklist);
+
+        if(userLogIn.getTeam() != null && userTeamDecklist.getTotalPages() > 0){
             List<Integer> pageTeamNumbers = IntStream.rangeClosed(1, userPublicDecklist.getTotalPages())
                     .boxed()
                     .collect(Collectors.toList());
@@ -65,8 +68,6 @@ public class DecklistController {
                     .collect(Collectors.toList());
             model.addAttribute("pagePublicNumbers", pagePublicNumbers);
         }
-        model.addAttribute("decklistTeamPage", userTeamDecklist);
-        model.addAttribute("decklistPublicPage", userPublicDecklist);
 
         return "decklists";
     }
@@ -96,11 +97,23 @@ public class DecklistController {
     @GetMapping("/decklists/deck/{id}")
     public String showDecklist(Authentication auth, Model model, @PathVariable int id){
         if(Objects.isNull(auth)){
-            return "redirect:decklist";
+            return "redirect:/decklist";
         }
         Decklist decklist = decklistService.getDecklistById(id);
         model.addAttribute("decklist", decklist);
         model.addAttribute("permissionToDecklist", decklistService.getPermissionToDecklist(auth.getName(), id));
         return "deck";
+    }
+
+    @DeleteMapping("/createDecklist/delete/{id}")
+    public String deleteDecklist(Authentication auth, Model model, @PathVariable int id){
+        User userLogIn = userService.getUserByName(auth.getName());
+        Decklist decklist = decklistService.getDecklistById(id);
+        if(userLogIn != decklist.getUser()){
+            model.addAttribute("permissionToDecklist", decklistService.getPermissionToDecklist(auth.getName(), id));
+            return "deck";
+        }
+        decklistService.deleteById(id);
+        return "redirect:/createDecklist";
     }
 }

@@ -22,10 +22,10 @@
                     <td>User</td>
                     <td></td>
                 </tr>
-                <tr th:if="${decklistTeamPage.content.isEmpty()}">
-                    <td colspan="4">No cards</td>
+                <tr th:if="${decklistTeamPage == null}">
+                    <td colspan="4">No decklists</td>
                 </tr>
-                <tr th:if="${!decklistTeamPage.content.isEmpty()}" th:each="currentTeamDecklist : ${decklistTeamPage.content}">
+                <tr th:if="${decklistTeamPage != null}" th:each="currentTeamDecklist : ${decklistTeamPage}">
                     <td th:text="${currentTeamDecklist.name}"></td>
                     <td th:text="${currentTeamDecklist.user.nickname}"></td>
                     <td><a th:href="@{/decklists/deck/{id}(id=${currentTeamDecklist.id})}"><button>Show</button></a></td>
@@ -33,7 +33,7 @@
             </table>
         </div>
         <div>
-            <label th:if="${decklistTeamPage.totalPages > 0}" class="pagination"
+            <label th:if="${decklistTeamPage != null} and ${decklistTeamPage.totalPages > 0}" class="pagination"
                    th:each="pageTeamNumbers : ${pageTeamNumbers}">
                 <a th:href="@{/decklist(size=${decklistTeamPage.size}, pageTeam=${pageTeamNumbers - 1})}"
                    th:text="${pageTeamNumbers}"
@@ -50,10 +50,10 @@
                     <td>User</td>
                     <td></td>
                 </tr>
-                <tr th:if="${decklistPublicPage.content.isEmpty()}">
-                    <td colspan="4">No cards</td>
+                <tr th:if="${decklistPublicPage.isEmpty()}">
+                    <td colspan="4">No decklists</td>
                 </tr>
-                <tr th:if="${!decklistPublicPage.content.isEmpty()}" th:each="currentPublicDecklist : ${decklistPublicPage.content}">
+                <tr th:if="${!decklistPublicPage.isEmpty()}" th:each="currentPublicDecklist : ${decklistPublicPage}">
                     <td th:text="${currentPublicDecklist.name}"></td>
                     <td th:text="${currentPublicDecklist.user.nickname}"></td>
                     <td><a th:href="@{/decklists/deck/{id}(id=${currentPublicDecklist.id})}"><button>Show</button></a></td>
