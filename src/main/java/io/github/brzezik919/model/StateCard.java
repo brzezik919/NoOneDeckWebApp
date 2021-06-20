@@ -16,5 +16,4 @@ public enum StateCard {
     public String toString(){
         return this.state;
     }
-
 }

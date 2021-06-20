@@ -1,5 +1,6 @@
 package io.github.brzezik919.service;
 
+import com.google.common.io.Files;
 import io.github.brzezik919.model.Card;
 import io.github.brzezik919.model.User;
 import org.springframework.data.domain.Page;
@@ -31,5 +32,9 @@ public class GlobalService {
                 = new PageImpl<Card>(list, PageRequest.of(currentPage, pageSize), importList.size());
 
         return cardPage;
+    }
+
+    public String getExtensionFile(String filename) {
+        return Files.getFileExtension(filename);
     }
 }

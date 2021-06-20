@@ -10,6 +10,8 @@ public class CardName {
 
     private String name;
 
+    private String cardType;
+
     public CardName(){
 
     }
@@ -27,5 +29,13 @@ public class CardName {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 }

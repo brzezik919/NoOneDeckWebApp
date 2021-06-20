@@ -53,16 +53,16 @@ public class Decklist {
         return teamShared;
     }
 
-    public void setTeamShared(boolean teamShared) {
-        this.teamShared = teamShared;
-    }
-
     public boolean isPublicShared() {
         return publicShared;
     }
 
     public void setPublicShared(boolean publicShared) {
         this.publicShared = publicShared;
+    }
+
+    public void setTeamShared(boolean teamShared) {
+        this.teamShared = teamShared;
     }
 
     public String getDeck() {

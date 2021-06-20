@@ -16,6 +16,45 @@
     <div th:if="${permissionToDecklist}">
       <label>Name: <label th:text="${decklist.name}"></label></label>
     </div>
+    <div>
+      <table>
+        <tr>
+          <td><label>Monster: (<label>20</label>)</label></td>
+        </tr>
+        <tr th:each="currentCard : ${countDecklist}">
+          <td th:if="${currentCard.type eq 'monster'}" th:text="${currentCard.count}"></td>
+          <td th:if="${currentCard.type eq 'monster'}" th:text="${currentCard.name}"></td>
+        </tr>
+        <tr>
+          <td><label>Spell: (<label>13</label>)</label></td>
+        </tr>
+        <tr th:each="currentCard : ${countDecklist}">
+          <td th:if="${currentCard.type eq 'spell'}" th:text="${currentCard.count}"></td>
+          <td th:if="${currentCard.type eq 'spell'}" th:text="${currentCard.name}"></td>
+        </tr>
+        <tr>
+          <td><label>Trap: (<label>7</label>)</label></td>
+        </tr>
+        <tr th:each="currentCard : ${countDecklist}">
+          <td th:if="${currentCard.type eq 'trap'}" th:text="${currentCard.count}"></td>
+          <td th:if="${currentCard.type eq 'trap'}" th:text="${currentCard.name}"></td>
+        </tr>
+        <tr>
+          <td><label>Extra Deck: (<label>15</label>)</label></td>
+        </tr>
+        <tr th:each="currentCard : ${countDecklist}">
+          <td th:if="${currentCard.type eq 'extra'}" th:text="${currentCard.count}"></td>
+          <td th:if="${currentCard.type eq 'extra'}" th:text="${currentCard.name}"></td>
+        </tr>
+        <tr>
+          <td><label>Side Deck: (<label>15</label>)</label></td>
+        </tr>
+        <tr th:each="currentCard : ${countDecklist}">
+          <td th:if="${currentCard.type eq 'side'}" th:text="${currentCard.count}"></td>
+          <td th:if="${currentCard.type eq 'side'}" th:text="${currentCard.name}"></td>
+        </tr>
+      </table>
+    </div>
     <div th:if="${!permissionToDecklist}">
       <label>You have no permission to access this decklist</label>
     </div>
