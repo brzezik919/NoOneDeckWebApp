@@ -45,20 +45,20 @@ public class DecklistService {
 
     public Page<Decklist> getAllUserDecklist(int id, int currentPage, int pageSize){
         Pageable page = PageRequest.of(currentPage, pageSize);
-        return decklistRepository.findByUser_IdOrderByNameDesc(id, page);
+        return decklistRepository.findByUser_IdOrderByNameAsc(id, page);
     }
 
     public Page<Decklist> getAllTeamDecklist(Team team, int currentTeamPage, int pageSize){
         Pageable page = PageRequest.of(currentTeamPage, pageSize);
         if(team != null){
-            return decklistRepository.findByUser_Team_IdAndTeamSharedOrderByNameDesc(team.getId(), true, page);
+            return decklistRepository.findByUser_Team_IdAndTeamSharedOrderByNameAsc(team.getId(), true, page);
         }
         return null;
     }
 
     public Page<Decklist> getAllPublicDecklist(int currentPublicPage, int pageSize){
         Pageable page = PageRequest.of(currentPublicPage, pageSize);
-        return decklistRepository.findByPublicSharedOrderByNameDesc(true, page);
+        return decklistRepository.findByPublicSharedOrderByNameAsc(true, page);
     }
 
     public Decklist getDecklistById(int id){

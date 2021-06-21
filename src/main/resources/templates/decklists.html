@@ -35,7 +35,7 @@
         <div>
             <label th:if="${decklistTeamPage != null} and ${decklistTeamPage.totalPages > 0}" class="pagination"
                    th:each="pageTeamNumbers : ${pageTeamNumbers}">
-                <a th:href="@{/decklist(size=${decklistTeamPage.size}, pageTeam=${pageTeamNumbers - 1})}"
+                <a th:href="@{/decklists(size=${decklistTeamPage.size}, pageTeam=${pageTeamNumbers - 1})}"
                    th:text="${pageTeamNumbers}"
                    th:class="${pageTeamNumbers==decklistTeamPage.number + 1} ? active"></a>
             </label>
@@ -63,8 +63,8 @@
         <div>
             <label th:if="${decklistPublicPage.totalPages > 0}" class="pagination"
                    th:each="pagePublicNumbers : ${pagePublicNumbers}">
-                <a th:href="@{/decklist(size=${decklistPublicPage.size}, pagePublic=${pagePublicNumbers - 1})}"
-                   th:text="${pageNumber}"
+                <a th:href="@{/decklists(size=${decklistPublicPage.size}, pagePublic=${pagePublicNumbers - 1})}"
+                   th:text="${pagePublicNumbers}"
                    th:class="${pagePublicNumbers==decklistPublicPage.number + 1} ? active"></a>
             </label>
         </div>

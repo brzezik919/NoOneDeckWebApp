@@ -6,8 +6,6 @@
   <title>NoOneDeck App</title>
   <link href="../static/css/styles.css" rel="stylesheet" th:href="@{/css/styles.css}">
   <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
-
-
 </head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
@@ -38,6 +36,9 @@
         <tr th:if="${!decklistPage.content.isEmpty()}" th:each="currentDecklist : ${decklistPage.content}">
           <td th:text="${currentDecklist.name}"></td>
           <td th:text="${currentDecklist.user.nickname}"></td>
+          <td th:if="!${currentDecklist.teamShared} and !${currentDecklist.publicShared}">Private</td>
+          <td th:if="${currentDecklist.teamShared} and !${currentDecklist.publicShared}">Team</td>
+          <td th:if="!${currentDecklist.teamShared} and ${currentDecklist.publicShared}">Public</td>
           <td><form th:object="${decklistModel}" th:method="put" th:action="@{createDecklist/change/{id}(id=${currentDecklist.id})}">
             <select id="permissionSelectedDecklist" name="permission" th:field="*{permission}">
             <option th:value="'private'" th:text="Private"></option>

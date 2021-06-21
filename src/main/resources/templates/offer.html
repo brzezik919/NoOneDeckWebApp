@@ -16,7 +16,6 @@
         <fieldset>
             <legend>Offer</legend>
             <label>Id: <label th:text="${transaction.id}"></label></label><br />
-
             <label>Card name: <a th:href="@{https://yugioh.fandom.com/wiki/{cardNameLink}(cardNameLink = ${transaction.card.cardName.name})}"><label th:text="${transaction.card.cardName.name}"></label></a></label><br />
             <label>Seller: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerCard.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />
             <label>Buyer: <label th:if="${transaction.ownerOffer} != null" th:text="${transaction.ownerOffer.nickname}"></label><label th:if="${transaction.ownerOffer} == null">Deleted Account</label></label><br />

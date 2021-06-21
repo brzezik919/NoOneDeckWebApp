@@ -7,8 +7,8 @@ public interface DecklistRepository {
     Decklist save(Decklist decklist);
     Decklist deleteById(int id);
     Decklist findById(int id);
-    Page<Decklist> findByUser_IdOrderByNameDesc (int id, Pageable pageable);
-    Page<Decklist> findByUser_Team_IdAndTeamSharedOrderByNameDesc(int id, boolean teamShared, Pageable pageable);
-    Page<Decklist> findByPublicSharedOrderByNameDesc(boolean publicShared, Pageable pageable);
+    Page<Decklist> findByUser_IdOrderByNameAsc(int id, Pageable pageable);
+    Page<Decklist> findByUser_Team_IdAndTeamSharedOrderByNameAsc(int id, boolean teamShared, Pageable pageable);
+    Page<Decklist> findByPublicSharedOrderByNameAsc(boolean publicShared, Pageable pageable);
 
 }

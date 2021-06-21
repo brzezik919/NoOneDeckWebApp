@@ -95,14 +95,14 @@ public class UserProfileController {
 
     @PutMapping("/setAvatar")
     String getAvatar(@ModelAttribute User user, Authentication auth, @RequestParam("image") MultipartFile multipartFile) throws IOException {
-        String fileNameNew = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        if(fileNameNew == "" || !globalService.getExtensionFile(multipartFile.getOriginalFilename()).equals("png") || !globalService.getExtensionFile(multipartFile.getOriginalFilename()).equals("jpg")  ){
+        if(StringUtils.cleanPath(multipartFile.getOriginalFilename()) == "" || (!globalService.getExtensionFile(multipartFile.getOriginalFilename()).equals("png") && !globalService.getExtensionFile(multipartFile.getOriginalFilename()).equals("jpg"))  ){
             return "redirect:/yourProfile";
         }
         User userLogIn = userService.getUserByName(auth.getName());
+        String fileName = userLogIn.getNickname() + "." + globalService.getExtensionFile(multipartFile.getOriginalFilename());
         String uploadDir = "photos/" + userLogIn.getId();
-        FileUploadUtil.saveFile(uploadDir, fileNameNew, multipartFile);
-        userLogIn.setAvatar(fileNameNew);
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        userLogIn.setAvatar(fileName);
         userService.save(userLogIn);
         return "redirect:/yourProfile";
     }
