@@ -25,4 +25,4 @@ My KeyCloak configuration file: https://github.com/brzezik919/NoOneDeckWebApp/bl
 
 You need to create database called "nooneapp"
 
-After you run application and all entities are created, you can use the following SQL file to import all CardNames in YuGiOh: https://github.com/brzezik919/NoOneDeckWebApp/blob/master/src/main/resources/configurationFiles/CardBaseSQL.csv.
+After you run application and all entities are created, you can use the following SQL file to import all CardNames in YuGiOh: https://github.com/brzezik919/NoOneDeckWebApp/blob/master/src/main/resources/configurationFiles/CardBaseSQL.txt
