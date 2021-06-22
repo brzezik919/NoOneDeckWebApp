@@ -63,7 +63,7 @@ public class DecklistController {
         model.addAttribute("decklistPublicPage", userPublicDecklist);
         model.addAttribute("decklistTeamPage", userTeamDecklist);
 
-        if(userTeamDecklist.getTotalPages() > 0){
+        if(userTeamDecklist != null && userTeamDecklist.getTotalPages() > 0){
             List<Integer> pageTeamNumbers = IntStream.rangeClosed(1, userPublicDecklist.getTotalPages())
                     .boxed()
                     .collect(Collectors.toList());
