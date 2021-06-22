@@ -1,4 +1,7 @@
 #!/bin/bash
+
+#Script to create a SQL for cardnames. Every row in input file have to be in pattern (idCard;nameCard;typeCard)
+
 rm output.txt
 touch output.txt
 chmod 777 output.txt
