@@ -145,15 +145,16 @@ public class DecklistService {
 
     public void changePermissionDecklist(int id, String value){
         Decklist decklistToChange = decklistRepository.findById(id);
-        if(value.equals("public")){
+
+        if(value.equals(StateDecklist.PUBLIC.toString())){
             decklistToChange.setPublicShared(true);
             decklistToChange.setTeamShared(false);
         }
-        else if(value.equals("team")){
+        else if(value.equals(StateDecklist.TEAM.toString())){
             decklistToChange.setPublicShared(false);
             decklistToChange.setTeamShared(true);
         }
-        else{
+        else if (value.equals(StateDecklist.PRIVATE.toString())){
             decklistToChange.setPublicShared(false);
             decklistToChange.setTeamShared(false);
         }
