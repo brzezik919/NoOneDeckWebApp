@@ -22,7 +22,7 @@ public class OpinionService {
         User userLogIn = userRepository.findByLogin(login);
         Transaction transaction = transactionRepository.findById(id);
         int idUserOpinion;
-        if(transaction.getOwnerCard().getId() == userLogIn.getId()){
+        if(isCurrentUserOwnsTransaction(transaction, userLogIn)){
             idUserOpinion = transaction.getOwnerOffer().getId();
         }
         else{
@@ -36,6 +36,10 @@ public class OpinionService {
             gradeToSave.setGrade(grade);
             opinionRepository.save(gradeToSave);
         }
+    }
+
+    public boolean isCurrentUserOwnsTransaction(Transaction transaction, User user){
+        return transaction.getOwnerCard().equals(user);
     }
 
     public Opinion gradeExist(int id, int idUser){
